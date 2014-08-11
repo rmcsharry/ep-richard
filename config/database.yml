@@ -14,3 +14,12 @@ test:
   username: basil
   password: 
   host: localhost
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: easypeasy_production
+  pool: 5
+  username: easypeasy
+  password: 
+  host: localhost
