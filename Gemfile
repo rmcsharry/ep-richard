@@ -11,10 +11,13 @@ gem 'jquery-rails'
 gem 'ember-rails'
 gem 'active_model_serializers'
 gem 'coffee-rails'
+gem 'foreman'
+gem 'unicorn'
 
 group :development do
   gem 'spring'
   gem 'spring-commands-rspec'
+  gem 'recap'
 end
 
 group :development, :test do
