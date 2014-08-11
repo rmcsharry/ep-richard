@@ -1,1 +1,1 @@
-web:  source /home/easypeasy/.recap-env-export && bundle exec unicorn -c /home/easypeasy/app/config/unicorn-production.rb -E production >> /home/easypeasy/app/log/web.log 2>&1
+web:  bundle exec unicorn -c /home/easypeasy/app/config/unicorn-production.rb -E production >> /home/easypeasy/app/log/web.log 2>&1
