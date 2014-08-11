@@ -1,0 +1,24 @@
+source 'https://rubygems.org'
+
+gem 'rails', '4.1.1'
+gem 'pg'
+
+gem 'sass-rails', '~> 4.0.3', require: false
+gem 'uglifier', '>= 1.3.0', require: false
+
+gem 'jquery-rails'
+
+gem 'ember-rails'
+gem 'active_model_serializers'
+gem 'coffee-rails'
+
+group :development do
+  gem 'spring'
+  gem 'spring-commands-rspec'
+end
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'poltergeist'
+end
