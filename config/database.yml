@@ -21,5 +21,4 @@ production:
   database: easypeasy_production
   pool: 5
   username: easypeasy
-  password: 
   host: localhost
