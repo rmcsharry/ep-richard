@@ -13,6 +13,7 @@ gem 'active_model_serializers'
 gem 'coffee-rails'
 gem 'foreman'
 gem 'unicorn'
+gem 'pry'
 
 group :development do
   gem 'spring'
@@ -24,4 +25,5 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
   gem 'poltergeist'
+  gem 'database_cleaner'
 end
