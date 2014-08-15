@@ -1,7 +1,15 @@
-https://gist.github.com/bsaf/08e1ab835c87d3fd03dc
+# EasyPeasy app
 
-### Ask James
+## Services used
 
-* Why are my integration tests failing (they work with fixtures 'MyString')
-* How to do the JSON payload
-* CORS
+### Server
+
+* Linode (Ubuntu 14LTS)
+
+### Storing videos
+
+* None (Amazon S3)
+
+### Transactional email
+
+* None (Postmark?)

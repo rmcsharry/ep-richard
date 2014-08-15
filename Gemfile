@@ -14,6 +14,7 @@ gem 'coffee-rails'
 gem 'foreman'
 gem 'unicorn'
 gem 'pry'
+gem 'devise'
 
 group :development do
   gem 'spring'
@@ -26,4 +27,5 @@ group :development, :test do
   gem 'capybara'
   gem 'poltergeist'
   gem 'database_cleaner'
+  gem 'fabrication'
 end
