@@ -1,0 +1,7 @@
+<h2>Games</h2>
+<a href="<%= new_admin_game_path %>">Add new game</a>
+<ul>
+  <%- @games.each do |game| %>
+    <li><a href="<%= edit_admin_game_path(game) %>"><%= game.name %></a></li>
+  <%- end %>
+</ul>

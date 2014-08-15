@@ -9,7 +9,7 @@ def json(body)
   JSON.parse(body, symbolize_names: true)
 end
 
-def show_me_the_page
+def screenshot
   page.driver.render('./tmp/screenshot.png')
   `open ./tmp/screenshot.png`
 end
