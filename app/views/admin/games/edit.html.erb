@@ -1,4 +1,9 @@
-<%= form_for @game, url: {action: "update"} do |f| %>
+<%= form_for [:admin, @game], url: {action: "update"} do |f| %>
   <%= f.text_field :name, placeholder: "Name" %>
   <%= f.submit "Update game" %>
 <% end %>
+
+<%= form_for [:admin, @game], method: "delete" do |f| %>
+  <%= f.submit "Delete game" %>
+<% end %>
+

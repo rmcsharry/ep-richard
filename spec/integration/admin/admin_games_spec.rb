@@ -31,7 +31,6 @@ RSpec.describe "admin games", :js => false, :type => :feature do
   end
 
   describe "editing a game" do
-
     let!(:game) { Fabricate(:game, name: 'Freeze') }
 
     it "shows the fields with the existing data in them" do
@@ -49,6 +48,18 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       expect(current_path).to eq(admin_games_path)
       expect(page).to have_content('Treasure Hunt')
+    end
+  end
+
+  describe "deleting a game" do
+    let!(:game) { Fabricate(:game, name: 'Freeze') }
+
+    it "deletes the game" do
+      visit edit_admin_game_path(game)
+      click_button "Delete game"
+
+      expect(current_path).to eq(admin_games_path)
+      expect(page).not_to have_content('Freeze')
     end
   end
 
