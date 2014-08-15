@@ -31,23 +31,28 @@ RSpec.describe "admin games", :js => false, :type => :feature do
   end
 
   describe "editing a game" do
-    let!(:game) { Fabricate(:game, name: 'Freeze') }
+    let!(:game) { Fabricate(:game, name: 'Freeze', description: 'Stay cool') }
 
     it "shows the fields with the existing data in them" do
       visit admin_games_path
       click_link 'Freeze'
 
       expect(page).to have_field("Name", with: "Freeze")
+      expect(page).to have_field("Description", with: "Stay cool")
     end
 
     it "updates the name" do
       visit edit_admin_game_path(game)
 
       fill_in 'Name', with: 'Treasure Hunt'
+      fill_in 'Description', with: 'Find the hidden treasure'
       click_button 'Update game'
 
       expect(current_path).to eq(admin_games_path)
       expect(page).to have_content('Treasure Hunt')
+
+      visit edit_admin_game_path(game)
+      expect(page).to have_field("Description", with: "Find the hidden treasure")
     end
   end
 

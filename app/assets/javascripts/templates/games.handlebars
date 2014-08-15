@@ -1,7 +1,10 @@
-<ul>
+<ul class="games-list">
 {{#each}}
-  <li>
-  {{#link-to 'game' this}}{{name}}{{/link-to}}
+  <li class="games-list__game">
+    {{#link-to 'game' this}}
+      <div class="name">{{name}}</div>
+      <div class="description">{{description}}</div>
+    {{/link-to}}
   </li>
 {{/each}}
 </ul>
