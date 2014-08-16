@@ -15,6 +15,7 @@ gem 'foreman'
 gem 'unicorn'
 gem 'pry'
 gem 'devise'
+gem 'autoprefixer-rails'
 
 group :development do
   gem 'spring'
