@@ -1,7 +1,7 @@
 {{#link-to 'application'}}&lt; back{{/link-to}}
 <h3>{{name}}</h3>
 <p>{{description}}</p>
-<video controls>
+<video controls {{bind-attr poster=image_url}}>
   {{#if video_url_mp4}}
   <source {{bind-attr src="video_url_mp4"}}
           class="js-mp4" type='video/mp4;codecs="avc1.42E01E, mp4a.40.2"'/>
