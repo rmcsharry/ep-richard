@@ -39,6 +39,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       expect(page).to have_field("Name", with: "Freeze")
       expect(page).to have_field("Description", with: "Stay cool")
+      expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
     end
 
     it "updates the name" do
@@ -46,6 +47,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       fill_in 'Name', with: 'Treasure Hunt'
       fill_in 'Description', with: 'Find the hidden treasure'
+      fill_in 'Image URL', with: '/assets/other-image.jpg'
       click_button 'Update game'
 
       expect(current_path).to eq(admin_games_path)
@@ -53,6 +55,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       visit edit_admin_game_path(game)
       expect(page).to have_field("Description", with: "Find the hidden treasure")
+      expect(page).to have_field("Image URL", with: "/assets/other-image.jpg")
     end
   end
 

@@ -32,7 +32,7 @@ class Admin::GamesController < AdminController
   private
 
     def game_params
-      params.require(:game).permit(:name, :description)
+      params.require(:game).permit(:name, :description, :image_url)
     end
 
 end

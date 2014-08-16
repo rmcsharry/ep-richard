@@ -2,6 +2,7 @@
 {{#each}}
   <li class="games-list__game">
     {{#link-to 'game' this}}
+      <img {{bind-attr src=image_url}}/>
       <div class="name">{{name}}</div>
       <div class="description">{{description}}</div>
     {{/link-to}}
