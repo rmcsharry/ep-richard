@@ -34,12 +34,4 @@ RSpec.describe "admin screens", :js => false, :type => :feature do
 
     end
   end
-
-  describe "adding a game" do
-
-    before { login_as_admin }
-
-    it "adds a game to the admin page"
-    it "adds a game to the parent page"
-  end
 end

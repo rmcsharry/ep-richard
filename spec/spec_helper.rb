@@ -1,4 +1,27 @@
 require 'capybara/poltergeist'
+
+class WarningSuppressor
+  IGNORES = [
+    /DEBUG:/,
+  ]
+ 
+  class << self
+    def write(message)
+      if suppress?(message) then 0 else puts(message);1;end
+    end
+
+    private
+
+    def suppress?(message)
+      IGNORES.any? { |re| message =~ re }
+    end
+  end
+end
+
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, :window_size => [640, 1136], :phantomjs_logger => WarningSuppressor)
+end
+
 Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
