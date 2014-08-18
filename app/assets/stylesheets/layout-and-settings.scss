@@ -1,5 +1,14 @@
+$dark-text: #666;
+$light-border: #CCC;
+
 body {
   margin: 0 auto;
+  font-size: 17px;
+  color: $dark-text;
+}
+
+a {
+  text-decoration: none;
 }
 
 img, video {

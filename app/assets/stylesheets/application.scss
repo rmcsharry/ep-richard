@@ -1,5 +1,10 @@
 @import 'vendor/normalize';
+@import 'mixins';
 @import 'layout-and-settings';
+@import 'type';
 @import 'header-home';
+
+// home
+@import 'games-list';
 
 * { box-sizing: border-box; }

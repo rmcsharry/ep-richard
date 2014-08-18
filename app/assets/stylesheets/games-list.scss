@@ -1,0 +1,30 @@
+.games-list {
+
+  .games-list__game {
+    @include clearfix;
+    clear: left;
+    border-bottom: 1px solid $light-border;
+    $padding: 5px;
+    padding-top: $padding;
+    padding-bottom: $padding;
+    .info {
+    }
+    .name {
+      @extend %font-bold;
+      @extend %font-size-large;
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+    .description {
+    }
+    img {
+      $square: 100px;
+      display: inline-block;
+      width: $square;
+      height: $square;
+      float: left;
+      margin-right: 10px;
+    }
+  }
+
+}
