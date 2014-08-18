@@ -10,7 +10,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
                      video_url_webm: "/assets/test.webm")
 
     visit '/'
-    find(:css, '.games-list__game a').click
+    find(:css, '.games-list__game').click
     expect(page).to have_text("Freeze")
     expect(page).to have_text("A game about staying still.")
     expect(page).to have_css("video")
