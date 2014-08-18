@@ -20,10 +20,13 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
   describe "adding a game" do
     it "adds a game to the admin page" do
+      string = ""
+      500.times { string += "x" }
+
       visit admin_games_path
       click_link 'Add new game'
       fill_in 'Name', with: 'Hopscotch'
-      fill_in 'Description', with: 'Jump up and down until happy.'
+      fill_in 'Description', with: string
       fill_in 'Image URL', with: '/assets/poster.jpg'
       fill_in 'MP4 video URL', with: '/assets/test.mp4'
       fill_in 'WebM video URL', with: '/assets/test.webm'
@@ -34,7 +37,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       click_link('Hopscotch')
       expect(page).to have_field("Name", with: "Hopscotch")
-      expect(page).to have_field("Description", with: "Jump up and down until happy.")
+      expect(page).to have_field("Description", with: string)
       expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
       expect(page).to have_field("MP4 video URL", with: "/assets/test.mp4")
       expect(page).to have_field("WebM video URL", with: "/assets/test.webm")
