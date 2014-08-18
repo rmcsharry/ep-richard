@@ -3,6 +3,7 @@ require 'capybara/poltergeist'
 class WarningSuppressor
   IGNORES = [
     /DEBUG:/,
+    /Viewport argument key "minimal-ui" not recognized and ignored./
   ]
  
   class << self
