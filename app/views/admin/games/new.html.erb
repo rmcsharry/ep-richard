@@ -1,8 +1,9 @@
-<%= form_for @game, url: {action: "create"} do |f| %>
-  <%= f.text_field :name, placeholder: "Name" %>
-  <%= f.text_area :description, placeholder: "Description" %>
-  <%= f.text_field :image_url, placeholder: "Image URL" %>
-  <%= f.text_field :video_url_mp4, placeholder: "MP4 video URL" %>
-  <%= f.text_field :video_url_webm, placeholder: "WebM video URL" %>
-  <%= f.submit "Add game" %>
-<% end %>
+<div class="admin-container">
+  <div class="title">
+    <div class="h3">
+      Add new game
+    </div>
+  </div>
+  <hr />
+  <%= render "game_form" %>
+</div>

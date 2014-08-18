@@ -75,7 +75,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
     it "deletes the game" do
       visit edit_admin_game_path(game)
-      click_button "Delete game"
+      click_button "Delete"
 
       expect(current_path).to eq(admin_games_path)
       expect(page).not_to have_content('Freeze')
