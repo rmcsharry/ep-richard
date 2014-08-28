@@ -11,9 +11,8 @@
     .info {
     }
     .name {
-      @extend %font-bold;
+      @extend %font-weight-bold;
       @extend %font-size-large;
-      font-weight: bold;
       margin-bottom: 4px;
     }
     .description {

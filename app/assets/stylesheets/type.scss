@@ -1,5 +1,15 @@
-%font-bold {
-  font-weight: bold;
+// Oswald loaded in 700 and 400 weights
+
+%font-family {
+  font-family: 'Oswald', Helvetica, sans-serif;
+}
+
+%font-weight-normal {
+  font-weight: 400;
+}
+
+%font-weight-bold {
+  font-weight: 700;
 }
 
 %font-size-normal {

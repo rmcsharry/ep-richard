@@ -2,6 +2,8 @@ $dark-text: #666;
 $light-border: #CCC;
 
 body {
+  @extend %font-family;
+  @extend %font-weight-normal;
   margin: 0 auto;
   font-size: 17px;
   color: $dark-text;
