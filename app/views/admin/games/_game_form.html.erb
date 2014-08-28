@@ -8,6 +8,10 @@
     <%= f.text_area :description, placeholder: "", class: "form-control", rows: 7 %>
   </div>
   <div class="form-group">
+    <%= f.label :instructions %>
+    <%= f.text_area :instructions, placeholder: "", class: "form-control", rows: 7 %>
+  </div>
+  <div class="form-group">
     <%= f.label :image_url, "Image URL" %>
     <%= f.text_field :image_url, placeholder: "", class: "image_url form-control" %>
   </div>

@@ -27,6 +27,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       click_link 'Add new game'
       fill_in 'Name', with: 'Hopscotch'
       fill_in 'Description', with: string
+      fill_in 'Instructions', with: string
       fill_in 'Image URL', with: '/assets/poster.jpg'
       fill_in 'Video embed code', with: '<video></video>'
       click_button 'Add game'
@@ -37,21 +38,26 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       click_link('Hopscotch')
       expect(page).to have_field("Name", with: "Hopscotch")
       expect(page).to have_field("Description", with: string)
+      expect(page).to have_field("Instructions", with: string)
       expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
       expect(page).to have_field("Video embed code", with: "<video></video>")
     end
   end
 
   describe "editing a game" do
-    let!(:game) { Fabricate(:game, name: 'Freeze', description: 'Stay cool') }
+    let!(:game) { Fabricate(:game,
+                            name: 'Freeze',
+                            description: 'Stay cool',
+                            instructions: 'Find some ice.') }
 
     it "shows the fields with the existing data in them" do
       visit admin_games_path
       click_link 'Freeze'
 
-      expect(page).to have_field("Name", with: "Freeze")
-      expect(page).to have_field("Description", with: "Stay cool")
-      expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
+      expect(page).to have_field('Name', with: 'Freeze')
+      expect(page).to have_field('Description', with: 'Stay cool')
+      expect(page).to have_field('Instructions', with: 'Find some ice.')
+      expect(page).to have_field('Image URL', with: '/assets/poster.jpg')
     end
 
     it "updates the name" do
@@ -59,6 +65,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
       fill_in 'Name', with: 'Treasure Hunt'
       fill_in 'Description', with: 'Find the hidden treasure'
+      fill_in 'Instructions', with: 'Create treasure.'
       fill_in 'Image URL', with: '/assets/other-image.jpg'
       click_button 'Update game'
 
@@ -66,8 +73,9 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_content('Treasure Hunt')
 
       visit edit_admin_game_path(game)
-      expect(page).to have_field("Description", with: "Find the hidden treasure")
-      expect(page).to have_field("Image URL", with: "/assets/other-image.jpg")
+      expect(page).to have_field('Description', with: 'Find the hidden treasure')
+      expect(page).to have_field('Instructions', with: 'Create treasure.')
+      expect(page).to have_field('Image URL', with: '/assets/other-image.jpg')
     end
   end
 
