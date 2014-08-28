@@ -17,4 +17,12 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
     expect(page).to have_css("video")
   end
 
+  it "renders Markdown to HTML" do
+    Fabricate(:game, instructions: "# Heading")
+
+    visit '/'
+    find(:css, '.games-list__game').click
+    expect(page).to have_css(".instructions h1")
+  end
+
 end
