@@ -9,8 +9,12 @@ class Admin::GamesController < AdminController
   end
 
   def create
-    @game = Game.create(game_params)
-    redirect_to admin_games_path
+    @game = Game.new(game_params)
+    if @game.save
+      redirect_to admin_games_path
+    else
+      render 'new'
+    end
   end
 
   def edit

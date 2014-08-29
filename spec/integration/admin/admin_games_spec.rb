@@ -42,6 +42,18 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
       expect(page).to have_field("Video embed code", with: "<video></video>")
     end
+
+    it "doesn't let you add a game without a name" do
+      visit new_admin_game_path
+      click_button 'Add game'
+      expect(page).to have_field("Image URL") # check we're still on the form
+      expect(page).to have_text("error")
+
+      fill_in 'Name', with: ' '
+      click_button 'Add game'
+      expect(Game.all.count).to eq(0)
+    end
+
   end
 
   describe "editing a game" do

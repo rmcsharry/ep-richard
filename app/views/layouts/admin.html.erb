@@ -11,21 +11,21 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="<%= admin_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
+        </div>
+        <ul class="nav navbar-nav">
+          <li><a href="<%= admin_games_path %>">Games</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="<%= root_path %>">back to EasyPeasy</a></li>
+          <li><a href="<%= admin_logout_path %>">Logout</a></li>
+        </ul>
+    </nav>
 
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="<%= admin_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
-      </div>
-
-      <ul class="nav navbar-nav">
-        <li><a href="<%= admin_games_path %>">Games</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="<%= root_path %>">back to EasyPeasy</a></li>
-        <li><a href="<%= admin_logout_path %>">Logout</a></li>
-      </ul>
-  </nav>
+    <%= render 'shared/flash' %>
 
     <div class="container-fluid">
       <%= yield %>
