@@ -3,6 +3,9 @@
     <div class="h3">
       Edit <%= @pod.name %>
     </div>
+    <%= form_for [:admin, @pod], method: "delete", html: {class: "display-inline"} do |f| %>
+      <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
+    <% end %>
   </div>
   <hr />
   <%= render "pod_form" %>

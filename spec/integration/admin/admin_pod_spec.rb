@@ -41,8 +41,15 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "deleting a pod" do
-    it "should delete the pod"
-    # should it delete everything associated?
+    let!(:pod) { Fabricate(:pod, name: 'Save the Children') }
+
+    it "should delete the pod" do
+      visit edit_admin_pod_path(pod)
+      click_button 'Delete'
+
+      expect(current_path).to eq(admin_pods_path)
+      expect(page).not_to have_content('Save the Children')
+    end
   end
 
 end
