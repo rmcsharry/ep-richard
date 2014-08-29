@@ -1,0 +1,15 @@
+<h2>Pods</h2>
+
+<a class="btn btn-default btn-med" href="<%= new_admin_pod_path %>">
+  <span class="glyphicon glyphicon-plus"></span> Add new pod
+</a>
+
+<%- @pods.each do |pod| %>
+
+  <div class="panel panel-default">
+    <div class="media panel-body">
+      <%= link_to pod.name, edit_admin_pod_path(pod) %>
+    </div>
+  </div>
+
+<%- end %>

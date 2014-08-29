@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/admin', to: 'admin#index'
   namespace :admin do
     resources :games
+    resources :pods
   end
 
 end
