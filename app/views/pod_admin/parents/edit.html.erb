@@ -1,2 +1,6 @@
 <h2>Edit parent</h2>
+<%= form_for [:pod_admin, @parent], method: "delete", html: {class: "display-inline"} do |f| %>
+  <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
+<% end %>
+
 <%= render "parent_form" %>

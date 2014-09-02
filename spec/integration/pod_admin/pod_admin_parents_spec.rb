@@ -27,7 +27,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     end
   end
 
-  describe "editing a parent" do
+  describe "editing and deleting a parent" do
     let!(:pod) { Fabricate(:pod) }
     let!(:pod_admin) { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
     let!(:parent) { Fabricate(:parent, name: 'Jen', phone: '07515444444', pod: pod ) }
@@ -37,16 +37,30 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
       login_as_specific_pod_admin(pod_admin)
     end
 
-    it "should update the parent" do
-      visit pod_admin_path
-      click_link 'Jen'
-      fill_in 'Name', with: 'Sam'
-      fill_in 'Phone', with: '07515333333'
-      click_button 'Update parent'
+    describe "editing" do
 
-      expect(page).not_to have_content('Basil')
-      expect(page).to     have_content('Sam')
+      it "should update the parent" do
+        visit pod_admin_path
+        click_link 'Jen'
+        fill_in 'Name', with: 'Sam'
+        fill_in 'Phone', with: '07515333333'
+        click_button 'Update parent'
+
+        expect(page).not_to have_content('Basil')
+        expect(page).to     have_content('Sam')
+      end
     end
+    
+    describe "deleting a parent" do
+      it "should delete the parent" do
+        visit pod_admin_path
+        click_link 'Jen'
+        click_button 'Delete'
+        expect(page).not_to have_content('Jen')
+      end
+    end
+
   end
+
 
 end

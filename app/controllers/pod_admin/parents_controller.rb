@@ -25,6 +25,12 @@ class PodAdmin::ParentsController < PodAdminController
     redirect_to pod_admin_path
   end
 
+  def destroy
+    parent = Parent.find(params[:id])
+    parent.delete
+    redirect_to pod_admin_path
+  end
+
   private
 
     def parent_params
