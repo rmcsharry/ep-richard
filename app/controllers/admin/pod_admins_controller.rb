@@ -40,7 +40,7 @@ class Admin::PodAdminsController < AdminController
   private
 
     def pod_admin_params
-      params.require(:pod_admin).permit(:email, :password)
+      params.require(:pod_admin).permit(:email, :password, :pod_id)
     end
 
 

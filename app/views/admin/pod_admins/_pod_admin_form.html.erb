@@ -9,6 +9,9 @@
     <%= f.text_field :password, placeholder: "", class: "form-control" %>
   </div>
   <div class="form-group">
+    <%= f.collection_select :pod_id, Pod.order(:name), :id, :name, include_blank: true %>
+  </div>
+  <div class="form-group">
     <% if params[:action] == 'edit' %>
       <%= f.submit "Update pod admin", class: "btn btn-primary" %>
     <% else %>

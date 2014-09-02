@@ -18,6 +18,10 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "creating a pod admin" do
+    before do
+      Fabricate(:pod, name: 'Save the Children')
+    end
+
     it "should create a pod admin" do
       expect(PodAdmin.all.count).to eq(0)
 
@@ -26,9 +30,11 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       click_link 'Add new pod admin'
       fill_in 'Email', with: 'bsafwat+podadmin@gmail.com'
       fill_in 'Password', with: 'Password2'
+      select('Save the Children', :from => 'pod_admin_pod_id')
       click_button 'Add pod admin'
 
       expect(PodAdmin.all.count).to eq(1)
+      expect(PodAdmin.last.pod.name).to eq('Save the Children')
     end
   end
 

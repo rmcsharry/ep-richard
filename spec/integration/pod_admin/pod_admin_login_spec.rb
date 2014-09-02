@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "EZY admin", :js => false, :type => :feature do
+RSpec.describe "Pod admin", :js => false, :type => :feature do
   
   describe "logging in as a pod admin" do
 
