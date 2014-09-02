@@ -49,7 +49,15 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "deleting a pod admin" do
-    it "should delete the pod admin"
+    let!(:pod_admin) { Fabricate(:pod_admin, email: 'bsafwat+deleteme@gmail.com') }
+
+    it "deletes the pod admin" do
+      visit edit_admin_pod_admin_path(pod_admin)
+      click_button "Delete"
+
+      expect(current_path).to eq(admin_pod_admins_path)
+      expect(page).not_to have_content('bsafwat@gmail.com')
+    end
   end
 
   describe "associating a pod admin to a pod" do

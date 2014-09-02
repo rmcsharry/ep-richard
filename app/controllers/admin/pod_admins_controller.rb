@@ -31,6 +31,12 @@ class Admin::PodAdminsController < AdminController
     end
   end
 
+  def destroy
+    pod_admin = PodAdmin.find(params[:id])
+    pod_admin.delete
+    redirect_to admin_pod_admins_path
+  end
+
   private
 
     def pod_admin_params
