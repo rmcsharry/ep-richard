@@ -1,1 +1,15 @@
+<% if current_admin.pod %>
+  <h3><%= current_admin.pod.name %></h3>
+<% end %>
+
 <h2>Parents in your pod</h2>
+
+<a class="btn btn-default btn-med" href="<%= new_pod_admin_parent_path %>">
+  <span class="glyphicon glyphicon-plus"></span> Add new parent
+</a>
+
+<ul>
+<% @parents.each do |parent| %>
+  <li><%= parent.name %></li>
+<% end %>
+</ul>
