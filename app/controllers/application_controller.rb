@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def admin_logged_in?
-    signed_in? && current_admin
+    signed_in? && current_admin.type == 'EasyAdmin'
   end
 
   def pod_admin_logged_in?

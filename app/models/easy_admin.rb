@@ -1,0 +1,2 @@
+class EasyAdmin < Admin
+end

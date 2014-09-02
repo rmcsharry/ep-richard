@@ -38,7 +38,7 @@ def screenshot
 end
 
 def login_as_admin
-  Fabricate(:admin)
+  Fabricate(:easy_admin)
   visit admin_login_path
   fill_in "Email", with: "bsafwat@gmail.com"
   fill_in "Password", with: "Password1"
