@@ -6,6 +6,6 @@
 
 <ul>
 <% @pod_admins.each do |pod_admin| %>
-  <li><%= pod_admin.email %></li>
+  <li><%= link_to pod_admin.email, edit_admin_pod_admin_path(pod_admin) %></li>
 <% end %>
 </ul>

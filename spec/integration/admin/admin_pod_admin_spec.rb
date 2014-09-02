@@ -33,7 +33,19 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "editing a pod admin" do
-    it "should edit the pod admin"
+    let!(:pod_admin) { Fabricate(:pod_admin, email: 'bsafwat+1@gmail.com', password: 'Password1') }
+
+    it "lets you edit the pod admin" do
+      visit admin_pod_admins_path
+      click_link 'bsafwat+1@gmail.com'
+      fill_in 'Email', with: 'bsafwat+2@gmail.com'
+      fill_in 'Password', with: 'Password3'
+      click_button 'Update pod admin'
+      visit admin_pod_admins_path
+
+      expect(page).not_to have_text('bsafwat+1@gmail.com')
+      expect(page).to     have_text('bsafwat+2@gmail.com')
+    end
   end
 
   describe "deleting a pod admin" do
