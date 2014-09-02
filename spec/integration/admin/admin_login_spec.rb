@@ -21,15 +21,15 @@ RSpec.describe "admin screens", :js => false, :type => :feature do
       end
 
       it "visiting directly takes you to the admin games index" do
-        visit '/admin'
+        visit admin_path
         expect(current_path).to eq(admin_games_path)
       end
 
       it "logging out should redirect you to the login page" do
-        visit '/admin'
+        visit admin_path
         click_link 'Logout'
         expect(current_path).to eq(admin_login_path)
-        expect(page).to have_content "Sign in"
+        expect(page).to have_content 'Sign in'
       end
 
     end

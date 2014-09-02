@@ -9,6 +9,11 @@ Rails.application.routes.draw do
 
   # Admins
   devise_for :admins
+  # devise_for :pod_admins,
+  #   controllers: {
+  #     sessions: "pod_admins/sessions",
+  #     registrations: "pod_admins/registrations"
+  #  }
 
   devise_scope :admin do
     get "/admin/logout" => "devise/sessions#destroy"
@@ -20,6 +25,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :games
     resources :pods
+    resources :pod_admins
   end
 
 end

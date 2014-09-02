@@ -1,0 +1,2 @@
+class PodAdmin < Admin
+end

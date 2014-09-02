@@ -1,0 +1,16 @@
+<h2>Add pod admin</h2>
+
+<%= form_for [:admin, @pod_admin], html: {role: "form"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, placeholder: "", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :password %>
+    <%= f.text_field :password, placeholder: "", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.submit "Add pod admin", class: "btn btn-primary" %>
+  </div>
+<% end %>
