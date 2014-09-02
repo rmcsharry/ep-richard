@@ -16,7 +16,7 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="<%= admin_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
         </div>
-        <% unless current_admin.type == 'PodAdmin' %>
+        <% if current_admin && current_admin.type != 'PodAdmin' %>
         <ul class="nav navbar-nav">
           <li><a href="<%= admin_games_path %>">Games</a></li>
           <li><a href="<%= admin_pods_path %>">Pods</a></li>
@@ -24,10 +24,12 @@
         </ul>
         <% end %>
         <ul class="nav navbar-nav navbar-right">
-          <% unless current_admin.type == 'PodAdmin' %>
+          <% if current_admin && current_admin.type != 'PodAdmin' %>
             <li><a href="<%= root_path %>">back to EasyPeasy</a></li>
           <% end %>
-          <li><a href="<%= admin_logout_path %>">Logout</a></li>
+          <% if current_admin %>
+            <li><a href="<%= admin_logout_path %>">Logout</a></li>
+          <% end %>
         </ul>
     </nav>
 
