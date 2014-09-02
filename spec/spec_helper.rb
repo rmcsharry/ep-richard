@@ -52,3 +52,14 @@ def login_as_pod_admin
   fill_in "Password", with: "Password2"
   click_button "Sign in"
 end
+
+def login_as_specific_pod_admin(pod_admin)
+  visit admin_login_path
+  fill_in "Email", with: pod_admin.email
+  fill_in "Password", with: pod_admin.password
+  click_button "Sign in"
+end
+
+def logout_admin
+  click_link 'Logout'
+end

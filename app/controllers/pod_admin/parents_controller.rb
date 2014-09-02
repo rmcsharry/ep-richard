@@ -15,6 +15,16 @@ class PodAdmin::ParentsController < PodAdminController
     end
   end
 
+  def edit
+    @parent = Parent.find(params[:id])
+  end
+
+  def update
+    parent = Parent.find(params[:id])
+    parent.update!(parent_params)
+    redirect_to pod_admin_path
+  end
+
   private
 
     def parent_params

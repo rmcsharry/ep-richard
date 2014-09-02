@@ -10,6 +10,6 @@
 
 <ul>
 <% @parents.each do |parent| %>
-  <li><%= parent.name %></li>
+  <li><%= link_to parent.name, edit_pod_admin_parent_path(parent) %></li>
 <% end %>
 </ul>
