@@ -1,5 +1,9 @@
 class Admin::PodAdminsController < AdminController
 
+  def index
+    @pod_admins = PodAdmin.all
+  end
+
   def new
     @pod_admin = PodAdmin.new
   end
