@@ -9,17 +9,24 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     let!(:pod_admin) { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
     let!(:parent) { Fabricate(:parent, name: 'Jen', pod: pod ) }
 
-    it "should add the parent" do
+    before do
       visit pod_admin_path
       click_link 'Add new parent'
       fill_in 'Name', with: 'Sam'
       fill_in 'Phone', with: '07515333333'
       click_button 'Add parent'
+    end
 
+    it "should add the parent" do
       parent = Parent.last
       expect(current_path).to eq(pod_admin_parent_path(parent))
       expect(page).to have_content('Sam')
       expect(page).not_to have_content('Jen')
+    end
+
+    it "should provide a URL for the parent" do
+      parent = Parent.last
+      expect(page).to have_content("/#/#{parent.id}/games")
     end
 
     it "shouldn't be possible to add two parents with the same phone number" do
