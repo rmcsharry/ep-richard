@@ -3,17 +3,13 @@ Rails.application.routes.draw do
   # API
   namespace :api, path: '/api' do
     resources :games
+    resources :parents
   end
 
   root 'site#index'
 
   # Admins
   devise_for :admins
-  # devise_for :pod_admins,
-  #   controllers: {
-  #     sessions: "pod_admins/sessions",
-  #     registrations: "pod_admins/registrations"
-  #  }
 
   devise_scope :admin do
     get "/admin/logout" => "devise/sessions#destroy"

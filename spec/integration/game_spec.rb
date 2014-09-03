@@ -1,6 +1,7 @@
 require "rails_helper"
 
 RSpec.describe "viewing a game", js: true, :type => :feature do
+  let!(:parent) { Fabricate(:parent) }
 
   it "shows the game details" do
     Fabricate(:game, name:           "Freeze",
@@ -9,7 +10,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
                      image_url:      "/assets/poster.jpg",
                      video_embed_code: "<video></video>")
 
-    visit '/'
+    visit "/#/#{parent.id}/games/"
     find(:css, '.games-list__game').click
     expect(page).to have_text("Freeze")
     expect(page).to have_text("A game about staying still.")
@@ -20,7 +21,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
   it "renders Markdown to HTML" do
     Fabricate(:game, instructions: "# Heading")
 
-    visit '/'
+    visit "/#/#{parent.id}/games/"
     find(:css, '.games-list__game').click
     expect(page).to have_css(".instructions h1")
   end

@@ -1,5 +1,9 @@
 class PodAdmin::ParentsController < PodAdminController
 
+  def show
+    @parent = Parent.find(params[:id])
+  end
+
   def new
     @parent = Parent.new
   end
@@ -9,7 +13,7 @@ class PodAdmin::ParentsController < PodAdminController
     @parent.pod = current_admin.pod
 
     if @parent.save
-      redirect_to pod_admin_path
+      redirect_to pod_admin_parent_path(@parent)
     else
       render 'new'
     end

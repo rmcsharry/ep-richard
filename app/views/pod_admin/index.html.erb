@@ -10,6 +10,6 @@
 
 <ul>
 <% @parents.each do |parent| %>
-  <li><%= link_to parent.name, edit_pod_admin_parent_path(parent) %></li>
+  <li><%= link_to parent.name, pod_admin_parent_path(parent) %> (<%= link_to 'Edit', edit_pod_admin_parent_path(parent) %>)</li>
 <% end %>
 </ul>
