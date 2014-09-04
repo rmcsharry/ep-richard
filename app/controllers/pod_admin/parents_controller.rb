@@ -27,6 +27,7 @@ class PodAdmin::ParentsController < PodAdminController
   def update
     parent = Parent.find(params[:id])
     parent.update!(parent_params)
+    flash[:notice] = "#{parent.name.split[0]} updated."
     redirect_to pod_admin_path
   end
 
