@@ -1,2 +1,6 @@
 <h2>Add pod admin</h2>
-<%= render "pod_admin_form" %>
+<% if Pod.all.count > 0 %>
+  <%= render "pod_admin_form" %>
+<% else %>
+  You need to add a pod before you can add a pod admin.
+<% end %>

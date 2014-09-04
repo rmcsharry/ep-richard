@@ -18,23 +18,49 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "creating a pod admin" do
-    before do
-      Fabricate(:pod, name: 'Save the Children')
+    describe "when there are no pods" do
+      it "should ask you to create a pod first" do
+        visit admin_path
+        click_link 'Pod admins'
+        click_link 'Add new pod'
+
+        expect(page).to have_content("You need to add a pod")
+      end
     end
 
-    it "should create a pod admin" do
-      expect(PodAdmin.all.count).to eq(0)
+    describe "when there is a pod" do
+      before do
+        Fabricate(:pod, name: 'Save the Children')
+        visit admin_path
+        click_link 'Pod admins'
+        click_link 'Add new pod'
+      end
 
-      visit admin_path
-      click_link 'Pod admins'
-      click_link 'Add new pod admin'
-      fill_in 'Email', with: 'bsafwat+podadmin@gmail.com'
-      fill_in 'Password', with: 'Password2'
-      select('Save the Children', :from => 'pod_admin_pod_id')
-      click_button 'Add pod admin'
+      describe "when you don't select a pod" do
+        it "should give you a validation error" do
+          fill_in 'Email', with: 'bsafwat+podadmin@gmail.com'
+          fill_in 'Password', with: 'Password2'
+          click_button 'Add pod admin'
 
-      expect(PodAdmin.all.count).to eq(1)
-      expect(PodAdmin.last.pod.name).to eq('Save the Children')
+          expect(page).to have_content("Pod can't be blank")
+          expect(PodAdmin.all.count).to eq(0)
+        end
+      end
+
+      describe "when you select a pod" do
+        it "should create a pod admin" do
+          expect(PodAdmin.all.count).to eq(0)
+
+          fill_in 'Email', with: 'bsafwat+podadmin@gmail.com'
+          fill_in 'Password', with: 'Password2'
+          select('Save the Children', :from => 'pod_admin_pod_id')
+          click_button 'Add pod admin'
+
+          expect(PodAdmin.all.count).to eq(1)
+          expect(PodAdmin.last.pod.name).to eq('Save the Children')
+        end
+      end
+
     end
   end
 
