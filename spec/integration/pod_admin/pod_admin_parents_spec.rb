@@ -48,6 +48,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     describe "editing" do
       it "should update the parent" do
         visit pod_admin_path
+        click_link 'Jen'
         click_link 'Edit'
         fill_in 'Name', with: 'Sam'
         fill_in 'Phone', with: '07515333333'
@@ -61,6 +62,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     describe "deleting a parent" do
       it "should delete the parent" do
         visit pod_admin_path
+        click_link 'Jen'
         click_link 'Edit'
         click_button 'Delete'
         expect(page).not_to have_content('Jen')

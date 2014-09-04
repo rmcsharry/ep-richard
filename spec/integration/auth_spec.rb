@@ -10,7 +10,7 @@ RSpec.describe "Authorisation", :js => false, :type => :feature do
         expect(page).not_to have_link('Games')
         expect(page).not_to have_link('Pods')
         expect(page).not_to have_link('Pod admins')
-        expect(page).to     have_text('Parents in your pod')
+        expect(page).to     have_text('Parents')
       end
 
       it "should not be able to access EZY admin urls directly" do

@@ -22,6 +22,10 @@
           <li><a href="<%= admin_pods_path %>">Pods</a></li>
           <li><a href="<%= admin_pod_admins_path %>">Pod admins</a></li>
         </ul>
+        <% elsif current_admin && current_admin.type == 'PodAdmin' && current_admin.pod %>
+        <ul class="nav navbar-nav">
+          <p class="navbar-text"><span class="glyphicon glyphicon-bookmark"></span><strong> <%= current_admin.pod.name %></strong></p>
+        </ul>
         <% end %>
         <ul class="nav navbar-nav navbar-right">
           <% if current_admin %>
@@ -29,7 +33,6 @@
           <% end %>
         </ul>
     </nav>
-
 
     <div class="container-fluid">
       <%= render 'shared/flash' %>

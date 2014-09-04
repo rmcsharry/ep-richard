@@ -1,6 +1,14 @@
-<h2>Edit parent</h2>
-<%= form_for [:pod_admin, @parent], method: "delete", html: {class: "display-inline"} do |f| %>
-  <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
-<% end %>
+<div class="row">
+  <div class="col-md-5">
+    <p><%= link_to "&larr; back".html_safe, pod_admin_parent_path(@parent) %></p>
+    <h3>
+      Edit parent
+      <%= form_for [:pod_admin, @parent], method: "delete", html: {class: "inline-delete-form"} do |f| %>
+        <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
+      <% end %>
+    </h3>
+    <hr/>
+  </div>
+</div>
 
 <%= render "parent_form" %>

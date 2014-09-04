@@ -1,18 +1,22 @@
-<%= form_for [:pod_admin, @parent], html: {role: "form"} do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="form-group">
-    <%= f.label :name %>
-    <%= f.text_field :name, placeholder: "", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :phone %>
-    <%= f.text_field :phone, placeholder: "", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <% if params[:action] == 'edit' %>
-      <%= f.submit "Update parent", class: "btn btn-primary" %>
-    <% else %>
-      <%= f.submit "Add parent", class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-md-4">
+    <%= form_for [:pod_admin, @parent], html: {role: "form"} do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="form-group">
+        <%= f.label :name %>
+        <%= f.text_field :name, placeholder: "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :phone %>
+        <%= f.text_field :phone, placeholder: "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <% if params[:action] == 'edit' %>
+          <%= f.submit "Update parent", class: "btn btn-primary" %>
+        <% else %>
+          <%= f.submit "Add parent", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
-<% end %>
+</div>

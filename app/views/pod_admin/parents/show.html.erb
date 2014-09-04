@@ -1,4 +1,23 @@
-<%= link_to "< Back", pod_admin_parents_path %>
-<h2><%= @parent.name %></h2>
-<h3>Parent's access URL</h3>
-<%= link_to "#{request.host_with_port}/#/#{@parent.id}/games", "/#/#{@parent.id}/games" %>
+<div class="row">
+  <div class="col-md-5">
+    <p><%= link_to "&larr; back to parents".html_safe, pod_admin_parents_path %></p>
+    <h3>
+      <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%= @parent.name %>
+      <%= link_to "Edit", edit_pod_admin_parent_path(@parent), class: "btn btn-xs btn-primary inline-delete-form" %>
+    </h3>
+    <hr/>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="well">
+      <p>
+        <strong>Parent's access address:</strong>
+        <%= link_to "http://#{request.host_with_port}/#/#{@parent.id}/games", "/#/#{@parent.id}/games" %>
+      </p>
+      <p><small>This is the custom address that <%= @parent.name %> uses to access Easypeasy and should not be shared.</small></p>
+    </div>
+  </div>
+</div>
+

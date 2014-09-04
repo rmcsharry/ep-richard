@@ -1,5 +1,10 @@
 # EasyPeasy app
 
+## To do
+
+- Save comment
+- Swap bootstrap
+
 ## Services used
 
 ### Server
@@ -8,7 +13,7 @@
 
 ### Storing videos
 
-* None (Amazon S3)
+* Wistia
 
 ### Transactional email
 

@@ -4,17 +4,31 @@
   </p>
 
 <% else %>
-  <h3><%= current_admin.pod.name %></h3>
 
-  <h2>Parents in your pod</h2>
-
-  <a class="btn btn-default btn-med" href="<%= new_pod_admin_parent_path %>">
-    <span class="glyphicon glyphicon-plus"></span> Add new parent
-  </a>
-
-  <ul>
-  <% @parents.each do |parent| %>
-    <li><%= link_to parent.name, pod_admin_parent_path(parent) %> (<%= link_to 'Edit', edit_pod_admin_parent_path(parent) %>)</li>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Parents</h2>
+  <% unless @parents %>
+    <p class="lead">These are the parents in your pod.</p>
+  <% else %>
+    <p class="lead">Welcome! Add your first parent to get started.</p>
   <% end %>
-  </ul>
+    <p>
+      <a class="btn btn-default btn-med" href="<%= new_pod_admin_parent_path %>">
+        <span class="glyphicon glyphicon-plus"></span> Add new parent
+      </a>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+      <% @parents.each do |parent| %>
+        <%= link_to "<span class='glyphicon glyphicon-user'></span> #{parent.name}".html_safe, pod_admin_parent_path(parent), class: "list-group-item list-group-item-success" %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
 <% end %>
