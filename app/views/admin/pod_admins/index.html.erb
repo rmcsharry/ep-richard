@@ -1,11 +1,22 @@
-<h2>Pod admins</h2>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Pod admins</h2>
+    <p class="lead">These are the pod admins currently set up on Easypeasy.</p>
+    <p>
+      <a class="btn btn-default btn-med" href="<%= new_admin_pod_admin_path %>">
+        <span class="glyphicon glyphicon-plus"></span> Add new pod admin
+      </a>
+    </p>
+  </div>
+</div>
 
-<a class="btn btn-default btn-med" href="<%= new_admin_pod_admin_path %>">
-  <span class="glyphicon glyphicon-plus"></span> Add new pod admin
-</a>
 
-<ul>
-<% @pod_admins.each do |pod_admin| %>
-  <li><%= link_to pod_admin.email, edit_admin_pod_admin_path(pod_admin) %></li>
-<% end %>
-</ul>
+<div class="row">
+  <div class="col-md-5">
+    <div class="list-group">
+      <% @pod_admins.each do |pod_admin| %>
+        <%= link_to pod_admin.email, edit_admin_pod_admin_path(pod_admin), class: "list-group-item" %>
+      <% end %>
+    </div>
+  </div>
+</div>

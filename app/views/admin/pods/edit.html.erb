@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-5">
-    <p><%= link_to "&larr; back".html_safe, admin_games_path %></p>
+    <p><%= link_to "&larr; back".html_safe, admin_pods_path %></p>
     <h3>
       Edit <%= @pod.name %>
       <%= form_for [:admin, @pod], method: "delete", html: {class: "inline-delete-form"} do |f| %>
@@ -12,8 +12,4 @@
 </div>
 
 
-<div class="row">
-  <div class="col-md-5">
-    <%= render "pod_form" %>
-  </div>
-</div>
+<%= render "pod_form" %>

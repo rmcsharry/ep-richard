@@ -1,22 +1,26 @@
-<%= form_for [:admin, @pod_admin], html: {role: "form"} do |f| %>
-  <%= render 'shared/error_messages', object: f.object %>
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.text_field :email, placeholder: "", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.text_field :password, placeholder: "", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <%= f.label :pod %>
-    <%= f.collection_select :pod_id, Pod.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control'} %>
-  </div>
-  <div class="form-group">
-    <% if params[:action] == 'edit' %>
-      <%= f.submit "Update pod admin", class: "btn btn-primary" %>
-    <% else %>
-      <%= f.submit "Add pod admin", class: "btn btn-primary" %>
+<div class="row">
+  <div class="col-md-4">
+    <%= form_for [:admin, @pod_admin], html: {role: "form"} do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <div class="form-group">
+        <%= f.label :email %>
+        <%= f.text_field :email, placeholder: "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :password %>
+        <%= f.text_field :password, placeholder: "", class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :pod %>
+        <%= f.collection_select :pod_id, Pod.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control'} %>
+      </div>
+      <div class="form-group">
+        <% if params[:action] == 'edit' %>
+          <%= f.submit "Update pod admin", class: "btn btn-primary" %>
+        <% else %>
+          <%= f.submit "Add pod admin", class: "btn btn-primary" %>
+        <% end %>
+      </div>
     <% end %>
   </div>
-<% end %>
+</div>
