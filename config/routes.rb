@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
   # API
   namespace :api, path: '/api' do
-    resources :games
     resources :parents
+    resources :games
+    resources :comments
   end
 
   root 'site#index'

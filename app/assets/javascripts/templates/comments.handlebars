@@ -1,0 +1,9 @@
+{{#link-to 'game'}}close{{/link-to}}
+
+<h3>0 comments</h3>
+{{#each}}
+<p>{{body}}</p>
+{{/each}}
+
+{{textarea value=body name='comment'}}
+<button {{action 'addComment'}}>Add comment</button>
