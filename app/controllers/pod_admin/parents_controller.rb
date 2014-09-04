@@ -40,6 +40,4 @@ class PodAdmin::ParentsController < PodAdminController
     def parent_params
       params.require(:parent).permit(:name, :phone)
     end
-
-
 end

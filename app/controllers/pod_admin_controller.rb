@@ -3,7 +3,7 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    @parents = current_admin.pod.parents
+    @parents = current_admin.pod.parents if current_admin.pod
     render 'pod_admin/index'
   end
 
