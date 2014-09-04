@@ -13,6 +13,7 @@ class PodAdmin::ParentsController < PodAdminController
     @parent.pod = current_admin.pod
 
     if @parent.save
+      flash[:notice] = "Ok! Added #{@parent.name.split[0]} to the pod."
       redirect_to pod_admin_parent_path(@parent)
     else
       render 'new'
@@ -31,7 +32,12 @@ class PodAdmin::ParentsController < PodAdminController
 
   def destroy
     parent = Parent.find(params[:id])
-    parent.delete
+    parent_name = parent.name.split[0]
+    if parent.delete
+      flash[:notice] = "Ok, deleted #{parent_name}!"
+    else
+      flash[:notice] = "Hm. That didn't seem to work."
+    end
     redirect_to pod_admin_path
   end
 
