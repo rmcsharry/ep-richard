@@ -11,7 +11,7 @@ class Admin::PodAdminsController < AdminController
   def create
     @pod_admin = PodAdmin.new(pod_admin_params)
     if @pod_admin.save
-      redirect_to admin_games_path
+      redirect_to admin_pod_admins_path
     else
       render 'new'
     end
@@ -22,9 +22,10 @@ class Admin::PodAdminsController < AdminController
   end
 
   def update
-    pod_admin = PodAdmin.find(params[:id])
-    if pod_admin.valid?
-      pod_admin.update!(pod_admin_params)
+    @pod_admin = PodAdmin.find(params[:id])
+    @pod_admin.update(pod_admin_params)
+
+    if @pod_admin.valid?
       redirect_to admin_pod_admins_path
     else
       render 'edit'
@@ -42,6 +43,5 @@ class Admin::PodAdminsController < AdminController
     def pod_admin_params
       params.require(:pod_admin).permit(:email, :password, :pod_id)
     end
-
 
 end
