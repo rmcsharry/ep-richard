@@ -65,7 +65,10 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
         click_link 'Jen'
         click_link 'Edit'
         click_button 'Delete'
-        expect(page).not_to have_content('Jen')
+
+        within('.list-group') do
+          expect(page).not_to have_content('Jen')
+        end
       end
     end
   end

@@ -33,6 +33,6 @@
 
 <% end %>
 
-<% if @parents.empty? %>
+<% if @parents && @parents.empty? %>
   <%= image_tag "logo-huge.png", style: "opacity: 0.3" %>
 <% end %>
