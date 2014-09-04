@@ -5,25 +5,41 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   before { login_as_admin }
 
   describe "creating a pod" do
-    it "should create a pod" do
-      expect(Pod.all.length).to eq(0)
 
-      visit admin_path
-      click_link 'Pods'
-      click_link 'Add new pod'
-      fill_in 'Name', with: 'Save the Children'
-      click_button 'Add pod'
+    describe "when you don't supply a name" do
+      it "should not create the pod" do
+        visit admin_path
+        click_link 'Pods'
+        click_link 'Add new pod'
+        click_button 'Add pod'
 
-      expect(Pod.all.length).to eq(1)
+        expect(Pod.all.length).to eq(0)
+        expect(page).to have_content("Name can't be blank")
+      end
+
     end
 
-    it "should show the pod on the pod index page" do
-      Fabricate(:pod, name: 'Save the Children')
-      Fabricate(:pod, name: 'Hackney Council')
-      visit admin_pods_path
+    describe "when you do supply a name" do
+      it "should create a pod" do
+        expect(Pod.all.length).to eq(0)
 
-      expect(page).to have_content('Save the Children')
-      expect(page).to have_content('Hackney Council')
+        visit admin_path
+        click_link 'Pods'
+        click_link 'Add new pod'
+        fill_in 'Name', with: 'Save the Children'
+        click_button 'Add pod'
+
+        expect(Pod.all.length).to eq(1)
+      end
+
+      it "should show the pod on the pod index page" do
+        Fabricate(:pod, name: 'Save the Children')
+        Fabricate(:pod, name: 'Hackney Council')
+        visit admin_pods_path
+
+        expect(page).to have_content('Save the Children')
+        expect(page).to have_content('Hackney Council')
+      end
     end
   end
 
