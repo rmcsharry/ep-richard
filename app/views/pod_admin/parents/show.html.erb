@@ -1,3 +1,4 @@
+<%= link_to "< Back", pod_admin_parents_path %>
 <h2><%= @parent.name %></h2>
 <h3>Parent's access URL</h3>
 <%= link_to "#{request.host_with_port}/#/#{@parent.id}/games", "/#/#{@parent.id}/games" %>
