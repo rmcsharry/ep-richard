@@ -17,7 +17,11 @@
       <a class="list-group-item" href="<%= edit_admin_game_path(game) %>">
         <div class="row">
           <div class="col-md-3">
-            <img class="" src="<%= game.image_url %>">
+            <% if game.image_url.empty? %>
+              <%= image_tag "no-picture.png" %>
+            <% else %>
+              <img class="" src="<%= game.image_url %>">
+            <% end %>
           </div>
           <div class="col-md-9">
             <h4><%= game.name %></h4>
