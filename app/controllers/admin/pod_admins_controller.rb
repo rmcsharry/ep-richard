@@ -1,7 +1,7 @@
 class Admin::PodAdminsController < AdminController
 
   def index
-    @pod_admins = PodAdmin.all
+    @pod_admins = PodAdmin.order(:created_at)
   end
 
   def new

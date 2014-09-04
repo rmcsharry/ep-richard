@@ -3,7 +3,9 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    @parents = current_admin.pod.parents if current_admin.pod
+    if current_admin.pod
+      @parents = current_admin.pod.parents.order("LOWER(name)")
+    end
     render 'pod_admin/index'
   end
 

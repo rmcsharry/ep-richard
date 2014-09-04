@@ -1,7 +1,7 @@
 class Admin::PodsController < AdminController
 
   def index
-    @pods = Pod.all
+    @pods = Pod.order('LOWER(name)')
   end
 
   def new
