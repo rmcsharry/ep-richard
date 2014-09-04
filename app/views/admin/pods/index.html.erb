@@ -1,15 +1,21 @@
-<h2>Pods</h2>
+<div class="row">
+  <div class="col-md-5">
+    <h2>Pods</h2>
+    <p class="lead">These are the pods currently set up on Easypeasy.</p>
+    <p>
+      <a class="btn btn-default btn-med" href="<%= new_admin_pod_path %>">
+        <span class="glyphicon glyphicon-plus"></span> Add new pod
+      </a>
+    </p>
+  </div>
+</div>
 
-<a class="btn btn-default btn-med" href="<%= new_admin_pod_path %>">
-  <span class="glyphicon glyphicon-plus"></span> Add new pod
-</a>
-
-<%- @pods.each do |pod| %>
-
-  <div class="panel panel-default">
-    <div class="media panel-body">
-      <%= link_to pod.name, edit_admin_pod_path(pod) %>
+<div class="row">
+  <div class="col-md-3">
+    <div class="list-group">
+    <%- @pods.each do |pod| %>
+      <%= link_to pod.name, edit_admin_pod_path(pod), class: "list-group-item" %>
+    <%- end %>
     </div>
   </div>
-
-<%- end %>
+</div>

@@ -1,26 +1,31 @@
-<h2>Games</h2>
-
-<a class="btn btn-default btn-med" href="<%= new_admin_game_path %>">
-  <span class="glyphicon glyphicon-plus"></span> Add new game
-</a>
-
-<style>
-  .panel { width: 500px; margin: 20px 0; }
-  img.media-object { width: 150px; }
-</style>
-
-<%- @games.each do |game| %>
-
-  <div class="panel panel-default">
-    <div class="media panel-body">
-      <a class="pull-left" href="<%= edit_admin_game_path(game) %>">
-        <img class="media-object" src="<%= game.image_url %>">
+<div class="row">
+  <div class="col-md-5">
+    <h2>Games</h2>
+    <p class="lead">These are the games currently available on Easypeasy.</p>
+    <p>
+      <a class="btn btn-default btn-med" href="<%= new_admin_game_path %>">
+        <span class="glyphicon glyphicon-plus"></span> Add new game
       </a>
-      <div class="media-body">
-        <h4 class="media-heading"><a href="<%= edit_admin_game_path(game) %>"><%= game.name %></a></h4>
-        <p><%= game.description %></p>
-      </div>
+    </p>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-5">
+    <div class="list-group">
+    <%- @games.each do |game| %>
+      <a class="list-group-item" href="<%= edit_admin_game_path(game) %>">
+        <div class="row">
+          <div class="col-md-3">
+            <img class="" src="<%= game.image_url %>">
+          </div>
+          <div class="col-md-9">
+            <h4><%= game.name %></h4>
+            <p><%= game.description %></p>
+          </div>
+        </div>
+      </a>
+    <%- end %>
     </div>
   </div>
-
-<%- end %>
+</div>
