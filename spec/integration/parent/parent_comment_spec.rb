@@ -18,7 +18,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
       click_link 'Comments'
       expect(page).to have_content('Here is my comment')
       expect(page).to have_content('A comment from parent 2')
-      expect(page).to have_content('Bob Smith')
+      expect(page).to have_content('Bob S.')
     end
   end
 
