@@ -2,9 +2,11 @@ require "rails_helper"
 
 RSpec.describe "Comments", :js => true, :type => :feature do
   let!(:pod){ Fabricate(:pod) }
-  let!(:parent){ Fabricate(:parent, pod: pod) }
+  let!(:parent){ Fabricate(:parent, name: 'Basil Safwat', phone: '07515333333', pod: pod) }
+  let!(:parent2){ Fabricate(:parent, name: 'Bob Smith', pod: pod) }
   let!(:game){ Fabricate(:game) }
   let!(:comment){ Fabricate(:comment, body: 'Here is my comment', parent: parent, game: game) }
+  let!(:comment2){ Fabricate(:comment, body: 'A comment from parent 2', parent: parent2, game: game) }
 
   before do
     visit "/#/#{parent.id}/games/"
@@ -15,6 +17,8 @@ RSpec.describe "Comments", :js => true, :type => :feature do
     it "should display the comments page for the game" do
       click_link 'Comments'
       expect(page).to have_content('Here is my comment')
+      expect(page).to have_content('A comment from parent 2')
+      expect(page).to have_content('Bob Smith')
     end
   end
 

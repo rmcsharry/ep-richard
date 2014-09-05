@@ -28,3 +28,6 @@
     sudo su easypeasy
     bundle exec rails console production
  
+## Maybe
+
+http://timeago.yarp.com/

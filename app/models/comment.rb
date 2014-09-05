@@ -5,4 +5,9 @@ class Comment < ActiveRecord::Base
   belongs_to :parent
   belongs_to :game
   belongs_to :pod
+
+  def parent_name
+    self.parent.name
+  end
+
 end
