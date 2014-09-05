@@ -20,9 +20,11 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "adding a comment" do
     it "should show the comment after you add it" do
-      click_link 'Comments'
-      fill_in 'comment', with: 'This was a great game.'
+      click_link   'Comments'
+      fill_in      'comment', with: 'This was a great game.'
       click_button 'Add comment'
+
+      expect(page).to have_content('This was a great game.')
     end
   end
 

@@ -13,10 +13,12 @@ module API
     end
 
     def create
-      comment = Comment.new
-      comment.body = params[:body]
-      comment.game = Game.find(1)
-      comment.parent = Parent.find(8)
+      c_params = params[:comment]
+      comment = Comment.new(
+        body:      c_params[:body],
+        game_id:   c_params[:game_id],
+        parent_id: c_params[:parent_id]
+      )
       comment.save
       render json: comment, status: 200
     end
