@@ -1,7 +1,7 @@
 class Admin::GamesController < AdminController
 
   def index
-    @games = Game.order(:created_at)
+    @games = Game.order('id DESC')
   end
   
   def new
