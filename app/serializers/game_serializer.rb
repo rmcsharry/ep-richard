@@ -1,12 +1,18 @@
 require 'redcarpet'
 
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :instructions, :image_url, :video_embed_code
+  attributes :id, :name, :description, :instructions, :image_url, :video_url, :media_hashed_id
 
   def instructions
     if object.instructions
       renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
       Redcarpet::Markdown.new(renderer).render(object.instructions).html_safe
+    end
+  end
+
+  def media_hashed_id
+    if object.video_url
+      object.video_url.split("/")[-1]
     end
   end
 

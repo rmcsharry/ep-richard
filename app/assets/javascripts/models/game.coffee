@@ -3,4 +3,4 @@ Easypeasy.Game =    DS.Model.extend
   description:      DS.attr 'string'
   instructions:     DS.attr 'string'
   image_url:        DS.attr 'string'
-  video_embed_code: DS.attr 'string'
+  media_hashed_id:  DS.attr 'string'

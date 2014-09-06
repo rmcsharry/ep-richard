@@ -18,7 +18,7 @@ RSpec.describe Comment, :type => :model do
   describe "comments_for_pod" do
 
     it "returns only the comments made by people in the specified pod" do
-      game = Game.create!(name: "Test game")
+      game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
 
       pod1 = Pod.create!(name: "Pod 1")
       parent1 = Parent.create!(name: "Basil", phone: "07515222222", pod: pod1)

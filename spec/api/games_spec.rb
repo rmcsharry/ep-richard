@@ -11,8 +11,8 @@ RSpec.describe "the games API", :type => :request do
     end
 
     it "returns the games" do
-      Game.create!(name: "Game 1", description: "Game 1 desc")
-      Game.create!(name: "Game 2", description: "Game 2 desc")
+      Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
+      Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
 
       get '/api/games'
 
@@ -26,7 +26,7 @@ RSpec.describe "the games API", :type => :request do
 
   describe "getting a single game" do
     it "returns the game" do
-      game = Game.create!(name: "Game 1", description: "Game 1 desc")
+      game = Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
       get "/api/games/#{game.id}"
 
       expect(response).to be_success

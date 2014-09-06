@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
   validates :name, presence: true
+  validates :video_url, presence: true
   has_many :comments
 
   def comments_for_pod(pod_id)

@@ -28,8 +28,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       fill_in 'Name', with: 'Hopscotch'
       fill_in 'Description', with: string
       fill_in 'Instructions', with: string
-      fill_in 'Image URL', with: '/assets/poster.jpg'
-      fill_in 'Video embed code', with: '<video></video>'
+      fill_in 'Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2'
       click_button 'Add game'
 
       expect(current_path).to eq(admin_games_path)
@@ -39,19 +38,25 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_field("Name", with: "Hopscotch")
       expect(page).to have_field("Description", with: string)
       expect(page).to have_field("Instructions", with: string)
-      expect(page).to have_field("Image URL", with: "/assets/poster.jpg")
-      expect(page).to have_field("Video embed code", with: "<video></video>")
+      expect(page).to have_field("Video URL", with: "https://minified.wistia.com/medias/q8x0tmoya2")
     end
 
     it "doesn't let you add a game without a name" do
       visit new_admin_game_path
       click_button 'Add game'
-      expect(page).to have_field("Image URL") # check we're still on the form
       expect(page).to have_text("error")
 
       fill_in 'Name', with: ' '
       click_button 'Add game'
       expect(Game.all.count).to eq(0)
+    end
+
+    it "doesn't let you add a game without a video URL" do
+      visit new_admin_game_path
+      fill_in 'Name', with: 'Test'
+      fill_in 'Video URL', with: ' '
+      click_button 'Add game'
+      expect(page).to have_text("error")
     end
 
   end
@@ -60,7 +65,8 @@ RSpec.describe "admin games", :js => false, :type => :feature do
     let!(:game) { Fabricate(:game,
                             name: 'Freeze',
                             description: 'Stay cool',
-                            instructions: 'Find some ice.') }
+                            instructions: 'Find some ice.',
+                            video_url: 'https://minified.wistia.com/medias/q8x0tmoya2') }
 
     it "shows the fields with the existing data in them" do
       visit admin_games_path
@@ -69,16 +75,15 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_field('Name', with: 'Freeze')
       expect(page).to have_field('Description', with: 'Stay cool')
       expect(page).to have_field('Instructions', with: 'Find some ice.')
-      expect(page).to have_field('Image URL', with: '/assets/poster.jpg')
+      expect(page).to have_field('Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2')
     end
 
-    it "updates the name" do
+    it "updates the fields" do
       visit edit_admin_game_path(game)
 
       fill_in 'Name', with: 'Treasure Hunt'
       fill_in 'Description', with: 'Find the hidden treasure'
       fill_in 'Instructions', with: 'Create treasure.'
-      fill_in 'Image URL', with: '/assets/other-image.jpg'
       click_button 'Update game'
 
       expect(current_path).to eq(admin_games_path)
@@ -87,7 +92,6 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       visit edit_admin_game_path(game)
       expect(page).to have_field('Description', with: 'Find the hidden treasure')
       expect(page).to have_field('Instructions', with: 'Create treasure.')
-      expect(page).to have_field('Image URL', with: '/assets/other-image.jpg')
     end
   end
 
