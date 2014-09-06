@@ -1,0 +1,9 @@
+// Various titles
+
+.title {
+  @extend %font-weight-bold;
+  margin: 1em 0;
+  color: $text-light;
+  border-bottom: 2px solid $border-lighter;
+  padding-bottom: 1em;
+}

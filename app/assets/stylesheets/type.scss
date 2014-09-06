@@ -26,8 +26,18 @@
   font-size: 1.2em;
 }
 
+%font-size-small {
+  font-size: 0.9em;
+}
+
 body {
   @extend %font-family;
   @extend %font-weight-normal;
   font-size: 17px;
+}
+
+.paraSmall {
+  @extend %font-size-small;
+  color: $text-light;
+  margin: 1em 0;
 }

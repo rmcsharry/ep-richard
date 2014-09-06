@@ -1,13 +1,19 @@
+@import 'colors';
+
 * { box-sizing: border-box; }
 
 img {
   max-width: 100%;
 }
 
+hr {
+  border: 0;
+  border-top: 1px solid $border-light;
+}
+
 @import 'vendor/suit';
 @import 'mixins';
 @import 'type';
-@import 'colors';
 
 // Components
 @import 'components/paddedContainer';
@@ -16,3 +22,7 @@ img {
 @import 'components/headerToolbar';
 @import 'components/markdownInstructions';
 @import 'components/videoIframe';
+@import 'components/commentItem';
+@import 'components/textArea';
+@import 'components/title';
+@import 'components/easyButton';

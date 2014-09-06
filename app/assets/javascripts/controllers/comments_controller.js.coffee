@@ -4,6 +4,13 @@ Easypeasy.CommentsController = Ember.ArrayController.extend
   game:   Ember.computed.alias("controllers.game")
   parent: Ember.computed.alias("controllers.parent")
   body:   ''
+  commentsCount: ( ->
+    count = @get('model.length')
+    if count == 1
+      "#{count} comment"
+    else
+      "#{count} comments"
+  ).property('model.length')
 
   actions:
     addComment: ->
