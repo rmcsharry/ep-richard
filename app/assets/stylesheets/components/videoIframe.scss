@@ -2,6 +2,7 @@
 // the video embed
 
 .videoIframe {
+  box-sizing: initial;
   border: 3px solid $green;
   border-radius: 4px;
   margin-bottom: 10px;
