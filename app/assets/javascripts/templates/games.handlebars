@@ -1,7 +1,11 @@
 <ul class="gamesList">
 {{#each}}
   {{#link-to 'game' this class='gameItem u-cf' tagName='li'}}
-    <img class="gameItem-image u-floatLeft u-size4of12" {{bind-attr src=image_url}}/>
+    {{#if image_url}}
+      <img class="gameItem-image u-floatLeft u-size4of12" {{bind-attr src=image_url}}/>
+    {{else}}
+      <img class="gameItem-image u-floatLeft u-size4of12" src="/assets/no-picture.png"/>
+    {{/if}}
     <div class="gameItem-name u-before5of12">{{name}}</div>
     <div class="gameItem-description u-before5of12">{{description}}</div>
   {{/link-to}}
