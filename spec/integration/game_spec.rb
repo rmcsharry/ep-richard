@@ -11,7 +11,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
                      video_embed_code: "<video></video>")
 
     visit "/#/#{parent.id}/games/"
-    find(:css, '.games-list__game').click
+    find(:css, '.gameItem').click
     expect(page).to have_text("Freeze")
     expect(page).to have_text("A game about staying still.")
     expect(page).to have_text("Find some ice.")
@@ -22,7 +22,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
     Fabricate(:game, instructions: "# Heading")
 
     visit "/#/#{parent.id}/games/"
-    find(:css, '.games-list__game').click
+    find(:css, '.gameItem').click
     expect(page).to have_css(".instructions h1")
   end
 

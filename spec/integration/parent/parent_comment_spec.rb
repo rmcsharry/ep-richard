@@ -10,7 +10,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   before do
     visit "/#/#{parent.id}/games/"
-    find(:css, '.games-list__game').click
+    find(:css, '.gameItem').click
   end
 
   describe "accessing the comments page for a game" do
