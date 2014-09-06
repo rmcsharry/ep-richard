@@ -1,11 +1,17 @@
-// Oswald loaded in 700 and 400 weights
-
 %font-family {
-  font-family: 'Oswald', Helvetica, sans-serif;
+  font-family: 'museo-sans-rounded', Helvetica, sans-serif;
+  // weights: 
+
+  // font-family: 'Oswald', Helvetica, sans-serif;
+  // Oswald loaded in 700 and 400 weights
 }
 
 %font-weight-normal {
-  font-weight: 400;
+  // Museo Rounded:
+  font-weight: 300;
+
+  // Oswald:
+  // font-weight: 400;
 }
 
 %font-weight-bold {
@@ -18,4 +24,10 @@
 
 %font-size-large {
   font-size: 1.2em;
+}
+
+body {
+  @extend %font-family;
+  @extend %font-weight-normal;
+  font-size: 17px;
 }

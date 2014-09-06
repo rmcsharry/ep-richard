@@ -1,10 +1,14 @@
-@import 'vendor/normalize';
-@import 'mixins';
-@import 'layout-and-settings';
-@import 'type';
-@import 'header-home';
-
-// home
-@import 'games-list';
-
 * { box-sizing: border-box; }
+
+img {
+  max-width: 100%;
+}
+
+@import 'vendor/suit';
+@import 'mixins';
+@import 'type';
+@import 'colors';
+
+// Components
+@import 'components/homeLogo';
+@import 'components/gameItem';

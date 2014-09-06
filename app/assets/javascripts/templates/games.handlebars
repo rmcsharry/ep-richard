@@ -1,11 +1,9 @@
-<ul class="games-list">
+<ul class="gamesList">
 {{#each}}
-  {{#link-to 'game' this class='games-list__game' tagName='li'}}
-    <img {{bind-attr src=image_url}}/>
-    <div class="info">
-      <div class="name">{{name}}</div>
-      <div class="description">{{description}}</div>
-    </div>
+  {{#link-to 'game' this class='gameItem u-cf' tagName='li'}}
+    <img class="gameItem-image u-floatLeft u-size4of12" {{bind-attr src=image_url}}/>
+    <div class="gameItem-name u-before5of12">{{name}}</div>
+    <div class="gameItem-description u-before5of12">{{description}}</div>
   {{/link-to}}
 {{/each}}
 </ul>
