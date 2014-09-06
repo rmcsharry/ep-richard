@@ -1,0 +1,26 @@
+// Slim header with a back button and title
+
+.headerToolbar {
+  height: 40px;
+  border-bottom: 1px solid $border-light;
+  margin-bottom: 20px;
+}
+
+.headerToolbar-title {
+  @extend %font-weight-bold;
+}
+
+.headerToolbar-leftButton,
+.headerToolbar-rightButton {
+}
+
+.headerToolbar-leftButton {
+  background-image: image_url('left-arrow.png');
+  background-size: 21px;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;
+}
+
+.headerToolbar-rightButton {
+}

@@ -1,5 +1,11 @@
-{{#link-to 'games'}}&lt; back{{/link-to}}
-<h3>{{name}}</h3>
+<div class="headerToolbar Arrange Arrange--middle">
+  {{#link-to 'games' class='headerToolbar-leftButton Arrange-sizeFit u-size2of12 u-cleanLink'}}{{/link-to}}
+  <div class="headerToolbar-title Arrange-sizeFill u-size8of12 u-textCenter">
+    {{name}}
+  </div>
+  <div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
+</div>
+
 <p>{{description}}</p>
 <div class="instructions">
   {{{instructions}}}

@@ -1,6 +1,9 @@
 // Container for the logo on the games index page
 
 .homeLogo {
-  margin-top:    20px;
-  margin-bottom: 20px;
+  margin: 20px auto;
+  height: 42px;
+  background-image: image_url('logo-oneliner.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
