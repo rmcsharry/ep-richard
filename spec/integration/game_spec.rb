@@ -12,7 +12,6 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
     visit "/#/#{parent.id}/games/"
     find(:css, '.gameItem').click
     expect(page).to have_text("Freeze")
-    expect(page).to have_text("A game about staying still.")
     expect(page).to have_text("Find some ice.")
     expect(page).to have_css("iframe")
   end
@@ -22,7 +21,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
 
     visit "/#/#{parent.id}/games/"
     find(:css, '.gameItem').click
-    expect(page).to have_css(".instructions h1")
+    expect(page).to have_css(".markdownInstructions h1")
   end
 
 end
