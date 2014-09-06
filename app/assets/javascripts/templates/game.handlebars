@@ -6,10 +6,18 @@
   <div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
 </div>
 
-<p>{{description}}</p>
-<div class="instructions">
-  {{{instructions}}}
+<div class="paddedContainer">
+
+  <div class="videoEmbedContainer">
+    {{{unbound videoEmbed}}}
+  </div>
+
+  <div class="markdownInstructions">
+    {{{instructions}}}
+  </div>
+
+  {{#link-to 'comments'}}See comments{{/link-to}}
+  {{outlet}}
+
 </div>
-{{{unbound videoEmbed}}}
-{{#link-to 'comments'}}Comments{{/link-to}}
-{{outlet}}
+

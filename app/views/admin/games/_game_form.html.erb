@@ -8,12 +8,13 @@
       </div>
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, placeholder: "", class: "form-control", rows: 7 %>
+        <%= f.text_area :description, placeholder: "", class: "form-control", rows: 3 %>
+        <small>Keep this very short!</small>
       </div>
       <div class="form-group">
         <%= f.label :instructions %>
         <%= f.text_area :instructions, placeholder: "", class: "form-control", rows: 7 %>
-        <small>You can use <a href="/markdown.html" target="_blank">Markdown</a> to format your instructions</small>
+        <small>This is the text that appears next to the video on the game page. You can use <a href="/markdown.html" target="_blank">Markdown</a> to format your instructions</small>
       </div>
       <div class="form-group">
         <%= f.label :video_url, "Video URL" %>

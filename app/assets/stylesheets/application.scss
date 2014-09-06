@@ -10,6 +10,13 @@ img {
 @import 'colors';
 
 // Components
+@import 'components/paddedContainer';
 @import 'components/homeLogo';
 @import 'components/gameItem';
 @import 'components/headerToolbar';
+@import 'components/markdownInstructions';
+
+iframe {
+  border: 3px solid $green;
+  border-radius: 4px;
+}

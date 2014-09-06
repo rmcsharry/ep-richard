@@ -1,0 +1,24 @@
+// A container for a piece of text written in Markdown
+// and then processed into plain HTML
+
+.markdownInstructions {
+
+  h1, h2, h3, h4, h5, h6 {
+    @extend %font-size-normal;
+    @extend %font-weight-bold;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 20px;
+  }
+
+  ol li,
+  ul li {
+    margin-bottom: 18px;
+  }
+
+
+}
