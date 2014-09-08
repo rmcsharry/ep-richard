@@ -82,7 +82,7 @@ Rails.application.configure do
   config.active_record.dump_schema_after_migration = false
 
   # Email
-  action_mailer.smtp_settings = {
+  config.action_mailer.smtp_settings = {
     :user_name => "admin@minified.net",
     :password => 'hay-twep-cyow-ghit',
     :address => 'smtp.gmail.com',
