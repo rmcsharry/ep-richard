@@ -9,7 +9,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
                      instructions:   "Find some ice.",
              )
 
-    visit "/#/#{parent.id}/games/"
+    visit "/#/#{parent.slug}/games/"
     find(:css, '.gameItem').click
     expect(page).to have_text("Freeze")
     expect(page).to have_text("Find some ice.")
@@ -19,7 +19,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
   it "renders Markdown to HTML" do
     Fabricate(:game, instructions: "# Heading")
 
-    visit "/#/#{parent.id}/games/"
+    visit "/#/#{parent.slug}/games/"
     find(:css, '.gameItem').click
     expect(page).to have_css(".markdownInstructions h1")
   end

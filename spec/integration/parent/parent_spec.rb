@@ -9,7 +9,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       Fabricate(:game, name: "Game 1", description: "Game 1 desc")
       Fabricate(:game, name: "Game 2", description: "Game 2 desc")
 
-      visit "/#/#{parent.id}/games"
+      visit "/#/#{parent.slug}/games"
 
       expect(page).to have_content('Game 1')
       expect(page).to have_content('Game 2')

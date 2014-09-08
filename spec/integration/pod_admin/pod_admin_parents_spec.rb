@@ -26,7 +26,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
 
     it "should provide a URL for the parent" do
       parent = Parent.last
-      expect(page).to have_content("/#/#{parent.id}/games")
+      expect(page).to have_content("/#/#{parent.slug}/games")
     end
 
     it "shouldn't be possible to add two parents with the same phone number" do

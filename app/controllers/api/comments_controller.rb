@@ -5,7 +5,7 @@ module API
     def index
       if params[:game] && params[:parent]
         game = Game.find(params[:game])
-        parent = Parent.find(params[:parent])
+        parent = Parent.find_by_slug(params[:parent])
         pod = parent.pod
         comments = game.comments_for_pod(pod.id)
         render json: comments, status: 200

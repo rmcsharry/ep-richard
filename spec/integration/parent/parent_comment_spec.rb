@@ -9,7 +9,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
   let!(:comment2){ Fabricate(:comment, body: 'A comment from parent 2', parent: parent2, game: game) }
 
   before do
-    visit "/#/#{parent.id}/games/"
+    visit "/#/#{parent.slug}/games/"
     find(:css, '.gameItem').click
   end
 

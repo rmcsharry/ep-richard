@@ -14,7 +14,7 @@
     <div class="well">
       <p>
         <strong>Parent's access address:</strong>
-        <%= link_to "http://#{request.host_with_port}/#/#{@parent.id}/games", "/#/#{@parent.id}/games" %>
+        <%= link_to "http://#{request.host_with_port}/#/#{@parent.slug}/games", "/#/#{@parent.slug}/games" %>
       </p>
       <p><small>This is the custom address that <%= @parent.name %> uses to access Easypeasy and should not be shared.</small></p>
     </div>

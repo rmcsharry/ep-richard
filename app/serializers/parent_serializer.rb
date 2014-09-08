@@ -1,3 +1,3 @@
 class ParentSerializer < ActiveModel::Serializer
-  attributes :id, :name
+  attributes :id, :name, :phone, :slug
 end
