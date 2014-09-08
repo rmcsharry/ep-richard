@@ -34,4 +34,24 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # Email
+  config.action_mailer.smtp_settings = {
+    :user_name => "admin@minified.net",
+    :password => 'hay-twep-cyow-ghit',
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => "gmail.com",
+    :authentication => "plain",
+    :enable_starttls_auto => true
+  }
+
+  ExceptionNotifier::Notifier.delivery_method = :smtp
+
+  config.middleware.use ::ExceptionNotifier,
+    :email_prefix => "[Easypeasy error] ",
+    :sender_address => %{"Notifier" <admin@minified.net>},
+    :exception_recipients => %w{basil@minified.net}
+
+  config.action_mailer.default_url_options = { host: 'play.easypeasyapp.com' }
 end

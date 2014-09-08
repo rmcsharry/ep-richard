@@ -80,4 +80,26 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Email
+  action_mailer.smtp_settings = {
+    :user_name => "admin@minified.net",
+    :password => 'hay-twep-cyow-ghit',
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :domain => "gmail.com",
+    :authentication => "plain",
+    :enable_starttls_auto => true
+  }
+
+  # Exception emails
+  ExceptionNotifier::Notifier.delivery_method = :smtp
+
+  config.middleware.use ::ExceptionNotifier,
+    :email_prefix => "[Easypeasy error] ",
+    :sender_address => %{"Notifier" <admin@minified.net>},
+    :exception_recipients => %w{basil@minified.net}
+
+  config.action_mailer.default_url_options = { host: 'play.easypeasyapp.com' }
+
 end
