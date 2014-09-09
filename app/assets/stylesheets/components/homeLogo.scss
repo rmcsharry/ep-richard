@@ -4,6 +4,7 @@
   margin: 20px auto;
   height: 42px;
   background-image: image_url('logo-oneliner.png');
-  background-size: cover;
+  background-size: contain;
   background-repeat: no-repeat;
+  background-position: center;
 }
