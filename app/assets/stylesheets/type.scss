@@ -36,6 +36,11 @@ body {
   font-size: 17px;
 }
 
+p {
+  margin-bottom: 1em;
+  line-height: 1.3em;
+}
+
 .paraSmall {
   @extend %font-size-small;
   color: $text-light;
