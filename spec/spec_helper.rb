@@ -1,5 +1,15 @@
 require 'capybara/poltergeist'
+require 'webmock/rspec'
 
+# Tell webmock to allow connections to localhost
+WebMock.disable_net_connect!(:allow_localhost => true)
+
+def stub_get_video_from_wistia
+  stub_request(:get, "http://fast.wistia.com/oembed?url=https://minified.wistia.com/medias/q8x0tmoya2?videoFoam=true").
+    to_return(:status => 200, :body => File.new('spec/webmocks/getVideoFromWistia.json'), :headers => {})
+end
+
+# Supress warnings we know about
 class WarningSuppressor
   IGNORES = [
     /DEBUG:/,

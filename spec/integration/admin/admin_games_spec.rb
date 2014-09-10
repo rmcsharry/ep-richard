@@ -20,6 +20,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
 
   describe "adding a game" do
     it "adds a game to the admin page" do
+      stub_get_video_from_wistia
       string = ""
       500.times { string += "x" }
 
@@ -79,6 +80,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
     end
 
     it "updates the fields" do
+      stub_get_video_from_wistia
       visit edit_admin_game_path(game)
 
       fill_in 'Name', with: 'Treasure Hunt'
