@@ -18,7 +18,6 @@ gem 'pry'
 gem 'devise'
 gem 'autoprefixer-rails'
 gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
-gem 'webmock'
 
 group :development do
   gem 'spring'
@@ -32,4 +31,8 @@ group :development, :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'fabrication'
+end
+
+group :test do
+  gem 'webmock'
 end
