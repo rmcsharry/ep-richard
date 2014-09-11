@@ -16,7 +16,7 @@ RSpec.describe "admin games bugs", :js => false, :type => :feature do
       fill_in 'Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2'
       click_button 'Add game'
 
-      expect(page).to have_content('Oops. An error occured while talking to Wistia.')
+      expect(page).to have_content('An error occured while talking to Wistia.')
     end
   end
 
