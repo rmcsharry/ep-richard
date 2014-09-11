@@ -5,6 +5,7 @@ class Parent < ActiveRecord::Base
   before_create :set_slug
 
   belongs_to :pod
+  has_many :comments, dependent: :destroy
 
   def set_slug
     if self.slug.nil?

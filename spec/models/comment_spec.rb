@@ -16,7 +16,6 @@ RSpec.describe Comment, :type => :model do
   end
 
   describe "comments_for_pod" do
-
     it "returns only the comments made by people in the specified pod" do
       game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
 
@@ -38,7 +37,21 @@ RSpec.describe Comment, :type => :model do
       expect(comments_for_pod_1).not_to include(comment2)
       expect(comments_for_pod_2).not_to include(comment1)
     end
+  end
 
+  describe "deleting a parent" do
+    it "deletes the parent's comments" do
+      game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
+      pod = Pod.create!(name: "Pod 1")
+      parent = Parent.create!(name: "Basil", phone: "07515222222", pod: pod)
+      parent2 = Parent.create!(name: "Sam", phone: "07515333333", pod: pod)
+      Comment.create!(body: "Hello", game: game, parent: parent)
+      Comment.create!(body: "Hey",   game: game, parent: parent2)
+
+      expect(Comment.all.length).to eq(2)
+      parent.destroy
+      expect(Comment.all.length).to eq(1)
+    end
   end
 
 end
