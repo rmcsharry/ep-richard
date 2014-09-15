@@ -17,6 +17,16 @@ RSpec.describe "the list of games", :type => :feature do
       expect(page).to have_text("Game 1 desc")
       expect(page).to have_text("Game 2 desc")
     end
+
+    it "shows the games in order with most recently added first" do
+      Fabricate(:game, id: 2, name: "Bigger ID but older", created_at: Time.now - 1.day)
+      Fabricate(:game, id: 1, name: "Smaller ID but newer", created_at: Time.now)
+
+      visit "/#/#{parent.slug}/games/"
+      expect(page).to have_selector("li.gameItem:nth-of-type(1)", text: "Smaller ID but newer")
+      expect(page).to have_selector("li.gameItem:nth-of-type(2)", text: "Bigger ID but older")
+    end
+
   end
 
 end

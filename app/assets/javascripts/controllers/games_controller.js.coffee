@@ -1,3 +1,3 @@
 Easypeasy.GamesController = Ember.ArrayController.extend
-  sortProperties: ['id'],
+  sortProperties: ['created_at'],
   sortAscending: false

@@ -20,12 +20,12 @@ gem 'autoprefixer-rails'
 gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
 
 group :development do
-  gem 'spring'
-  gem 'spring-commands-rspec'
   gem 'recap'
 end
 
 group :development, :test do
+  gem 'spring'
+  gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
   gem 'poltergeist'
