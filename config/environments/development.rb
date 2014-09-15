@@ -37,8 +37,8 @@ Rails.application.configure do
 
   # Email
   config.action_mailer.smtp_settings = {
-    :user_name => "admin@minified.net",
-    :password => 'hay-twep-cyow-ghit',
+    :user_name => "hello@easypeasyapp.com",
+    :password => 'KW7bBN3bw',
     :address => 'smtp.gmail.com',
     :port => 587,
     :domain => "gmail.com",
