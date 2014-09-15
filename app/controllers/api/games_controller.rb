@@ -2,7 +2,7 @@ module API
   class GamesController < ApplicationController
 
     def index
-      games = Game.all
+      games = Game.where("in_default_set = true")
       render json: games, status: 200
     end
 

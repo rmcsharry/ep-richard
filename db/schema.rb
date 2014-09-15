@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908161447) do
+ActiveRecord::Schema.define(version: 20140915201047) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140908161447) do
     t.string   "image_url"
     t.text     "instructions"
     t.string   "video_url"
+    t.boolean  "in_default_set"
   end
 
   create_table "parents", force: true do |t|
