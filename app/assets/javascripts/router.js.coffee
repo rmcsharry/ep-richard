@@ -6,3 +6,10 @@ Easypeasy.Router.map ()->
     @resource 'games',  path: '/games'
     @resource 'game',   path: '/game/:game_id', ->
       @resource 'comments',   path: '/comments'
+
+Easypeasy.Router.reopen
+  notifyGoogleAnalytics: ( ->
+    ga 'send', 'pageview',
+      'page':  this.get('url'),
+      'title': this.get('url')
+  ).on('didTransition')
