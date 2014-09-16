@@ -14,7 +14,13 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       expect(page).to have_content('Game 1')
       expect(page).to have_content('Game 2')
     end
+  end
 
+  describe "accessing EasyPeasy with a parent slug that doesn't exist" do
+    it "displays an error message" do
+      # visit "/#/not-a-real-slug/games"
+      # expect(page).to have_content("Oops, it looks like I can't find that page. Please check with your pod admin.")
+    end
   end
 
 end
