@@ -92,8 +92,4 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
     end
   end
 
-  describe "associating a pod admin to a pod" do
-    it "should create the appropriate link"
-  end
-
 end
