@@ -10,6 +10,6 @@ Easypeasy.Router.map ()->
 Easypeasy.Router.reopen
   notifyGoogleAnalytics: ( ->
     ga 'send', 'pageview',
-      'page':  this.get('url'),
-      'title': this.get('url')
+      'page':  location.hash,
+      'title': this.get('url'),
   ).on('didTransition')
