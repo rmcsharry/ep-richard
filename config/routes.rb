@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/pod_admin', to: 'pod_admin#index'
   namespace :pod_admin do
     resources :parents
+    post :set_go_live_date_for_pod
   end
 
 

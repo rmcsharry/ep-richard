@@ -33,6 +33,22 @@
 
 <% end %>
 
+<hr/>
+<% unless current_admin.pod.go_live_date %>
+<div class="row">
+  <div class="col-md-5">
+    <p>
+      Your pod is not yet live. Click the button below when you're ready to make it live.
+    </p>
+    <p>
+      <%= button_to "Make this pod live", { action: "set_go_live_date_for_pod", id: current_admin.pod_id, method: :post }, { class: 'btn btn-primary'} %>
+    </p>
+  </div>
+</div>
+<% else %>
+  <%= current_admin.pod.go_live_date.strftime("This pod has been live since %m/%d/%Y!") %>
+<% end %>
+
 <% if @parents && @parents.empty? %>
   <%= image_tag "logo-huge.png", style: "opacity: 0.3" %>
 <% end %>
