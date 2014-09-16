@@ -6,8 +6,8 @@ RSpec.describe "the list of games", :type => :feature do
     let!(:parent) { Fabricate(:parent) }
 
     it "shows the games" do
-      Fabricate(:game, name: "Game 1", description: "Game 1 desc")
-      Fabricate(:game, name: "Game 2", description: "Game 2 desc")
+      Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true)
+      Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true)
 
       visit "/#/#{parent.slug}/games/"
 
@@ -19,8 +19,8 @@ RSpec.describe "the list of games", :type => :feature do
     end
 
     it "shows the games in order with most recently added first" do
-      Fabricate(:game, id: 2, name: "Bigger ID but older", created_at: Time.now - 1.day)
-      Fabricate(:game, id: 1, name: "Smaller ID but newer", created_at: Time.now)
+      Fabricate(:game, id: 2, name: "Bigger ID but older", created_at: Time.now - 1.day, in_default_set: true)
+      Fabricate(:game, id: 1, name: "Smaller ID but newer", created_at: Time.now, in_default_set: true)
 
       visit "/#/#{parent.slug}/games/"
       expect(page).to have_selector("li.gameItem:nth-of-type(1)", text: "Smaller ID but newer")

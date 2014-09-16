@@ -7,6 +7,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
     Fabricate(:game, name:           "Freeze",
                      description:    "A game about staying still.",
                      instructions:   "Find some ice.",
+                     in_default_set: true
              )
 
     visit "/#/#{parent.slug}/games/"
@@ -17,7 +18,7 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
   end
 
   it "renders Markdown to HTML" do
-    Fabricate(:game, instructions: "# Heading")
+    Fabricate(:game, instructions: "# Heading", in_default_set: true)
 
     visit "/#/#{parent.slug}/games/"
     find(:css, '.gameItem').click
@@ -25,12 +26,8 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
   end
 
   describe "[bug] viewing two games" do
-    let!(:game1) {
-      Fabricate(:game, video_url: 'https://minified.wistia.com/medias/example')
-    }
-    let!(:game2) {
-      Fabricate(:game, video_url: 'https://minified.wistia.com/medias/test')
-    }
+    let!(:game1) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/example') }
+    let!(:game2) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/test') }
     it "correctly changes the src of the iframe" do
       visit "/#/#{parent.slug}/game/#{game1.id}"
       expect(find('iframe')[:src]).to have_text('example')

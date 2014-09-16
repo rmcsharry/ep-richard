@@ -6,8 +6,8 @@ RSpec.describe "Parents", :js => true, :type => :feature do
     let!(:parent) { Fabricate(:parent) }
 
     it "should show the games" do
-      Fabricate(:game, name: "Game 1", description: "Game 1 desc")
-      Fabricate(:game, name: "Game 2", description: "Game 2 desc")
+      Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true)
+      Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true)
 
       visit "/#/#{parent.slug}/games"
 

@@ -5,7 +5,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
   let!(:parent){ Fabricate(:parent, name: 'Basil Safwat', phone: '07515333333', pod: pod) }
   let!(:parent2){ Fabricate(:parent, name: 'Bob Smith', pod: pod) }
 
-  let!(:game){ Fabricate(:game) }
+  let!(:game){ Fabricate(:game, in_default_set: true) }
   let!(:comment){ Fabricate(:comment, body: 'Here is my comment', parent: parent, game: game) }
   let!(:comment2){ Fabricate(:comment, body: 'A comment from parent 2', parent: parent2, game: game) }
 
