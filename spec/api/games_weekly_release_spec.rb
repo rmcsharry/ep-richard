@@ -16,7 +16,7 @@ RSpec.describe "the games API", :type => :request do
   describe "a parent in a pod that's not live yet" do
     it "returns only games in the default set" do
       parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod1)
-      get "/api/games?parent=#{parent.id}"
+      get "/api/games?parent=#{parent.slug}"
 
       games = json(response.body)[:games]
       games = games.collect { |game| game[:name] }
@@ -30,7 +30,7 @@ RSpec.describe "the games API", :type => :request do
   describe "a parent in a pod that has been live < 1 week" do
     it "returns only games in the default set" do
       parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod2)
-      get "/api/games?parent=#{parent.id}"
+      get "/api/games?parent=#{parent.slug}"
 
       games = json(response.body)[:games]
       games = games.collect { |game| game[:name] }
@@ -44,7 +44,7 @@ RSpec.describe "the games API", :type => :request do
   describe "a pod that has been live 1 week" do
     it "returns 1 extra game" do
       parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod3)
-      get "/api/games?parent=#{parent.id}"
+      get "/api/games?parent=#{parent.slug}"
 
       games = json(response.body)[:games]
       games = games.collect { |game| game[:name] }
@@ -58,7 +58,7 @@ RSpec.describe "the games API", :type => :request do
   describe "a pod that has been live 2 weeks" do
     it "returns 2 extra games" do
       parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod4)
-      get "/api/games?parent=#{parent.id}"
+      get "/api/games?parent=#{parent.slug}"
 
       games = json(response.body)[:games]
       games = games.collect { |game| game[:name] }

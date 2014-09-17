@@ -4,7 +4,7 @@ module API
     def index
       games = Game.where("in_default_set = true")
       if params[:parent]
-        games = games + Game.getExtraGamesForParentId(params[:parent])
+        games = games + Game.getExtraGamesForParentSlug(params[:parent])
       end
       render json: games, status: 200
     end

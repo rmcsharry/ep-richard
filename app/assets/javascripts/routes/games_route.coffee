@@ -1,6 +1,6 @@
 Easypeasy.GamesRoute = Ember.Route.extend(Easypeasy.ResetScroll, {
   model: ->
     return this.store.find('game', {
-      parent: @modelFor('parent').get('id')
+      parent: @modelFor('parent').get('slug')
     })
 })
