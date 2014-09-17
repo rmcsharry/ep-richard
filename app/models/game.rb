@@ -36,12 +36,17 @@ class Game < ActiveRecord::Base
     self.save
   end
 
-  def self.getExtraGamesForParent(parent)
-    if parent.pod && parent.pod.go_live_date
-      pod_go_live_date = Date.parse(parent.pod.go_live_date.to_s)
-      number_of_weeks_since_go_live = ((Date.today - pod_go_live_date)/7).to_i
-      non_default_games = Game.where("in_default_set = false").order("created_at ASC")
-      non_default_games[0, number_of_weeks_since_go_live]
+  def self.getExtraGamesForParentId(parent_id)
+    if parent = Parent.find(parent_id)
+      if parent.pod && parent.pod.go_live_date
+        parent = Parent.find(parent_id)
+        pod_go_live_date = Date.parse(parent.pod.go_live_date.to_s)
+        number_of_weeks_since_go_live = ((Date.today - pod_go_live_date)/7).to_i
+        non_default_games = Game.where("in_default_set = false").order("created_at ASC")
+        non_default_games[0, number_of_weeks_since_go_live]
+      else
+        []
+      end
     else
       []
     end
