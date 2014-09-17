@@ -34,6 +34,7 @@
 <% end %>
 
 <hr/>
+
 <% if current_admin.pod && !current_admin.pod.go_live_date %>
 <div class="row">
   <div class="col-md-5">
@@ -45,6 +46,7 @@
     </p>
   </div>
 </div>
+
 <% elsif current_admin.pod && current_admin.pod.go_live_date %>
   <%= current_admin.pod.go_live_date.strftime("This pod has been live since %m/%d/%Y!") %>
 <% end %>
