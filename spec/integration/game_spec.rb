@@ -26,8 +26,8 @@ RSpec.describe "viewing a game", js: true, :type => :feature do
   end
 
   describe "[bug] viewing two games" do
-    let!(:game1) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/example') }
-    let!(:game2) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/test') }
+    let!(:game1) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/example', in_default_set: true) }
+    let!(:game2) { Fabricate(:game, video_url: 'https://minified.wistia.com/medias/test', in_default_set: true) }
     it "correctly changes the src of the iframe" do
       visit "/#/#{parent.slug}/game/#{game1.id}"
       expect(find('iframe')[:src]).to have_text('example')
