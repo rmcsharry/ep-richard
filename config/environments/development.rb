@@ -46,12 +46,5 @@ Rails.application.configure do
     :enable_starttls_auto => true
   }
 
-  ExceptionNotifier::Notifier.delivery_method = :smtp
-
-  config.middleware.use ::ExceptionNotifier,
-    :email_prefix => "[Easypeasy error] ",
-    :sender_address => %{"Notifier" <admin@minified.net>},
-    :exception_recipients => %w{basil@minified.net}
-
   config.action_mailer.default_url_options = { host: 'play.easypeasyapp.com' }
 end
