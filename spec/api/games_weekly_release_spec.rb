@@ -12,6 +12,7 @@ RSpec.describe "the games API", :type => :request do
   let(:pod2) { Fabricate(:pod, go_live_date: Date.today) }
   let(:pod3) { Fabricate(:pod, go_live_date: Date.today - 1.week) }
   let(:pod4) { Fabricate(:pod, go_live_date: Date.today - 2.weeks) }
+  let(:pod5) { Fabricate(:pod, go_live_date: Date.today - 10.weeks) }
 
   describe "a parent in a pod that's not live yet" do
     it "returns only games in the default set" do
@@ -58,6 +59,20 @@ RSpec.describe "the games API", :type => :request do
   describe "a pod that has been live 2 weeks" do
     it "returns 2 extra games" do
       parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod4)
+      get "/api/games?parent=#{parent.slug}"
+
+      games = json(response.body)[:games]
+      games = games.collect { |game| game[:name] }
+
+      expect(games).to include("Game 1")
+      expect(games).to include("Game 2")
+      expect(games).to include("Game 3")
+    end
+  end
+
+  describe "if there are more weeks than games" do
+    it "returns all the extra games" do
+      parent = Parent.create!(name: "Basil Safwat", phone: "07515333333", pod: pod5)
       get "/api/games?parent=#{parent.slug}"
 
       games = json(response.body)[:games]
