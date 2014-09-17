@@ -25,10 +25,16 @@ class PodAdmin::ParentsController < PodAdminController
   end
 
   def update
-    parent = Parent.find(params[:id])
-    parent.update!(parent_params)
-    flash[:notice] = "#{parent.name.split[0]} updated."
-    redirect_to pod_admin_path
+    @parent = Parent.find(params[:id])
+    
+    @parent.update_attributes(parent_params)
+
+    if @parent.save
+      flash[:notice] = "#{@parent.name.split[0]} updated."
+      redirect_to pod_admin_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy

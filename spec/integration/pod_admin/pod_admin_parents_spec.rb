@@ -29,10 +29,30 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
       expect(page).to have_content("/#/#{parent.slug}/games")
     end
 
-    it "shouldn't be possible to add two parents with the same phone number" do
-      Fabricate(:parent, phone: '07515223234')
-      expect { Fabricate(:parent, phone: '07515223234') }.to raise_error
+    describe "adding a parent with the same phone number as another" do
+      it "should display an error" do
+        visit pod_admin_path
+        click_link 'Add new parent'
+        fill_in 'Name', with: 'Basil'
+        fill_in 'Phone', with: '07515333333'
+        click_button 'Add parent'
+        expect(page).to have_content("Phone has already been taken")
+      end
     end
+
+    describe "editing a parent with the same phone number as another" do
+      it "should display an error" do
+        Fabricate(:parent, phone: '07111111111')
+        visit pod_admin_path
+        click_link 'Sam'
+        click_link 'Edit'
+        fill_in 'Phone', with: '07111111111'
+        click_button 'Update parent'
+        expect(page).to have_content("Phone has already been taken")
+      end
+    end
+
+
   end
 
   describe "editing and deleting a parent" do
