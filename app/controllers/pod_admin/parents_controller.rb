@@ -43,20 +43,10 @@ class PodAdmin::ParentsController < PodAdminController
   end
 
   def send_welcome_sms
-    parent = Parent.find(params[:id])
-
-    account_sid = 'AC38de11026e8717f75248f84136413f7d' 
-    auth_token = 'f82546484dc3dfc96989f5930a13e508' 
+    @parent = Parent.find(params[:id])
 
     begin
-      # set up a client to talk to the Twilio REST API 
-      @client = Twilio::REST::Client.new account_sid, auth_token
-
-      @client.account.messages.create({
-        :from => '+441290211660',
-        :to => parent.phone,
-        :body => "Hi #{parent.name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{parent.slug}/games"
-      })
+      @parent.send_welcome_sms
     rescue Twilio::REST::RequestError => e
       flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy and tell them there was an error with code #{e.code}. Sorry for the inconvenience."
     else
