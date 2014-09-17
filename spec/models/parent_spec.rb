@@ -18,9 +18,17 @@ RSpec.describe Parent, :type => :model do
     end
 
     describe "exactly 11 digits" do
-      it "should be valid" do
-        parent.phone = "07555555555"
-        expect(parent.valid?).to eq(true)
+      describe "not starting 07" do
+        it "should be invalid" do
+          parent.phone = "06555555555"
+          expect(parent.valid?).to eq(false)
+        end
+      end
+      describe "starting 07" do
+        it "should be valid" do
+          parent.phone = "07555555555"
+          expect(parent.valid?).to eq(true)
+        end
       end
     end
 

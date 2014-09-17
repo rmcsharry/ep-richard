@@ -15,10 +15,10 @@ class Parent < ActiveRecord::Base
   end
 
   def phone_format
-    if phone.length == 11
+    if /^07\d{9}$/.match(phone)
       return true
     else
-      errors.add(:phone, "should be 11 digits")
+      errors.add(:phone, "should be 11 digits and start 07")
     end
   end
 
