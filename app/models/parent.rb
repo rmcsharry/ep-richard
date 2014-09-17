@@ -31,8 +31,12 @@ class Parent < ActiveRecord::Base
     @client.account.messages.create({
       :from => '+441290211660',
       :to => self.phone,
-      :body => "Hi #{self.name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
+      :body => "Hi #{self.first_name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
     })
+  end
+
+  def first_name
+    self.name.split(" ")[0]
   end
 
 end
