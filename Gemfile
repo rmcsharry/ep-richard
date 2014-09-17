@@ -18,6 +18,7 @@ gem 'pry'
 gem 'devise'
 gem 'autoprefixer-rails'
 gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
+gem 'twilio-ruby', '~> 3.12'
 
 group :development do
   gem 'recap'

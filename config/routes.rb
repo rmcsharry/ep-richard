@@ -26,9 +26,11 @@ Rails.application.routes.draw do
   end
 
   get '/pod_admin', to: 'pod_admin#index'
+  match '/pod_admin/set_go_live_date_for_pod/:id', to: 'pod_admin#set_go_live_date_for_pod', via: [:post]
+  match '/pod_admin/send_welcome_sms/:id', to: 'pod_admin/parents#send_welcome_sms', via: [:post]
+
   namespace :pod_admin do
     resources :parents
-    post :set_go_live_date_for_pod
   end
 
 
