@@ -17,9 +17,9 @@ def notify_parents_for_pod(pod)
     message = "Hello #{parent.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{parent.slug}/games/"
 
     if parent.last_notification.blank? || parent.last_notification < Date.today - 6.days
-      send_message(parent.phone, message)
       parent.last_notification = Time.now
       parent.save
+      send_message(parent.phone, message)
       puts "#{parent.name} (#{parent.phone}) - sending notification.\n"
     else
       puts "#{parent.name} (#{parent.phone}) had a notification on #{parent.last_notification}, skipping.\n"

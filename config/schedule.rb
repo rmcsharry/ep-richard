@@ -5,6 +5,6 @@ set :output, "#{path}/log/cron.log"
 #   command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-basil.rb"
 # end
 
-every 1.minute do
+every 1.day do
   command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-parents.rb"
 end
