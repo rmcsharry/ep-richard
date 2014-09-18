@@ -14,4 +14,9 @@ class Pod < ActiveRecord::Base
     end
   end
 
+  def week_number
+    pod_go_live_date = Date.parse(self.go_live_date.to_s)
+    ((Date.today - pod_go_live_date)/7).to_i
+  end
+
 end

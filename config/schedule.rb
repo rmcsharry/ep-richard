@@ -1,7 +1,6 @@
 set :output, "#{path}/log/cron.log"
 
-# This task ...
-
-every 5.hours do
-  command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/new-game-notification.rb"
+every 1.day, :at => '10:00 am' do
+  command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-parents.rb"
+  command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-basil.rb"
 end

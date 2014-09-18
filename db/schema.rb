@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140917085850) do
+ActiveRecord::Schema.define(version: 20140918160546) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20140917085850) do
     t.datetime "updated_at"
     t.integer  "pod_id"
     t.string   "slug"
+    t.datetime "last_notification"
   end
 
   create_table "pods", force: true do |t|

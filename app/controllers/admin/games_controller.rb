@@ -1,8 +1,8 @@
 class Admin::GamesController < AdminController
 
   def index
-    @default_games = Game.where("in_default_set = true").order("created_at ASC")
-    @weekly_games = Game.where("in_default_set = false").order("created_at ASC")
+    @default_games = Game.default
+    @weekly_games = Game.non_default
   end
 
   def new
