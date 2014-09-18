@@ -48,7 +48,7 @@
 </div>
 
 <% elsif current_admin.pod && current_admin.pod.go_live_date %>
-  <%= current_admin.pod.go_live_date.strftime("This pod has been live since %m/%d/%Y!") %>
+  <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
 <% end %>
 
 <% if @parents && @parents.empty? %>

@@ -25,7 +25,7 @@ RSpec.describe "Go live", :js => false, :type => :feature do
       end
 
       it "should set the go live date to today" do
-        string = Date.today.strftime("This pod has been live since %m/%d/%Y")
+        string = Date.today.strftime("%B %e, %Y")
         expect(page).to have_content(string)
       end
 
