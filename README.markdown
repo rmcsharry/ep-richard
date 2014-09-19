@@ -28,6 +28,6 @@
     sudo su easypeasy
     bundle exec rails console production
  
-## Maybe
+### Run a rails task locally
 
-http://timeago.yarp.com/
+bundle exec foreman run rails runner lib/tasks/notify-parents.rb

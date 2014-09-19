@@ -64,7 +64,7 @@ class Parent < ActiveRecord::Base
     @client = Twilio::REST::Client.new account_sid, auth_token
     @client.account.messages.create({
       :from => '+441290211660',
-      :to => "07515337356",
+      :to => self.phone,
       :body => message
     })
   end
