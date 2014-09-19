@@ -23,16 +23,18 @@ class Parent < ActiveRecord::Base
   end
 
   def send_welcome_sms
-    account_sid = 'AC38de11026e8717f75248f84136413f7d'
-    auth_token = 'f82546484dc3dfc96989f5930a13e508'
+    if Rails.env == "production"
+      account_sid = 'AC38de11026e8717f75248f84136413f7d'
+      auth_token = 'f82546484dc3dfc96989f5930a13e508'
 
-    @client = Twilio::REST::Client.new account_sid, auth_token
+      @client = Twilio::REST::Client.new account_sid, auth_token
 
-    @client.account.messages.create({
-      :from => '+441290211660',
-      :to => self.phone,
-      :body => "Hi #{self.first_name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
-    })
+      @client.account.messages.create({
+        :from => '+441290211660',
+        :to => self.phone,
+        :body => "Hi #{self.first_name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
+      })
+    end
   end
 
   def first_name
@@ -59,14 +61,16 @@ class Parent < ActiveRecord::Base
   end
 
   def send_sms(message)
-    account_sid = 'AC38de11026e8717f75248f84136413f7d'
-    auth_token = 'f82546484dc3dfc96989f5930a13e508'
-    @client = Twilio::REST::Client.new account_sid, auth_token
-    @client.account.messages.create({
-      :from => '+441290211660',
-      :to => self.phone,
-      :body => message
-    })
+    if Rails.env == "production"
+      account_sid = 'AC38de11026e8717f75248f84136413f7d'
+      auth_token = 'f82546484dc3dfc96989f5930a13e508'
+      @client = Twilio::REST::Client.new account_sid, auth_token
+      @client.account.messages.create({
+        :from => '+441290211660',
+        :to => self.phone,
+        :body => message
+      })
+    end
   end
 
 end
