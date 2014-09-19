@@ -69,7 +69,7 @@ class Game < ActiveRecord::Base
     }
     begin
       json = JSON.parse(res.body)
-      json["thumbnail_url"] = json["thumbnail_url"] + "&image_crop_resized=450x450"
+      json["thumbnail_url"] = json["thumbnail_url"] + "&image_crop_resized=450x253"
       json["html"]
       json
     rescue JSON::ParserError
