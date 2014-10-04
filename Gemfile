@@ -21,10 +21,6 @@ gem "exception_notification", :git => "git://github.com/rails/exception_notifica
 gem 'twilio-ruby', '~> 3.12'
 gem 'whenever', :require => false
 
-group :development do
-  gem 'recap'
-end
-
 group :development, :test do
   gem 'spring'
   gem 'spring-commands-rspec'
@@ -33,6 +29,10 @@ group :development, :test do
   gem 'poltergeist'
   gem 'database_cleaner'
   gem 'fabrication'
+end
+
+group :development do
+  gem 'recap', require: false
 end
 
 group :test do
