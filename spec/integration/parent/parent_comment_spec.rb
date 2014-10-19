@@ -19,7 +19,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "accessing the comments page for a game" do
     it "should display the comments page for the game" do
-      click_link 'Load comments'
+      click_link 'Chat with parents in your pod'
       expect(page).to have_content('Here is my comment')
       expect(page).to have_content('A comment from parent 2')
       expect(page).to have_content('Bob S.')
@@ -28,7 +28,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "adding a comment" do
     it "should show the comment after you add it" do
-      click_link   'Load comments'
+      click_link   'Chat with parents in your pod'
       fill_in      'comment', with: 'This was a great game.'
       click_button 'Add comment'
 
@@ -36,7 +36,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
     end
 
     it "should not allow you to add a blank comment" do
-      click_link   'Load comments'
+      click_link   'Chat with parents in your pod'
       fill_in      'comment', with: ' '
       click_button 'Add comment'
 
