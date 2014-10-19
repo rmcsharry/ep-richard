@@ -14,17 +14,18 @@ Easypeasy.CommentsController = Ember.ArrayController.extend
 
   actions:
     addComment: ->
-      comment = @store.createRecord('comment',
-        body: @get('body'),
-        game_id: @get('game.id')
-        parent_id: @get('parent.id')
-      )
+      unless !@get('body').trim()
+        comment = @store.createRecord('comment',
+          body: @get('body'),
+          game_id: @get('game.id')
+          parent_id: @get('parent.id')
+        )
 
-      controller = this
+        controller = this
 
-      @addObject(comment)
+        @addObject(comment)
 
-      success = ( -> controller.set('body', ''))
-      failure = ( -> console.log "Failed to save comment")
+        success = ( -> controller.set('body', ''))
+        failure = ( -> console.log "Failed to save comment")
 
-      comment.save().then(success, failure)
+        comment.save().then(success, failure)

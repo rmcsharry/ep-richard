@@ -34,6 +34,14 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
       expect(page).to have_content('This was a great game.')
     end
+
+    it "should not allow you to add a blank comment" do
+      click_link   'Load comments'
+      fill_in      'comment', with: ' '
+      click_button 'Add comment'
+
+      expect(page).to have_selector('.commentItem', count: 2)
+    end
   end
 
   describe "viewing commments" do
