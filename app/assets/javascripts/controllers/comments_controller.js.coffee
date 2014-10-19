@@ -1,8 +1,8 @@
 Easypeasy.CommentsController = Ember.ArrayController.extend
-
   needs: ['game', 'parent']
   game:   Ember.computed.alias("controllers.game")
   parent: Ember.computed.alias("controllers.parent")
+
   body:   ''
   commentsCount: ( ->
     count = @get('model.length')

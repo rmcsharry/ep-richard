@@ -1,0 +1,12 @@
+// The line of text below the logo
+// when logged in
+
+.welcomeMessage {
+  @extend %font-size-small;
+  padding: 20px;
+  line-height: 1.5em;
+}
+
+.welcomeMessage-parentName {
+  @extend %font-weight-bold;
+}

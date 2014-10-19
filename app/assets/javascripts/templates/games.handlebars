@@ -1,5 +1,9 @@
 <div class="homeLogo"></div>
 
+<div class="welcomeMessage u-textCenter">
+  <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
+</div>
+
 <ul class="gamesList">
 {{#each}}
   {{#link-to 'game' this class='gameItem u-cf' tagName='li'}}
