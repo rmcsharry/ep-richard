@@ -2,6 +2,12 @@ class PodAdmin::ParentsController < PodAdminController
 
   def show
     @parent = Parent.find(params[:id])
+
+    if @parent.welcome_sms_sent
+      @sms_button_text = "Welcome SMS already sent. Send again?"
+    else
+      @sms_button_text = "Send welcome SMS"
+    end
   end
 
   def new
@@ -56,6 +62,7 @@ class PodAdmin::ParentsController < PodAdminController
     rescue Twilio::REST::RequestError => e
       flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy and tell them there was an error with code #{e.code}. Sorry for the inconvenience."
     else
+      @parent.log_welcome_sms_sent
       flash[:notice] = "SMS sent!"
     end
 

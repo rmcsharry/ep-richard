@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140918160546) do
+ActiveRecord::Schema.define(version: 20141019191648) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,7 @@ ActiveRecord::Schema.define(version: 20140918160546) do
     t.integer  "pod_id"
     t.string   "slug"
     t.datetime "last_notification"
+    t.boolean  "welcome_sms_sent",  default: false
   end
 
   create_table "pods", force: true do |t|

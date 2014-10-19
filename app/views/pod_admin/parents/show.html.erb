@@ -18,7 +18,7 @@
       </p>
       <p><small>This is the custom address that <%= @parent.name %> uses to access Easypeasy and should not be shared.</small></p>
       <p>
-        <%= button_to "Send welcome SMS", { action: "send_welcome_sms", id: @parent.id, method: :post }, { class: 'btn btn-primary'} %>
+        <%= button_to @sms_button_text, { action: "send_welcome_sms", id: @parent.id, method: :post }, { class: 'btn btn-primary'} %>
       </p>
     </div>
   </div>

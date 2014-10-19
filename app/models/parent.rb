@@ -37,6 +37,11 @@ class Parent < ActiveRecord::Base
     end
   end
 
+  def log_welcome_sms_sent
+    self.welcome_sms_sent = true
+    self.save
+  end
+
   def first_name
     self.name.split(" ")[0]
   end
