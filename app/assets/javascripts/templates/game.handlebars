@@ -16,7 +16,9 @@
     {{{instructions}}}
   </div>
 
-  <p>{{#link-to 'comments'}}Load comments{{/link-to}}</p>
+  {{#unless commentsOpen}}
+  {{#link-to 'comments' class="Button easyButton"}}Chat with parents in your pod{{/link-to}}
+  {{/unless}}
 
   {{outlet}}
 
