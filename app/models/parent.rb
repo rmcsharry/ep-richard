@@ -32,7 +32,7 @@ class Parent < ActiveRecord::Base
       @client.account.messages.create({
         :from => '+441290211660',
         :to => self.phone,
-        :body => "Hi #{self.first_name}, welcome to EasyPeasy! Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
+        :body => "Hi #{self.first_name}, welcome to EasyPeasy: an app for parents that sends you fun, simple game ideas to support your child's early development. Open this link to start: http://play.easypeasyapp.com/#/#{self.slug}/games"
       })
     end
   end
