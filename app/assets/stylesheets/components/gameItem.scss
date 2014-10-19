@@ -2,17 +2,15 @@
   border-bottom: 1px solid $border-light;
   padding: 10px 5px;
   cursor: pointer;
+  position: relative;
 }
 
 .gameItem:first-of-type {
   border-top: 1px solid $border-light;
 }
 
-.gameItem-image {
-}
-
-.gameItem-name,
-.gameItem-description {
+.gameItem:first-of-type .gameItem-newFlag {
+  display: block;
 }
 
 .gameItem-name {
@@ -21,5 +19,14 @@
   margin-bottom: 5px;
 }
 
-.gamesItem-description {
+.gameItem-newFlag {
+  display: none;
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  @extend %font-weight-bold;
+  @extend %font-size-x-small;
+  background-color: $green;
+  color: white;
+  padding: 5px 5px;
 }

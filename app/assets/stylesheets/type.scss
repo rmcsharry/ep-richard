@@ -30,6 +30,10 @@
   font-size: 0.9em;
 }
 
+%font-size-x-small {
+  font-size: 0.7em;
+}
+
 body {
   @extend %font-family;
   @extend %font-weight-normal;
