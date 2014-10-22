@@ -32,6 +32,16 @@ RSpec.describe Parent, :type => :model do
     end
   end
 
+  describe "welcome sms flag" do
+    let(:pod) { Fabricate(:pod) }
+    let(:parent) { Fabricate(:parent, pod: pod) }
+
+    it "should let you set the 'welcome sms sent' flag to true" do
+      parent.log_welcome_sms_sent
+      expect(parent.welcome_sms_sent).to eq(true)
+    end
+  end
+
   describe "notifications" do
     before do
       stub_send_sms
