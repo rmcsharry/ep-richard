@@ -1,6 +1,6 @@
 Easypeasy.GamesController = Ember.ArrayController.extend
   needs: ['parent']
-  parent: Ember.computed.alias("controllers.parent")
+  parent: Ember.computed.alias('controllers.parent')
 
-  sortProperties: ['created_at'],
-  sortAscending: false
+  sortProperties: ['in_default_set:asc', 'position:asc']
+  sortedGames: Ember.computed.sort('model', 'sortProperties')

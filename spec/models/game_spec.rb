@@ -41,4 +41,17 @@ RSpec.describe Game, :type => :model do
       expect(p.first_name).to eq("John")
     end
   end
+
+  describe "position" do
+    let!(:game1) { Fabricate(:game, position: 1) }
+    let!(:game2) { Fabricate(:game, position: 2) }
+
+    it "adds new games with the highest position" do
+      g = Fabricate(:game)
+
+      expect(g.position).to eq(1)
+    end
+
+  end
+
 end

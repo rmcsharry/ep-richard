@@ -4,4 +4,6 @@ Easypeasy.Game =   DS.Model.extend
   instructions:    DS.attr 'string'
   image_url:       DS.attr 'string'
   media_hashed_id: DS.attr 'string'
+  in_default_set:  DS.attr 'boolean'
+  position:        DS.attr 'number'
   created_at:      DS.attr 'date'

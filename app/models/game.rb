@@ -3,6 +3,7 @@ class Game < ActiveRecord::Base
   validates :video_url, presence: true
   validate  :video_url_is_correct
   has_many :comments
+  acts_as_list add_new_at: :top
 
   def comments_for_pod(pod_id)
     parents = Pod.find(pod_id).parents
@@ -40,7 +41,7 @@ class Game < ActiveRecord::Base
     if parent = Parent.find_by_slug(parent_slug)
       if parent.pod && parent.pod.go_live_date
         parent = Parent.find_by_slug(parent_slug)
-        non_default_games = Game.where("in_default_set = false").order("created_at ASC")
+        non_default_games = Game.where("in_default_set = false").order("position DESC")
         non_default_games[0, parent.pod.week_number]
       else
         []
@@ -51,11 +52,11 @@ class Game < ActiveRecord::Base
   end
 
   def self.default
-    Game.where("in_default_set = true").order("created_at ASC")
+    Game.where("in_default_set = true").order("position ASC")
   end
 
   def self.non_default
-    Game.where("in_default_set = false").order("created_at ASC")
+    Game.where("in_default_set = false").order("position ASC")
   end
 
   private

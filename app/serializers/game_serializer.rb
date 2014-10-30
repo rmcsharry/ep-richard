@@ -1,7 +1,16 @@
 require 'redcarpet'
 
 class GameSerializer < ActiveModel::Serializer
-  attributes :id, :name, :description, :instructions, :image_url, :video_url, :media_hashed_id, :created_at
+  attributes :id,
+             :name,
+             :description,
+             :instructions,
+             :image_url,
+             :video_url,
+             :media_hashed_id,
+             :in_default_set,
+             :position,
+             :created_at
 
   def instructions
     if object.instructions
