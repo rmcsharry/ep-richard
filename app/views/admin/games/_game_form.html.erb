@@ -17,6 +17,10 @@
         <small>This is the text that appears next to the video on the game page. You can use <a href="/markdown.html" target="_blank">Markdown</a> to format your instructions</small>
       </div>
       <div class="form-group">
+        <%= f.label :position %>
+        <%= f.text_field :position, placeholder: "", class: "form-control" %>
+      </div>
+      <div class="form-group">
         <%= f.label :in_default_set, "Add to default set" %>
         <%= f.check_box :in_default_set, class: "form-control" %>
       </div>
