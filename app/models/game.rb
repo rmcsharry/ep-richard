@@ -41,7 +41,7 @@ class Game < ActiveRecord::Base
     if parent = Parent.find_by_slug(parent_slug)
       if parent.pod && parent.pod.go_live_date
         parent = Parent.find_by_slug(parent_slug)
-        non_default_games = Game.where("in_default_set = false").order("position DESC")
+        non_default_games = Game.where("in_default_set = false").order("position ASC")
         non_default_games[0, parent.pod.week_number]
       else
         []
