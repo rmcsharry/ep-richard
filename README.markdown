@@ -1,5 +1,7 @@
 # EasyPeasy app
 
+See `docs` folder for more documentation.
+
 ## To do
 
 - Save comment
