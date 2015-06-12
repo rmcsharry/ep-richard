@@ -3,9 +3,15 @@ require "rails_helper"
 RSpec.describe "the games API", :type => :request do
 
   before do
-    Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
-    Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
-    Game.create!(name: "Game 3", description: "Game 3 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
+    g1 = Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
+    g2 = Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
+    g3 = Game.create!(name: "Game 3", description: "Game 3 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2')
+
+    g1.position = 1
+    g2.position = 2
+    g3.position = 3
+
+    g1.save && g2.save && g3.save
   end
 
   let(:pod1) { Fabricate(:pod) }
@@ -50,8 +56,8 @@ RSpec.describe "the games API", :type => :request do
       games = json(response.body)[:games]
       games = games.collect { |game| game[:name] }
 
-      expect(games).to include("Game 1")
-      expect(games).to include("Game 2")
+      expect(games).to     include("Game 1")
+      expect(games).to     include("Game 2")
       expect(games).not_to include("Game 3")
     end
   end
