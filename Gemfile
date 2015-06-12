@@ -27,7 +27,7 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
-  gem 'poltergeist'
+  gem 'poltergeist', '~> 1.6.0'
   gem 'database_cleaner'
   gem 'fabrication'
 end
