@@ -10,6 +10,7 @@ gem 'redcarpet', require: false
 gem 'jquery-rails'
 
 gem 'ember-rails'
+gem 'handlebars'
 gem 'active_model_serializers'
 gem 'coffee-rails'
 gem 'foreman'
