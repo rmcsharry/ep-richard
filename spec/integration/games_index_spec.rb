@@ -20,7 +20,7 @@ RSpec.describe "the list of games", :type => :feature do
 
     it "shows the games in order of position" do
       pod = Fabricate(:pod, go_live_date: Date.today - 1.week)
-      parent = Fabricate(:parent, pod: pod)
+      parent = Fabricate(:parent, pod: pod, phone: "07636465667")
 
       a = Fabricate(:game, name: "Position 4", in_default_set: true)
       b = Fabricate(:game, name: "Position 1", in_default_set: true)
@@ -46,7 +46,7 @@ RSpec.describe "the list of games", :type => :feature do
 
     it "shows the default games under the non default games, no matter the position" do
       pod = Fabricate(:pod, go_live_date: Date.today - 1.week)
-      parent_in_old_pod = Fabricate(:parent, pod: pod)
+      parent_in_old_pod = Fabricate(:parent, pod: pod, phone: "07647777666")
 
       Fabricate(:game, name: "Default and higher position", position: 1, in_default_set: true)
       Fabricate(:game, name: "Not default and lower position", position: 2, in_default_set: false)
