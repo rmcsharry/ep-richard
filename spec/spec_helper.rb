@@ -19,11 +19,10 @@ def stub_send_sms_fail
     to_return(:status => 400, :body => File.new('spec/webmocks/sendSMSfail.json'), :headers => {})
 end
 
-# Supress warnings we know about
+# Suppress warnings we know about - comma separated and surrounded by /MESSAGE/
 class WarningSuppressor
   IGNORES = [
     /DEBUG:/,
-    /Viewport argument key "minimal-ui" not recognized and ignored./
   ]
  
   class << self
