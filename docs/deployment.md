@@ -29,3 +29,10 @@ Deploy
 ------
 
     bundle exec cap deploy
+
+Troubleshooting
+---------------
+
+Q: I moved the repo and now deploy doesn't work.
+
+A: You need to change the repo in the Capfile, but also on the server in /home/easypeasy/.git. See [this](https://coderwall.com/p/4k1lja/fixing-capistrano-3-deployments-after-a-repository-change). If it really doesn't work, you could delete the folder on the server and run `bundle exec cap deploy:setup` again.
