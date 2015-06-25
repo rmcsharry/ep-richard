@@ -4,7 +4,7 @@ set :whenever_command, "bundle exec whenever"
 require "whenever/capistrano"
 
 set :application, 'easypeasy'
-set :repository, 'git@bitbucket.org:minified/easypeasy.git'
+set :repository, 'git@bitbucket.org:easypeasy/easypeasy.git'
 
 server '85.159.211.37', :app
 
