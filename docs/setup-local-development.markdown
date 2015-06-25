@@ -42,6 +42,10 @@ Install the gems: `bundle install`
 
     ./import_backup.sh
 
+#### 5. Get set up for deployment
+
+See deploying-to-production.md.
+
 Start the server
 ----------------
 
