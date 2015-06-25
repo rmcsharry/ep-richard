@@ -1,7 +1,7 @@
 <div class="headerToolbar Arrange Arrange--middle">
   {{#link-to 'games' class='headerToolbar-leftButton Arrange-sizeFit u-size2of12 u-cleanLink'}}{{/link-to}}
   <div class="headerToolbar-title Arrange-sizeFill u-size8of12 u-textCenter">
-    {{name}}
+    {{model.name}}
   </div>
   <div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
 </div>
@@ -13,7 +13,7 @@
   </div>
 
   <div class="markdownInstructions">
-    {{{instructions}}}
+    {{{model.instructions}}}
   </div>
 
   {{#unless commentsOpen}}

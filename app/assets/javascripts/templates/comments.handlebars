@@ -2,11 +2,11 @@
   {{commentsCount}}
 </div>
 
-{{#each}}
+{{#each comment in this}}
 
 <div class="commentItem">
-  <div class="commentItem-author">{{parent_name}}</div>
-  <div class="commentItem-body">{{body}}</div>
+  <div class="commentItem-author">{{comment.parent_name}}</div>
+  <div class="commentItem-body">{{comment.body}}</div>
 </div>
 
 {{else}}
