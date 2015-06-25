@@ -1,7 +1,18 @@
-# Running the tests
+Running the tests
+=================
 
-You will need PhantomJS if you don't have it.
+How testing works on EasyPeasy.
+
+Requirements
+------------
+
+**PhantomJS**
+
+Install via Homebrew. You might need to install a specific version of PhantomJS.
 
     brew update && brew install phantomjs
 
-You might need to install a specific version of PhantomJS.
+Run all tests
+-------------
+
+    bundle exec foreman run rspec
