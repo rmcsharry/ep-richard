@@ -32,4 +32,6 @@ See `docs` folder for more documentation.
  
 ### Run a rails task locally
 
-bundle exec foreman run rails runner lib/tasks/notify-parents.rb
+Use `rails runner`, for example:
+
+    bundle exec foreman run rails runner lib/tasks/notify-parents.rb
