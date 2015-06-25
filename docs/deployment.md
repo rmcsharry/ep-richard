@@ -3,6 +3,13 @@ Deployment
 
 EasyPeasy is deployed using Capistrano.
 
+
+Deploy the app
+--------------
+
+    bundle exec cap deploy
+
+
 Setting up on a new server
 --------------------------
 
@@ -10,6 +17,7 @@ Will be worth figuring out the exact steps for this, but the rough idea is:
 
 1. `bundle exec cap deploy:setup` clones and sets up the remote repo
 2. After running the above, you need to run `bundle exec cap:deploy`
+
 
 Setting up a new deploy user
 ----------------------------
@@ -25,10 +33,6 @@ I think the steps will include:
 5. `bundle exec cap bootstrap`
 6. `bundle exec cap deploy`
 
-Deploy
-------
-
-    bundle exec cap deploy
 
 Troubleshooting
 ---------------
