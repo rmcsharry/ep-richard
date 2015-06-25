@@ -1,19 +1,20 @@
 Setting up for local development
 ================================
 
-## Prerequisites
+Prerequisites
+-------------
 
 * [rbenv][1] (install via Homebrew)
 
 [1]: https://github.com/sstephenson/rbenv#homebrew-on-mac-os-x
 
 
-### Installing
+Installing
+----------
 
 How to get EP-web setup locally.
 
 #### 1. Create an ssh shortcut to the server
-
 
 open the file:
 
@@ -41,7 +42,9 @@ Install the gems: `bundle install`
 
     ./import_backup.sh
 
-#### 5. Start the server
+Start the server
+----------------
 
     bundle exec foreman start
-    # then visit localhost:3000
+
+Then visit easypeasy.dev:3000
