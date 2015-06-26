@@ -12,6 +12,7 @@ module Easypeasy
 
     config.to_prepare do
       Devise::SessionsController.layout "admin"
+      Devise::PasswordsController.layout "admin"
     end
 
     # Settings in config/environments/* take precedence over those specified here.
