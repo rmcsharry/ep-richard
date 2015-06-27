@@ -18,7 +18,7 @@
       <a class="list-group-item" href="<%= edit_admin_game_path(game) %>">
         <div class="row">
           <div class="col-md-3">
-            <% if game.image_url.empty? %>
+            <% if game.image_url && game.image_url.empty? %>
               <%= image_tag "no-picture.png" %>
             <% else %>
             <img src="<%= game.image_url %>">
@@ -44,7 +44,7 @@
       <a class="list-group-item" href="<%= edit_admin_game_path(game) %>">
         <div class="row">
           <div class="col-md-3">
-            <% if game.image_url.empty? %>
+            <% if game.image_url && game.image_url.empty? %>
               <%= image_tag "no-picture.png" %>
             <% else %>
             <img src="<%= game.image_url %>">
