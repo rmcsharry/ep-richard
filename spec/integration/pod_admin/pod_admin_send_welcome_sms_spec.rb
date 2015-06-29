@@ -2,9 +2,9 @@ require "rails_helper"
 
 RSpec.describe "Welcome SMS", :js => false, :type => :feature do
 
-  let!(:pod) { Fabricate(:pod) }
+  let!(:pod)       { Fabricate(:pod) }
   let!(:pod_admin) { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
-  let!(:parent) { Fabricate(:parent, name: 'Jen', phone: '07515444444', pod: pod ) }
+  let!(:parent)    { Fabricate(:parent, name: 'Jen', phone: '07515444444', pod: pod ) }
 
   before do
     login_as_specific_pod_admin(pod_admin)

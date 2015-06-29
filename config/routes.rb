@@ -31,7 +31,7 @@ Rails.application.routes.draw do
 
   namespace :pod_admin do
     resources :parents
+    resources :games
   end
-
 
 end
