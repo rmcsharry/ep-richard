@@ -3,6 +3,7 @@ Easypeasy.Game =   DS.Model.extend
   description:     DS.attr 'string'
   instructions:    DS.attr 'string'
   image_url:       DS.attr 'string'
+  video_iframeurl: DS.attr 'string'
   media_hashed_id: DS.attr 'string'
   in_default_set:  DS.attr 'boolean'
   position:        DS.attr 'number'

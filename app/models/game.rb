@@ -13,7 +13,6 @@ class Game < ActiveRecord::Base
     filtered_comments.compact
   end
 
-  # use this instead of the one in the JS and check if the tests still work
   def video_iframeurl
     "//fast.wistia.net/embed/iframe/#{self.video_url.split("/")[-1]}?videoFoam=true&wmode=transparent"
   end

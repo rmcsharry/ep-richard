@@ -7,6 +7,7 @@ class GameSerializer < ActiveModel::Serializer
              :instructions,
              :image_url,
              :video_url,
+             :video_iframeurl,
              :media_hashed_id,
              :in_default_set,
              :position,
