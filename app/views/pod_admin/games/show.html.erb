@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-md-5">
+    <p><%= link_to "&larr; back".html_safe, pod_admin_games_path %></p>
+    <h3><%= @game.name %></h3>
+    <h5><%= @game.description %></h5>
+    <iframe src='<%= @game.video_iframeurl %>' allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'></iframe>
+    <div class="instructions"><%= @instructions %></div>
+    <hr/>
+    <p><%= link_to "&larr; back".html_safe, pod_admin_games_path %></p>
+  </div>
+</div>
+
+<style>
+  .instructions h1 {
+    font-size: 18px;
+  }
+</style>
