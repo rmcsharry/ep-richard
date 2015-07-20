@@ -12,7 +12,7 @@ RSpec.describe "Welcome SMS", :js => false, :type => :feature do
 
   describe "sending welcome SMS" do
     before do
-      visit pod_admin_path
+      visit pod_admin_parents_path
       click_link 'Jen'
     end
 

@@ -3,10 +3,6 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    if current_admin.pod
-      @parents = current_admin.pod.parents.order("LOWER(name)")
-    end
-    render 'pod_admin/index'
   end
 
   def set_go_live_date_for_pod

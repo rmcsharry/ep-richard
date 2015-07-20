@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-5">
-    <p><%= link_to "&larr; back to parents".html_safe, pod_admin_path %></p>
+    <p><%= link_to "&larr; back to parents".html_safe, pod_admin_parents_path %></p>
     <h3>
       <span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<%= @parent.name %>
       <%= link_to "Edit", edit_pod_admin_parent_path(@parent), class: "btn btn-xs btn-primary inline-delete-form" %>

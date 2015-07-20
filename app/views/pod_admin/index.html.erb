@@ -2,35 +2,10 @@
   <p class="lead">
     Hm. I can't find your pod. Please contact a member of EasyPeasy staff to sort this out. Sorry for the inconvenience.
   </p>
-
 <% else %>
-
-<div class="row">
-  <div class="col-md-5">
-    <h2>Parents</h2>
-    <% unless @parents.empty? %>
-      <p class="lead">You have <%= pluralize(@parents.count, "parent") %> in your pod.</p>
-    <% else %>
-      <p class="lead">Welcome! Add your first parent to get started.</p>
-    <% end %>
-    <p>
-      <a class="btn btn-default btn-med" href="<%= new_pod_admin_parent_path %>">
-        <span class="glyphicon glyphicon-plus"></span> Add new parent
-      </a>
-    </p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-3">
-    <div class="list-group">
-      <% @parents.each do |parent| %>
-        <%= link_to "<span class='glyphicon glyphicon-user'></span> #{parent.name}".html_safe, pod_admin_parent_path(parent), class: "list-group-item list-group-item-success" %>
-      <% end %>
-    </div>
-  </div>
-</div>
-
+  <p class="lead">
+    Welcome! Select an option from the menu above.
+  </p>
 <% end %>
 
 <hr/>

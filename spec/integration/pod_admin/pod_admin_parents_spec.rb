@@ -10,7 +10,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     let!(:parent) { Fabricate(:parent, name: 'Jen', pod: pod ) }
 
     before do
-      visit pod_admin_path
+      visit pod_admin_parents_path
       click_link 'Add new parent'
       fill_in 'Name', with: 'Sam'
       fill_in 'Phone', with: '07515333333'
@@ -31,7 +31,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
 
     describe "adding a parent with the same phone number as another" do
       it "should display an error" do
-        visit pod_admin_path
+        visit pod_admin_parents_path
         click_link 'Add new parent'
         fill_in 'Name', with: 'Basil'
         fill_in 'Phone', with: '07515333333'
@@ -43,7 +43,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
     describe "editing a parent with the same phone number as another" do
       it "should display an error" do
         Fabricate(:parent, phone: '07111111111')
-        visit pod_admin_path
+        visit pod_admin_parents_path
         click_link 'Sam'
         click_link 'Edit'
         fill_in 'Phone', with: '07111111111'
@@ -66,7 +66,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
 
     describe "editing" do
       it "should update the parent" do
-        visit pod_admin_path
+        visit pod_admin_parents_path
         click_link 'Jen'
         click_link 'Edit'
         fill_in 'Name', with: 'Sam'
@@ -80,7 +80,7 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
 
     describe "deleting a parent" do
       it "should delete the parent" do
-        visit pod_admin_path
+        visit pod_admin_parents_path
         click_link 'Jen'
         click_link 'Edit'
         click_button 'Delete'

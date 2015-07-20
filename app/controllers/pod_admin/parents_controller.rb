@@ -1,5 +1,11 @@
 class PodAdmin::ParentsController < PodAdminController
 
+  def index
+    if current_admin.pod
+      @parents = current_admin.pod.parents.order("LOWER(name)")
+    end
+  end
+
   def show
     @parent = Parent.find(params[:id])
 
@@ -51,7 +57,7 @@ class PodAdmin::ParentsController < PodAdminController
     else
       flash[:notice] = "Hm. That didn't seem to work."
     end
-    redirect_to pod_admin_path
+    redirect_to pod_admin_parents_path
   end
 
   def send_welcome_sms
@@ -66,7 +72,7 @@ class PodAdmin::ParentsController < PodAdminController
       flash[:notice] = "SMS sent!"
     end
 
-    redirect_to pod_admin_path
+    redirect_to pod_admin_parents_path
   end
 
   private
