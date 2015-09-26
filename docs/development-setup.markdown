@@ -48,7 +48,7 @@ See deploying-to-production.md.
 
 #### 6. Set up PhantomJS for testing
 
-Install via Homebrew. You might need to install a specific version of PhantomJS. Tested with Node v4.1.1 and PhantomJS v1.9.7.
+Install via Homebrew. You might need to install a specific version of PhantomJS. Tested with Node v4.1.1 and PhantomJS v2.0.0.
 
     brew update && brew install phantomjs
 
