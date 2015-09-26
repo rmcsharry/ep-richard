@@ -2,26 +2,15 @@
 
 See `docs` folder for more documentation.
 
-## To do
-
-- Save comment
-- Swap bootstrap
-
-## Services used
-
-### Server
-
-* Linode (Ubuntu 14LTS)
-
-### Storing videos
-
-* Wistia
-
-### Transactional email
-
-* None (Postmark?)
-
 ## How to
+
+### Start the server
+
+    bundle exec foreman start
+
+### Run the tests
+
+    bundle exec foreman run rspec
 
 ### Access the rails console on production
 
@@ -30,6 +19,10 @@ See `docs` folder for more documentation.
     sudo su easypeasy
     bundle exec rails console production
  
+### Import the production database
+
+    ./import_backup.sh
+
 ### Run a rails task locally
 
 Use `rails runner`, for example:

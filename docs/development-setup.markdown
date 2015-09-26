@@ -46,8 +46,17 @@ Install the gems: `bundle install`
 
 See deploying-to-production.md.
 
-Start the server
-----------------
+#### 6. Set up PhantomJS for testing
+
+Install via Homebrew. You might need to install a specific version of PhantomJS. Tested with Node v4.1.1 and PhantomJS v1.9.7.
+
+    brew update && brew install phantomjs
+
+Run the tests with 
+
+    bundle exec foreman run rspec
+
+#### 7. Start the server
 
     bundle exec foreman start
 
