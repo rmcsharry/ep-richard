@@ -23,6 +23,9 @@
 </div>
 
 <% elsif current_admin.pod && current_admin.pod.go_live_date %>
+
+  <h1>Dashboard</h1>
+
   <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
 <% end %>
 
