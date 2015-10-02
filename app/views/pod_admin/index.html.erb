@@ -26,7 +26,7 @@
 
   <h1>Dashboard</h1>
 
-  <h2><%= current_admin.pod.number_of_comments %> comments</h2>
+  <h2><%= current_admin.pod.comments.count %> comments</h2>
 
   <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
 <% end %>

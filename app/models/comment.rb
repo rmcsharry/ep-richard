@@ -6,6 +6,8 @@ class Comment < ActiveRecord::Base
   belongs_to :game
   belongs_to :pod
 
+  before_create :set_pod
+
   def parent_name
     name = self.parent.name.split
     first_name = name[0]
@@ -17,6 +19,10 @@ class Comment < ActiveRecord::Base
       "#{first_name} #{last_name}."
     end
 
+  end
+
+  def set_pod
+    self.pod = self.parent.pod
   end
 
 end

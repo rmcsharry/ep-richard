@@ -19,13 +19,4 @@ class Pod < ActiveRecord::Base
     ((Date.today - pod_go_live_date)/7).to_i
   end
 
-  # TODO: can I use the has_man comments instead?
-  def number_of_comments
-    comments = []
-    Game.all.each do |game|
-      comments.push(game.comments_for_pod(self.id))
-    end
-    comments.count
-  end
-
 end
