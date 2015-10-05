@@ -1,15 +1,11 @@
+<%# No pod set on the admin %>
 <% if !current_admin.pod %>
   <p class="lead">
     Hm. I can't find your pod. Please contact a member of EasyPeasy staff to sort this out. Sorry for the inconvenience.
   </p>
-<% else %>
-  <p class="lead">
-    Welcome! Select an option from the menu above.
-  </p>
 <% end %>
 
-<hr/>
-
+<%# Pod not yet live %>
 <% if current_admin.pod && !current_admin.pod.go_live_date %>
 <div class="row">
   <div class="col-md-5">
@@ -21,16 +17,9 @@
     </p>
   </div>
 </div>
-
-<% elsif current_admin.pod && current_admin.pod.go_live_date %>
-
-  <h1>Dashboard</h1>
-
-  <h2><%= current_admin.pod.comments.count %> comments</h2>
-
-  <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
 <% end %>
 
+<%# No parents %>
 <% if @parents && @parents.empty? %>
   <%= image_tag "logo-huge.png", style: "opacity: 0.3" %>
 <% end %>

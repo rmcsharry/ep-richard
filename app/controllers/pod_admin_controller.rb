@@ -3,6 +3,7 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
+    redirect_to pod_admin_dashboard_path if current_admin.pod && current_admin.pod.go_live_date
   end
 
   def set_go_live_date_for_pod

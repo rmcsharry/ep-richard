@@ -1,0 +1,11 @@
+# next - figure out if i should run this script on prod
+# and how i test it's working correctly
+
+Comment.all.each do |comment|
+  if comment.pod.nil?
+    if comment.parent
+      comment.pod = comment.parent.pod
+      comment.save
+    end
+  end
+end
