@@ -1,5 +1,5 @@
-# next - figure out if i should run this script on prod
-# and how i test it's working correctly
+# I ran this script on prod to add
+# pods to all the comments
 
 Comment.all.each do |comment|
   if comment.pod.nil?
