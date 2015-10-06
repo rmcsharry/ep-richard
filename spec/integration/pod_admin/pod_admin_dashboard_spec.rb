@@ -36,24 +36,20 @@ RSpec.describe "Pod admin dashboard", :js => false, :type => :feature do
   describe "number of comments" do
 
     describe "when there are comments" do
+
+      let!(:comment_in_pod)     { Fabricate(:comment, parent: parent) }
+      let!(:comment_not_in_pod) { Fabricate(:comment, parent: parent2) }
+
+      it "should mean there are two comments in the DB" do
+        expect(Comment.all.count).to eq(2)
+      end
+
       it "should show the number of comments in the pod" do
-        # in the pod
-        c = Comment.new
-        c.body = "Test"
-        c.parent = parent
-        c.game = game
-        c.save
-        # not in the pod
-        c = Comment.new
-        c.body = "Test"
-        c.parent = parent2
-        c.game = game
-        c.save
         visit "/pod_admin/"
         expect(page).to have_content('1 comments')
       end
     end
 
-  end
+  end # number of comments
 
 end
