@@ -52,4 +52,8 @@ RSpec.describe "Pod admin dashboard", :js => false, :type => :feature do
 
   end # number of comments
 
+  describe "activity" do
+    it "should show the percentage of users that accessed EP in the past 7 days"
+  end
+
 end
