@@ -1,7 +1,7 @@
 class Parent < ActiveRecord::Base
   validates :name, presence: true
   validates :phone, presence: true
-  validates :phone, uniqueness: true
+  # validates :phone, uniqueness: true
   validate :phone_format
   before_create :set_slug
 
