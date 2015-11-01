@@ -41,6 +41,26 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
         expect(page).to have_content('Hackney Council')
       end
     end
+
+    describe "when you supply a description" do
+      before do
+        visit admin_path
+        click_link 'Pods'
+        click_link 'Add new pod'
+        fill_in 'Name', with: 'Save the Children'
+        fill_in 'Description', with: 'Important pod for testing'
+        click_button 'Add pod'
+      end
+      it "should add the pod" do
+        expect(Pod.all.length).to eq(1)
+        expect(Pod.all.first.description).to eq('Important pod for testing')
+      end
+      it "should show the description on the pod index page" do
+        expect(page).to have_content('Save the Children')
+        expect(page).to have_content('Important pod for testing')
+        visit admin_pods_path
+      end
+    end
   end
 
   describe "editing a pod" do

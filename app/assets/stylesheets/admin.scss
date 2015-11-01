@@ -13,21 +13,10 @@ img {
   }
 }
 
-.list-group {
-  .list-group-item:nth-child(4n+1) {
-    color: #3c763d;
-    background-color: #dff0d8;
-  }
-  .list-group-item:nth-child(4n+2) {
-    color: #31708f;
-    background-color: #d9edf7;
-  }
-  .list-group-item:nth-child(4n+3) {
-    color: #8a6d3b;
-    background-color: #fcf8e3;
-  }
-  .list-group-item:nth-child(4n+4) {
-    color: #a94442;
-    background-color: #f2dede;
-  }
+.list-group p {
+  margin-bottom: 0;
+}
+
+.list-group-item .description {
+  color: #999;
 }

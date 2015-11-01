@@ -14,7 +14,10 @@
   <div class="col-md-3">
     <div class="list-group">
     <%- @pods.each do |pod| %>
-      <%= link_to pod.name, edit_admin_pod_path(pod), class: "list-group-item" %>
+      <div class="list-group-item">
+        <p><%= link_to pod.name, edit_admin_pod_path(pod) %></p>
+        <p class="description"><%= pod.description %></p>
+      </div>
     <%- end %>
     </div>
   </div>
