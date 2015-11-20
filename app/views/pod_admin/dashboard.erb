@@ -1,11 +1,3 @@
-<h1>Dashboard</h1>
-
-<h2><%= current_admin.pod.comments.count %> comments</h2>
-
-<ol>
-<% current_admin.pod.comments.each do |comment| %>
-  <li><b><%= comment.parent_name %></b> &mdash; <%= comment.body %></li>
-<% end %>
-</ol>
+<%# Dashboard would go here but we're currently doing stats in an email. %>
 
 <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
