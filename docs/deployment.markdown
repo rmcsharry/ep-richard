@@ -22,16 +22,20 @@ Will be worth figuring out the exact steps for this, but the rough idea is:
 Setting up a new deploy user
 ----------------------------
 
-Write notes here next time you set someone up.
+1. Log on to the server
+2. Add the user: `sudo adduser username`
+3. Add the user to the sudoers group: `sudo adduser username sudo`
+4. Log off
+5. `brew install ssh-copy-id`
+6. `ssh-copy-id username@easypeasy`
+7. Test by doing `ssh username@easypeasy` then log off
+8. `bundle exec cap bootstrap`
+9. `bundle exec cap deploy`
 
-I think the steps will include:
+Other things that might be relevant:
 
-1. Get set up on the server as a user
-2. ssh-copy-id to the server
-3. Add the user to the Bitbucket team/repo
-4. Make sure the user's key is added to their Bitbucket account
-5. `bundle exec cap bootstrap`
-6. `bundle exec cap deploy`
+1. Add the user to the Bitbucket team/repo
+2. Make sure the user's key is added to their Bitbucket account
 
 
 Troubleshooting
