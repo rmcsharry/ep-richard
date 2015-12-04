@@ -1,2 +1,6 @@
-<h1><%= current_admin.pod.name%>'s Weekly Report<h1>
-<h2><%= (Date.yesterday - 7.days).strftime("%A, %b %d") %> to <%= Date.yesterday.strftime("%A, %b %d") %></h2>
+<h1><%= @pod.name%>'s Weekly Report<h1>
+<h3><%= (Date.yesterday - 7.days).strftime("%A, %b %d") %> to <%= Date.yesterday.strftime("%A, %b %d") %></h3>
+
+<p>Hello! Here is what happened in your pod last week. If you want to get in touch with us, just reply to this email.</p>
+
+<p>Of the <%= @pod.parents.count %> parents in your pod, <%= @pod.parents_who_visited("last_week").count %> of them visited EasyPeasy last week. The most visited game was Colourful Cars, and the most popular game so far is Dress Up.</p>

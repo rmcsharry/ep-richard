@@ -19,4 +19,13 @@ class Pod < ActiveRecord::Base
     ((Date.today - pod_go_live_date)/7).to_i
   end
 
+  def parents_who_visited(timescale)
+    log_for_timescale = ParentVisitLog.where(pod_id: self.id)
+    parents = []
+    log_for_timescale.each do |log|
+      parents.append(log.parent_id)
+    end
+    return parents.uniq
+  end
+
 end
