@@ -31,6 +31,7 @@ Rails.application.routes.draw do
   namespace :pod_admin do
     get '/', to: :index
     get '/dashboard', to: :dashboard
+    get '/analytics', to: :analytics
     resources :parents
     resources :games
   end
