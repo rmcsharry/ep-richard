@@ -29,12 +29,23 @@ class Pod < ActiveRecord::Base
   end
 
   def most_popular_games(timescale)
-    results = []
-    Game.all.each do |game|
-      visits = ParentVisitLog.where(pod_id: self.id, game_id: game.id).count
-      results.push({ "game_name" => game.name, "visits" => visits })
+    if timescale == "last_week"
+      results = []
+      start_date = Date.today - 7.days
+      end_date = Date.today
+      Game.all.each do |game|
+        visits = ParentVisitLog.where(pod_id: self.id, game_id: game.id, created_at: start_date..end_date).count
+        results.push({ "game_name" => game.name, "visits" => visits })
+      end
+      results.sort_by { |k| k["visits"] }.reverse
+    elsif timescale == "all_time"
+      results = []
+      Game.all.each do |game|
+        visits = ParentVisitLog.where(pod_id: self.id, game_id: game.id).count
+        results.push({ "game_name" => game.name, "visits" => visits })
+      end
+      results.sort_by { |k| k["visits"] }.reverse
     end
-    results.sort_by { |k| k["visits"] }.reverse
   end
 
 end
