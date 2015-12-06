@@ -13,3 +13,7 @@ Easypeasy.Router.reopen
       'page':  location.hash,
       'title': this.get('url'),
   ).on('didTransition')
+
+  logTransition: ( ->
+    $.post('/api/log', { location: this.get('url') })
+  ).on('didTransition')

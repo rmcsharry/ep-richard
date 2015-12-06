@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     resources :parents
     resources :games
     resources :comments
+    post '/log', to: 'log#ping'
   end
 
   root 'site#index'

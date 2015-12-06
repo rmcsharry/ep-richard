@@ -59,8 +59,9 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("1 of them visited EasyPeasy last week")
       end
 
-      it "a parent visiting a game page directly should still be counted as a visit" do
+      it "a parent visiting a game page directly should be counted as a visit" do
         visit "/#/#{parent1.slug}/game/#{game1.id}"
+        sleep(0.1)
         expect(ParentVisitLog.count).to eq(1)
       end
 
