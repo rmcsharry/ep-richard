@@ -12,6 +12,7 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
   let!(:parent4)    { Fabricate(:parent, name: 'James', phone: '07515444447', pod: pod2 ) }
   # game
   let!(:game1) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
+  let!(:game2) { Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true) }
 
   before do
     login_as_specific_pod_admin(pod_admin)
@@ -65,6 +66,29 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(ParentVisitLog.count).to eq(1)
       end
 
+      it "should say what the most visited game is" do
+        visit "/#/#{parent1.slug}/game/#{game1.id}"
+        visit pod_admin_analytics_path
+        visit "/#/#{parent1.slug}/game/#{game2.id}"
+        visit pod_admin_analytics_path
+        visit "/#/#{parent1.slug}/game/#{game1.id}"
+        visit pod_admin_analytics_path
+        expect(page).to have_content("The most visited game was Game 1")
+      end
+
+      it "should say what the most visited game last week was"
+      it "should say what the most visited game of all time is"
+      it "should say how many people visited last week"
+      it "should say how many comments have been posted in total"
+      it "should say which post has the most comments"
+      it "should say who in the pod has posted the most comments"
+      it "should show the latest 5 comments and no more"
+      it "should show a link to view all comments"
+      it "should say who hasn't yet commented"
+      it "should omit the sentence when everyone has commented"
+      it "should correctly pluralize 'people have commented"
+      it "should say what the next game to be released will be"
+      it "should handle the case where there are no more games to be released"
     end
   end
 

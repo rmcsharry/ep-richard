@@ -28,4 +28,13 @@ class Pod < ActiveRecord::Base
     return parents.uniq
   end
 
+  def most_popular_games(timescale)
+    results = []
+    Game.all.each do |game|
+      visits = ParentVisitLog.where(pod_id: self.id, game_id: game.id).count
+      results.push({ "game_name" => game.name, "visits" => visits })
+    end
+    results.sort_by { |k| k["visits"] }.reverse
+  end
+
 end
