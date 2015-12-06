@@ -98,13 +98,14 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       end
 
       it "should say how many people visited last week"
-      it "should say how many comments have been posted in total"
-      it "should say which post has the most comments"
+      it "should say how many comments have been posted this week"
+      it "should say which post has the most comments this week"
       it "should say who in the pod has posted the most comments"
       it "should show the latest 5 comments and no more"
       it "should show a link to view all comments"
       it "should say who hasn't yet commented"
       it "should omit the sentence when everyone has commented"
+      it "should be able to handle a situation where no one has commented yet"
       it "should correctly pluralize 'people have commented"
       it "should say what the next game to be released will be"
       it "should handle the case where there are no more games to be released"
