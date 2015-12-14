@@ -1,5 +1,6 @@
 module API
   class LogController < ApplicationController
+    protect_from_forgery with: :null_session
 
     def ping
       location = params[:location]
