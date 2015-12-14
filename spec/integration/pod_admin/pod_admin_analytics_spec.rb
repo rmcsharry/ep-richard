@@ -40,24 +40,16 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
     describe "visit numbers" do
 
       it "should say how many parents visited the pod" do
+        expect(ParentVisitLog.all.count).to eq(0)
         visit "/#/#{parent1.slug}/games"
-        visit pod_admin_analytics_path
-        expect(page).to have_content("1 of them visited EasyPeasy last week")
+        sleep 0.1
+        expect(ParentVisitLog.all.count).to eq(1)
       end
 
-      it "should not count a visit from someone from another pod" do
+      it "should log the pod id correctly" do
         visit "/#/#{parent4.slug}/games"
-        visit pod_admin_analytics_path
-        expect(page).to have_content("0 of them visited EasyPeasy last week")
-      end
-
-      it "a parent visiting twice should only be counted once" do
-        visit "/#/#{parent1.slug}/games"
-        visit pod_admin_analytics_path
-        visit "/#/#{parent1.slug}/games"
-        visit pod_admin_analytics_path
-        expect(ParentVisitLog.count).to eq(2)
-        expect(page).to have_content("1 of them visited EasyPeasy last week")
+        sleep 0.1
+        expect(ParentVisitLog.first.pod_id).to eq(parent4.pod_id)
       end
 
       it "a parent visiting a game page directly should be counted as a visit" do
@@ -97,7 +89,20 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         end
       end
 
-      it "should say how many people visited last week"
+      it "should say how many people visited last week" do
+        last_week = Date.today.midnight - 7.days
+        this_week = Date.today.midnight + 1.hour
+        # Three visits by parent 1 and one by parent 2 last week
+        ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
+        ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
+        ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
+        ParentVisitLog.create!(parent_id: parent2.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
+        # Two by parent 3 this week
+        ParentVisitLog.create!(parent_id: parent3.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
+        ParentVisitLog.create!(parent_id: parent3.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
+        visit pod_admin_analytics_path
+        expect(page).to have_content("2 of them visited EasyPeasy last week")
+      end
       it "should say how many comments have been posted this week"
       it "should say which post has the most comments this week"
       it "should say who in the pod has posted the most comments"

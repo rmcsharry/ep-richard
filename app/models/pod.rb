@@ -20,7 +20,13 @@ class Pod < ActiveRecord::Base
   end
 
   def parents_who_visited(timescale)
-    log_for_timescale = ParentVisitLog.where(pod_id: self.id)
+    if timescale == "last_week"
+      start_date = Date.today.midnight - 7.days
+      end_date = Date.today.midnight
+      log_for_timescale = ParentVisitLog.where(pod_id: self.id, created_at: start_date..end_date)
+    elsif timescale == "all_time"
+      log_for_timescale = ParentVisitLog.where(pod_id: self.id)
+    end
     parents = []
     log_for_timescale.each do |log|
       parents.append(log.parent_id)
@@ -30,9 +36,9 @@ class Pod < ActiveRecord::Base
 
   def most_popular_games(timescale)
     if timescale == "last_week"
+      start_date = Date.today.midnight - 7.days
+      end_date = Date.today.midnight
       results = []
-      start_date = Date.today - 7.days
-      end_date = Date.today + 1.day
       Game.all.each do |game|
         visits = ParentVisitLog.where(pod_id: self.id, game_id: game.id, created_at: start_date..end_date).count
         results.push({ "game_name" => game.name, "visits" => visits })
