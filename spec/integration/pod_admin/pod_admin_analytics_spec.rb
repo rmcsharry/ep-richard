@@ -70,22 +70,23 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
 
       describe "most visited game stat" do
         before do
-          last_week = Date.yesterday - 7.days
-          this_week = Date.today
+          last_week = Date.today.midnight - 7.days
+          this_week = Date.today + 1.hour
           # Three of game 1 last week
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
-          ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
+          ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: last_week)
           # Two of game 2 this week
+          ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
           visit pod_admin_analytics_path
         end
         it "should say what the most visited game last week was" do
-          expect(page).to have_content("The most visited game was Game 2")
+          expect(page).to have_content("The most visited game was Game 1")
         end
         it "should say what the most visited game of all time is" do
-          expect(page).to have_content("most popular game so far is Game 1")
+          expect(page).to have_content("most popular game so far is Game 2")
         end
       end
 
