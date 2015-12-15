@@ -110,9 +110,13 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       before do
         last_week = Date.today.midnight - 7.days
         Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 1", created_at: last_week)
-        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 1", created_at: last_week)
-        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 1", created_at: last_week)
-        Comment.create!(parent_id: parent4.id, pod_id: parent4.pod.id, game_id: game2.id, body: "Comment 1", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 2", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 3", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 4", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 5", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 6", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 7", created_at: last_week)
+        Comment.create!(parent_id: parent4.id, pod_id: parent4.pod.id, game_id: game2.id, body: "Comment 8", created_at: last_week)
         visit pod_admin_analytics_path
       end
 
@@ -127,6 +131,16 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       it "should say who in the pod has posted the most comments" do
         expect(page).to have_content("The most chatty member of your pod was Jen Lexmond")
       end
+
+      it "should show the latest 5 comments and no more" do
+        expect(page).to have_content("Comment 1")
+        expect(page).to have_content("Comment 2")
+        expect(page).to have_content("Comment 3")
+        expect(page).to have_content("Comment 4")
+        expect(page).to have_content("Comment 5")
+        expect(page).not_to have_content("Comment 6")
+        expect(page).not_to have_content("Comment 7")
+      end
     end
 
     describe "no comments" do
@@ -134,8 +148,10 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("Your pod posted 0 messages")
         expect(page).not_to have_content("had the most posts with")
       end
+      it "should not say who in the pod has posted the most comments" do
+        expect(page).not_to have_content("The most chatty member of your pod was Jen Lexmond")
+      end
 
-      it "should show the latest 5 comments and no more"
       it "should show a link to view all comments"
       it "should say who hasn't yet commented"
       it "should omit the sentence when everyone has commented"
