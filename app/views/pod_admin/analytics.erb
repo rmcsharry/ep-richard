@@ -7,6 +7,7 @@
     most_popular_game_last_week = @pod.most_popular_games("last_week")[0]["game_name"]
     most_popular_game_all_time  = @pod.most_popular_games("all_time")[0]["game_name"]
     most_commented_game_last_week = @pod.most_commented_games("last_week")[0]
+    most_chatty_parent_last_week = @pod.most_chatty_parents("last_week")[0]["parent_name"]
     also = (most_popular_game_last_week == most_popular_game_all_time)
 %>
 
@@ -14,7 +15,10 @@
 
 <p>
   Your pod posted <%= @pod.comments_last_week.count %> messages last week.
+
   <%- unless most_commented_game_last_week["comments"] == 0 %>
     <%= most_commented_game_last_week["game_name"] %> had the most posts with <%= most_commented_game_last_week["comments"] %> messages.
   <%- end %>
+
+  The most chatty member of your pod was <%= most_chatty_parent_last_week %>.
 </p>

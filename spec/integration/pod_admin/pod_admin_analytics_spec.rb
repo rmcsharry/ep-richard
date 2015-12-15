@@ -4,12 +4,12 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
 
   let!(:pod)        { Fabricate(:pod, name: 'Brockley Pod') }
   let!(:pod_admin)  { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
-  let!(:parent1)    { Fabricate(:parent, name: 'Jen', phone: '07515444444', pod: pod ) }
-  let!(:parent2)    { Fabricate(:parent, name: 'Basil', phone: '07515444445', pod: pod ) }
-  let!(:parent3)    { Fabricate(:parent, name: 'Gabi', phone: '07515444446', pod: pod ) }
+  let!(:parent1)    { Fabricate(:parent, name: 'Jen Lexmond', phone: '07515444444', pod: pod ) }
+  let!(:parent2)    { Fabricate(:parent, name: 'Basil Safwat', phone: '07515444445', pod: pod ) }
+  let!(:parent3)    { Fabricate(:parent, name: 'Gabi Miller', phone: '07515444446', pod: pod ) }
   # not in pod
   let!(:pod2)       { Fabricate(:pod, name: 'Other pod') }
-  let!(:parent4)    { Fabricate(:parent, name: 'James', phone: '07515444447', pod: pod2 ) }
+  let!(:parent4)    { Fabricate(:parent, name: 'James Smith', phone: '07515444447', pod: pod2 ) }
   # game
   let!(:game1) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
   let!(:game2) { Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true) }
@@ -123,6 +123,10 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       it "should say which post has the most comments this week" do
         expect(page).to have_content("Game 1 had the most posts with 2 messages")
       end
+
+      it "should say who in the pod has posted the most comments" do
+        expect(page).to have_content("The most chatty member of your pod was Jen Lexmond")
+      end
     end
 
     describe "no comments" do
@@ -131,7 +135,6 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).not_to have_content("had the most posts with")
       end
 
-      it "should say who in the pod has posted the most comments"
       it "should show the latest 5 comments and no more"
       it "should show a link to view all comments"
       it "should say who hasn't yet commented"

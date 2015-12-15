@@ -73,4 +73,17 @@ class Pod < ActiveRecord::Base
     end
   end
 
+  def most_chatty_parents(timescale)
+    if timescale == "last_week"
+      start_date = Date.today.midnight - 7.days
+      end_date = Date.today.midnight
+      results = []
+      Parent.all.each do |parent|
+        comments_for_parent = Comment.where(pod_id: self.id, parent_id: parent.id, created_at: start_date..end_date).count
+        results.push({ "parent_name" => parent.name, "comments" => comments_for_parent })
+      end
+      results.sort_by { |k| k["comments"] }.reverse
+    end
+  end
+
 end
