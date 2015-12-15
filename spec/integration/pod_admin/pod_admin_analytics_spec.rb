@@ -104,8 +104,33 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         visit pod_admin_analytics_path
         expect(page).to have_content("2 of them visited EasyPeasy last week")
       end
-      it "should say how many comments have been posted this week"
-      it "should say which post has the most comments this week"
+    end # game visits
+
+    describe "comment stats" do
+      before do
+        last_week = Date.today.midnight - 7.days
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 1", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 1", created_at: last_week)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 1", created_at: last_week)
+        Comment.create!(parent_id: parent4.id, pod_id: parent4.pod.id, game_id: game2.id, body: "Comment 1", created_at: last_week)
+        visit pod_admin_analytics_path
+      end
+
+      it "should say how many comments were posted last week" do
+        expect(page).to have_content("Your pod posted 3 messages")
+      end
+
+      it "should say which post has the most comments this week" do
+        expect(page).to have_content("Game 1 had the most posts with 2 messages")
+      end
+    end
+
+    describe "no comments" do
+      it "should not say which the most commented game was" do
+        expect(page).to have_content("Your pod posted 0 messages")
+        expect(page).not_to have_content("had the most posts with")
+      end
+
       it "should say who in the pod has posted the most comments"
       it "should show the latest 5 comments and no more"
       it "should show a link to view all comments"

@@ -6,7 +6,15 @@
 <%-
     most_popular_game_last_week = @pod.most_popular_games("last_week")[0]["game_name"]
     most_popular_game_all_time  = @pod.most_popular_games("all_time")[0]["game_name"]
+    most_commented_game_last_week = @pod.most_commented_games("last_week")[0]
     also = (most_popular_game_last_week == most_popular_game_all_time)
 %>
 
 <p>Of the <%= @pod.parents.count %> parents in your pod, <%= @pod.parents_who_visited("last_week").count %> of them visited EasyPeasy last week. The most visited game was <%= most_popular_game_last_week %>, and the most popular game so far is <%= "also " if also %><%= most_popular_game_all_time %>.</p>
+
+<p>
+  Your pod posted <%= @pod.comments_last_week.count %> messages last week.
+  <%- unless most_commented_game_last_week["comments"] == 0 %>
+    <%= most_commented_game_last_week["game_name"] %> had the most posts with <%= most_commented_game_last_week["comments"] %> messages.
+  <%- end %>
+</p>

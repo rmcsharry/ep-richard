@@ -54,4 +54,23 @@ class Pod < ActiveRecord::Base
     end
   end
 
+  def comments_last_week
+    start_date = Date.today.midnight - 7.days
+    end_date = Date.today.midnight
+    Comment.where(pod_id: self.id, created_at: start_date..end_date)
+  end
+
+  def most_commented_games(timescale)
+    if timescale == "last_week"
+      start_date = Date.today.midnight - 7.days
+      end_date = Date.today.midnight
+      results = []
+      Game.all.each do |game|
+        comments_for_game = Comment.where(pod_id: self.id, game_id: game.id, created_at: start_date..end_date).count
+        results.push({ "game_name" => game.name, "comments" => comments_for_game })
+      end
+      results.sort_by { |k| k["comments"] }.reverse
+    end
+  end
+
 end
