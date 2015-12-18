@@ -164,7 +164,13 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("1 person might be a bit shy and hasn't commented yet: Basil Safwat.")
       end
 
-      it "should omit the sentence when everyone has commented"
+      it "should omit the sentence when everyone has commented" do
+        expect(page).to have_content("a bit shy")
+        Comment.create!(parent_id: parent2.id, body: "Hello")
+        Comment.create!(parent_id: parent3.id, body: "Hello")
+        visit pod_admin_analytics_path
+        expect(page).not_to have_content("a bit shy")
+      end
       it "should be able to handle a situation where no one has commented yet"
       it "should correctly pluralize 'people have commented"
       it "should say what the next game to be released will be"
