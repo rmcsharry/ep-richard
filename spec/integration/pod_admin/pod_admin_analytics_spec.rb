@@ -58,25 +58,15 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(ParentVisitLog.count).to eq(1)
       end
 
-      it "should say what the most visited game is" do
-        visit "/#/#{parent1.slug}/game/#{game1.id}"
-        visit pod_admin_analytics_path
-        visit "/#/#{parent1.slug}/game/#{game2.id}"
-        visit pod_admin_analytics_path
-        visit "/#/#{parent1.slug}/game/#{game1.id}"
-        visit pod_admin_analytics_path
-        expect(page).to have_content("The most visited game was Game 1")
-      end
-
       describe "most visited game stat" do
         before do
           last_week = Date.today.midnight - 7.days
           this_week = Date.today + 1.hour
-          # Three of game 1 last week
+          # Two of game 1 last week
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, created_at: last_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: last_week)
-          # Two of game 2 this week
+          # Three of game 2 this week
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
           ParentVisitLog.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, created_at: this_week)
@@ -121,11 +111,11 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       end
 
       it "should say how many comments were posted last week" do
-        expect(page).to have_content("Your pod posted 3 messages")
+        expect(page).to have_content("Your pod posted 7 messages")
       end
 
       it "should say which post has the most comments this week" do
-        expect(page).to have_content("Game 1 had the most posts with 2 messages")
+        expect(page).to have_content("Game 1 had the most posts with 6 messages")
       end
 
       it "should say who in the pod has posted the most comments" do
@@ -141,6 +131,14 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).not_to have_content("Comment 6")
         expect(page).not_to have_content("Comment 7")
       end
+
+      it "should show a link to view all comments"
+      it "should say who hasn't yet commented"
+      it "should omit the sentence when everyone has commented"
+      it "should be able to handle a situation where no one has commented yet"
+      it "should correctly pluralize 'people have commented"
+      it "should say what the next game to be released will be"
+      it "should handle the case where there are no more games to be released"
     end
 
     describe "no comments" do
@@ -151,15 +149,7 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       it "should not say who in the pod has posted the most comments" do
         expect(page).not_to have_content("The most chatty member of your pod was Jen Lexmond")
       end
-
-      it "should show a link to view all comments"
-      it "should say who hasn't yet commented"
-      it "should omit the sentence when everyone has commented"
-      it "should be able to handle a situation where no one has commented yet"
-      it "should correctly pluralize 'people have commented"
-      it "should say what the next game to be released will be"
-      it "should handle the case where there are no more games to be released"
     end
-  end
 
+  end
 end
