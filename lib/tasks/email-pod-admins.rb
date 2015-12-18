@@ -1,3 +1,4 @@
+# x rails runner lib/tasks/email-pod-admins.rb
 puts "\n== Sending out pod admin emails #{Time.now}\n\n"
 
 PodAdmin.all.limit(9).each do |pod_admin|
