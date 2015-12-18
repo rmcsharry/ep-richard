@@ -109,7 +109,7 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         # not in pod
         Comment.create!(parent_id: parent4.id, pod_id: parent4.pod.id, game_id: game2.id, body: "Comment 8", created_at: last_week)
         # created now
-        Comment.create!(parent_id: parent4.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 9", created_at: Date.today)
+        Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 9", created_at: Date.today - 1.hour)
         visit pod_admin_analytics_path
       end
 
@@ -154,7 +154,8 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("Comment 9")
       end
 
-      it "should say who hasn't yet commented"
+      it "should say who hasn't yet commented" do
+      end
       it "should omit the sentence when everyone has commented"
       it "should be able to handle a situation where no one has commented yet"
       it "should correctly pluralize 'people have commented"
