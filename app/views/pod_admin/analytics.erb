@@ -12,6 +12,7 @@
     most_chatty_parent_last_week = @pod.most_chatty_parents("last_week")[0]["parent_name"]
     comments_last_week = Comment.where(pod_id: @pod.id, created_at: start_date..end_date).order("created_at DESC")
     also = (most_popular_game_last_week == most_popular_game_all_time)
+    not_commented = Parent.not_commented(@pod.id)
 %>
 
 <p>
@@ -37,6 +38,13 @@
   <% end %>
   </ul>
   <p><%= link_to "View all chats...", pod_admin_comments_path %></p>
-
+  <%- if not_commented.count != 0 %>
+  <p>
+  <%= pluralize(not_commented.count, 'person') %> might be a bit shy and <%- if not_commented.count == 1 %>hasn't<%- else %>haven't<%- end %> commented yet:
+    <%- not_commented.each_with_index do |parent, index| %>
+      <%= parent.name %><%- if index+1 < not_commented.count %>, <%- else %>.<%- end %>
+    <%- end %>
+  <p>
+  <%- end %>
 </p>
 <%- end %>

@@ -155,6 +155,13 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       end
 
       it "should say who hasn't yet commented" do
+        expect(page).to have_content("2 people might be a bit shy and haven't commented yet: Basil Safwat, Gabi Miller.")
+      end
+
+      it "should say who hasn't yet commented if only one person hasn't commented" do
+        Parent.where(id: parent3.id)[0].destroy
+        visit pod_admin_analytics_path
+        expect(page).to have_content("1 person might be a bit shy and hasn't commented yet: Basil Safwat.")
       end
 
       it "should omit the sentence when everyone has commented"

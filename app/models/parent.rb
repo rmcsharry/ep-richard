@@ -78,4 +78,13 @@ class Parent < ActiveRecord::Base
     end
   end
 
+  def self.not_commented(pod)
+    parents = Parent.where(pod: pod)
+    not_commented = []
+    parents.each do |p|
+      not_commented.append(p) if p.comments.count == 0
+    end
+    not_commented
+  end
+
 end
