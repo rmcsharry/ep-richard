@@ -106,7 +106,10 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 5", created_at: last_week)
         Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game1.id, body: "Comment 6", created_at: last_week)
         Comment.create!(parent_id: parent1.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 7", created_at: last_week)
+        # not in pod
         Comment.create!(parent_id: parent4.id, pod_id: parent4.pod.id, game_id: game2.id, body: "Comment 8", created_at: last_week)
+        # created now
+        Comment.create!(parent_id: parent4.id, pod_id: parent1.pod.id, game_id: game2.id, body: "Comment 9", created_at: Date.today)
         visit pod_admin_analytics_path
       end
 
@@ -130,9 +133,27 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("Comment 5")
         expect(page).not_to have_content("Comment 6")
         expect(page).not_to have_content("Comment 7")
+        expect(page).not_to have_content("Comment 8")
+        expect(page).not_to have_content("Comment 9")
       end
 
-      it "should show a link to view all comments"
+      it "should show a link to view all comments" do
+        expect(page).to have_content("View all chats...")
+      end
+
+      it "should show all comments when the link is clicked" do
+        click_link "View all chats..."
+        expect(page).to have_content("Comment 1")
+        expect(page).to have_content("Comment 2")
+        expect(page).to have_content("Comment 3")
+        expect(page).to have_content("Comment 4")
+        expect(page).to have_content("Comment 5")
+        expect(page).to have_content("Comment 6")
+        expect(page).to have_content("Comment 7")
+        expect(page).not_to have_content("Comment 8")
+        expect(page).to have_content("Comment 9")
+      end
+
       it "should say who hasn't yet commented"
       it "should omit the sentence when everyone has commented"
       it "should be able to handle a situation where no one has commented yet"

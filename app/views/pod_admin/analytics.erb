@@ -31,10 +31,12 @@
 <%- unless most_commented_game_last_week["comments"] == 0 %>
 <p>
   Here are a few chats they had.
-  <% comments_last_week.limit(5).each do |comment| %>
   <ul>
+  <% comments_last_week.limit(5).each do |comment| %>
     <li><%= comment.body %></li>
-  </ul>
   <% end %>
+  </ul>
+  <p><%= link_to "View all chats...", pod_admin_comments_path %></p>
+
 </p>
 <%- end %>

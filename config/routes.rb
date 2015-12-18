@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     get '/', to: :index
     get '/dashboard', to: :dashboard
     get '/analytics', to: :analytics
+    get '/comments', to: :comments
     resources :parents
     resources :games
   end

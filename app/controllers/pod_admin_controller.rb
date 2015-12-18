@@ -10,6 +10,10 @@ class PodAdminController < ApplicationController
     @pod = current_admin.pod
   end
 
+  def comments
+    @comments = Comment.where(pod_id: current_admin.pod)
+  end
+
   def set_go_live_date_for_pod
     @pod = Pod.find(params[:id])
 
