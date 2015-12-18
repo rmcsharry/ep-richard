@@ -10,3 +10,7 @@ every 1.day, :at => '4:30 pm' do
   command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-parents.rb"
   command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/notify-basil.rb"
 end
+
+every 1.day, :at => '8:30 am' do
+  command "cd #{path} && /usr/local/bin/bundle exec rails runner -e production lib/tasks/email-pod-admins.rb"
+end

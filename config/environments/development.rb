@@ -37,11 +37,11 @@ Rails.application.configure do
 
   # Email
   config.action_mailer.smtp_settings = {
-    :user_name => "hello@easypeasyapp.com",
-    :password => 'KW7bBN3bw',
-    :address => 'smtp.gmail.com',
+    :user_name => "6711ed07-373b-4599-8419-72f76829e166",
+    :password => '6711ed07-373b-4599-8419-72f76829e166',
+    :address => 'smtp.postmarkapp.com',
     :port => 587,
-    :domain => "gmail.com",
+    # :domain => "gmail.com",
     :authentication => "plain",
     :enable_starttls_auto => true
   }
