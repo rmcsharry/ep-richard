@@ -48,3 +48,15 @@
   <%- end %>
 </p>
 <%- end %>
+
+<%# Next game to be released ==================== %>
+<%-
+
+  next_game = Game.non_default[@pod.week_number - 1]
+
+%>
+<%- if next_game %>
+<p>The next game released will be <%= next_game.name %>.</p>
+<%- end %>
+
+<p>Have a nice week!</p>

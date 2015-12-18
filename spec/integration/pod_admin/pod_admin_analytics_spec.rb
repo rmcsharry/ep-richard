@@ -2,7 +2,7 @@ require "rails_helper"
 
 RSpec.describe "Analytics email", :js => true, :type => :feature do
 
-  let!(:pod)        { Fabricate(:pod, name: 'Brockley Pod') }
+  let!(:pod)        { Fabricate(:pod, name: 'Brockley Pod', go_live_date: Date.today.midnight - 7.days) }
   let!(:pod_admin)  { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
   let!(:parent1)    { Fabricate(:parent, name: 'Jen Lexmond', phone: '07515444444', pod: pod ) }
   let!(:parent2)    { Fabricate(:parent, name: 'Basil Safwat', phone: '07515444445', pod: pod ) }
@@ -12,7 +12,8 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
   let!(:parent4)    { Fabricate(:parent, name: 'James Smith', phone: '07515444447', pod: pod2 ) }
   # game
   let!(:game1) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
-  let!(:game2) { Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true) }
+  let!(:game2) { Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: false) }
+  let!(:game3) { Fabricate(:game, name: "Game 3", description: "Game 3 desc", in_default_set: false) }
 
   before do
     login_as_specific_pod_admin(pod_admin)
@@ -171,10 +172,19 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         visit pod_admin_analytics_path
         expect(page).not_to have_content("a bit shy")
       end
+
+      it "should say what the next game to be released will be" do
+        expect(page).to have_content("next game released will be Game 2")
+      end
+
+      it "should handle the case where there are no more games to be released" do
+        pod.go_live_date = Date.today.midnight - 3*7.days
+        pod.save
+        visit pod_admin_analytics_path
+        expect(page).not_to have_content("next game released will be")
+      end
+
       it "should be able to handle a situation where no one has commented yet"
-      it "should correctly pluralize 'people have commented"
-      it "should say what the next game to be released will be"
-      it "should handle the case where there are no more games to be released"
     end
 
     describe "no comments" do
