@@ -176,7 +176,7 @@
                                                       <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                                           <tr>
                                                               <td>
-                                                                  <a href="http://alistapart.com/article/can-email-be-responsive/" target="_blank"><img src="img/responsive-email.jpg" width="500" height="200" border="0" alt="Can an email really be responsive?" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px; height: 200px;" class="img-max"></a>
+                                                                  <a href="http://alistapart.com/article/can-email-be-responsive/" target="_blank"><img src="img/responsive-email.jpg" width="500" height="200" border="0" alt="" style="display: block; padding: 0; color: #666666; text-decoration: none; font-family: Helvetica, arial, sans-serif; font-size: 16px; width: 500px; height: 6px;" class="img-max"></a>
                                                               </td>
                                                             </tr>
                                                         </table>
@@ -191,16 +191,30 @@
                                     <!-- COPY -->
                                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                                         <tr>
-                                          <td align="center" style="font-size: 25px; font-family: Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px;" class="padding-copy"><%= @pod.name%>'s weekly report</td>
+                                          <td align="center" style="font-size: 25px; font-family: Lato, Helvetica, Arial, sans-serif; color: #333333; padding-top: 30px; font-weight: bold;" class="padding-copy"><%= @pod.name%>'s weekly report</td>
                                         </tr>
                                         <tr>
-                                          <td align="center" style="padding: 20px 0 0 0; font-size: 16px; line-height: 25px; font-family: Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy"><%= (Date.yesterday - 7.days).strftime("%A, %b %d") %> &mdash; <%= Date.yesterday.strftime("%A, %b %d") %></td>
+                                          <td align="center" style="padding: 10px 0 0 0; font-size: 16px; line-height: 25px; font-family: Lato, Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy"><%= (Date.yesterday - 7.days).strftime("%A, %b %d") %> &mdash; <%= Date.yesterday.strftime("%A, %b %d") %></td>
 
                                         </tr>
                                         <tr>
-                                          <td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                                            Of the <b class="highlight"><%= @pod.parents.count %> parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %> of them</b> visited EasyPeasy last week. The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.
+                                          <td align="left" style="padding: 20px 0 0 0; font-size: 16px; line-height: 24px; font-family: Lato, Helvetica, Arial, sans-serif; color: #666666;" class="padding-copy">Hello! Here is what happened in your pod last week. If you want to get in touch with us, just reply to this email.</td>
+
+                                        </tr>
+                                        <tr>
+                                          <td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                                            Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week. The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.
                                           </td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                                            Your pod posted <b class="highlight"><%= @pod.comments_last_week.count %>&nbsp;messages</b> last week.
+
+  <%- unless most_commented_game_last_week["comments"] == 0 %>
+    <%= most_commented_game_last_week["game_name"] %> had the most posts with <b class="highlight"><%= most_commented_game_last_week["comments"] %>&nbsp;messages</b>.
+    The most chatty member of your pod was <b class="highlight"><%= most_chatty_parent_last_week %></b>.
+  <%- end %>
+</td>
                                         </tr>
                                     </table>
                                 </td>
