@@ -28,3 +28,7 @@ See `docs` folder for more documentation.
 Use `rails runner`, for example:
 
     bundle exec foreman run rails runner lib/tasks/notify-parents.rb
+
+### Test emails locally
+
+    http://easypeasy.dev:3000/rails/mailers/
