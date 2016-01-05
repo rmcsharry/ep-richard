@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe "Go live", :js => false, :type => :feature do
+RSpec.describe "Go live", :js => true, :type => :feature do
 
   describe "the go live date for a pod" do
 
@@ -13,6 +13,7 @@ RSpec.describe "Go live", :js => false, :type => :feature do
       pod = Pod.create!(name: "New pod")
       pod_admin = Fabricate(:pod_admin, pod: pod)
       login_as_specific_pod_admin(pod_admin)
+      click_link "click here"
       expect(page).to have_button("Make this pod live")
     end
 
@@ -21,6 +22,7 @@ RSpec.describe "Go live", :js => false, :type => :feature do
         pod = Pod.create!(name: "New pod")
         pod_admin = Fabricate(:pod_admin, pod: pod)
         login_as_specific_pod_admin(pod_admin)
+        click_link "click here"
         click_button "Make this pod live"
       end
 
