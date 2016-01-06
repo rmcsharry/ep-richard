@@ -40,72 +40,56 @@
 
                     <!-- parents who visited row -->
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                      Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week. The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.
-                    </td></tr>
+                        Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week. The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.
+                      </td></tr>
 
-                    <!-- comments stats row -->
-                    <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                        Your pod posted <b class="highlight"><%= pluralize(@pod.comments_last_week.count, 'message') %></b> last week.
-                      <%- unless most_commented_game_last_week["comments"] == 0 %>
-                      <%= most_commented_game_last_week["game_name"] %> had the most posts with <b class="highlight"><%= pluralize(most_commented_game_last_week["comments"], 'message') %></b>. The most chatty member of your pod was <b class="highlight"><%= most_chatty_parent_last_week %></b>.
-                      <%- end %>
-                    </td></tr>
+                      <!-- comments stats row -->
+                      <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                          Your pod posted <b class="highlight"><%= pluralize(@pod.comments_last_week.count, 'message') %></b> last week.
+                          <%- unless most_commented_game_last_week["comments"] == 0 %>
+                            <%= most_commented_game_last_week["game_name"] %> had the most posts with <b class="highlight"><%= pluralize(most_commented_game_last_week["comments"], 'message') %></b>. The most chatty member of your pod was <b class="highlight"><%= most_chatty_parent_last_week %></b>.
+                          <%- end %>
+                        </td></tr>
 
-                    <!-- some chats row -->
-                    <%- unless most_commented_game_last_week["comments"] == 0 %>
+                        <!-- some chats row -->
+                        <%- unless most_commented_game_last_week["comments"] == 0 %>
 
-                    <tr><td align="left" style="padding: 20px 0 30px 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                      Here are a few chats they had:
-                    </td></tr>
+                          <tr><td align="left" style="padding: 20px 0 30px 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                              Here are a few chats they had:
+                            </td></tr>
 
-                    <tr><td align="left" style="padding: 0 0 0 10px; font-size: 16px; line-height: 24px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E; border-left: 2px solid #8CC63F;" class="padding-copy">
-                      <% comments_last_week.limit(5).each do |comment| %>
-                      <p style="margin: 0;"><b class="highlight"><%= comment.parent.name %></b> on <%= comment.game.name %></p>
-                      <p style="margin: 0 0 20px 0; color: #353637;"><%= comment.body %></p>
-                      <% end %>
-                      <p style="margin: 0">
-                        <%= link_to "View all chats...", pod_admin_comments_path, style: "text-decoration: none; color: #4A90E2;" %>
-                      </p>
-                    </td></tr>
+                            <tr><td align="left" style="padding: 0 0 0 10px; font-size: 16px; line-height: 24px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E; border-left: 2px solid #8CC63F;" class="padding-copy">
+                                <% comments_last_week.limit(5).each do |comment| %>
+                                  <p style="margin: 0;"><b class="highlight"><%= comment.parent.name %></b> on <%= comment.game.name %></p>
+                                  <p style="margin: 0 0 20px 0; color: #353637;"><%= comment.body %></p>
+                                <% end %>
+                                <p style="margin: 0">
+                                <%= link_to "View all chats...", pod_admin_comments_path, style: "text-decoration: none; color: #4A90E2;" %>
+                                </p>
+                              </td></tr>
 
-                    <%- if not_commented.count != 0 && not_commented.count < 15 %>
-                    <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                        <p>
-                        <%= pluralize(not_commented.count, 'person') %> might be a bit shy and <%- if not_commented.count == 1 %>hasn't<%- else %>haven't<%- end %> commented yet:
-                        <%- not_commented.each_with_index do |parent, index| %>
-                          <%= parent.name %><%- if index+1 < not_commented.count %>, <%- else %>.<%- end %>
-                        <%- end %>
-                        </p>
-                    </td></tr>
-                    <%- end %>
+                              <%- if not_commented.count != 0 && not_commented.count < 15 %>
+                                <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                                    <p>
+                                    <%= pluralize(not_commented.count, 'person') %> might be a bit shy and <%- if not_commented.count == 1 %>hasn't<%- else %>haven't<%- end %> commented yet:
+                                    <%- not_commented.each_with_index do |parent, index| %>
+                                      <%= parent.name %><%- if index+1 < not_commented.count %>, <%- else %>.<%- end %>
+                                    <%- end %>
+                                    </p>
+                                  </td></tr>
+                                <%- end %>
 
-                    <%- end %>
+                              <%- end %>
 
                   </table>
                 </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <!-- BULLETPROOF BUTTON -->
-                          <table width="100%" border="0" cellspacing="0" cellpadding="0" class="mobile-button-container">
-                            <tr>
-                              <td align="center" style="padding: 25px 0 0 0;" class="padding-copy">
-                                <table border="0" cellspacing="0" cellpadding="0" class="responsive-table">
-                                  <tr>
-                                    <td align="center"><a href="http://play.easypeasyapp.com/pod_admin/comments" target="_blank" style="font-size: 16px; font-family: Helvetica, Arial, sans-serif; font-weight: normal; color: #ffffff; text-decoration: none; background-color: #5D9CEC; border-top: 15px solid #5D9CEC; border-bottom: 15px solid #5D9CEC; border-left: 25px solid #5D9CEC; border-right: 25px solid #5D9CEC; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; display: inline-block;" class="mobile-button">All Comments &rarr;</a></td>
-                                  </tr>
-                                </table>
-                              </td>
-                            </tr>
-                          </table>
-                        </td>
-                      </tr>
+              </tr>
             </table>
           </td>
-              </tr>
+        </tr>
       </table>
     </td>
-        </tr>
+  </tr>
 </table>
 
 <!-- FOOTER -->
