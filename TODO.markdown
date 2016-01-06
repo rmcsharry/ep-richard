@@ -2,6 +2,8 @@
 
 Next:
 
+- Pluralise all the things (messages)
+- Reverse order of messages
 - Finalise email, especially the comments list and link
 
 Then:
