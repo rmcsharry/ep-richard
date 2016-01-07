@@ -1,7 +1,9 @@
 # To do
 
+- Put it on prod! Just still sending only to us. With a daily send.
 - Put some tests in for next game released
 - Transfer the email styling to the comments page
+- Add a 'last notified' column for the pod admins
 
 Before merging:
 
