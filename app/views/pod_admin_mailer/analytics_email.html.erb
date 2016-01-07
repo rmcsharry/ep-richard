@@ -5,7 +5,7 @@
     most_popular_game_all_time  = @pod.most_popular_games("all_time")[0]["game_name"]
     most_commented_game_last_week = @pod.most_commented_games("last_week")[0]
     most_chatty_parent_last_week = @pod.most_chatty_parents("last_week")[0]["parent_name"]
-    comments_last_week = Comment.where(pod_id: @pod.id, created_at: start_date..end_date).order("created_at DESC")
+    comments_last_week = Comment.where(pod_id: @pod.id, created_at: start_date..end_date).order("created_at ASC")
     also = (most_popular_game_last_week == most_popular_game_all_time)
     not_commented = Parent.not_commented(@pod.id)
 %>
@@ -40,7 +40,8 @@
 
                     <!-- parents who visited row -->
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                      Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week. The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.
+                        Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week.
+                        <%- if @pod.parents_who_visited("last_week").count > 0 %>The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.<%- end %>
                     </td></tr>
 
                     <!-- comments stats row -->
@@ -93,7 +94,7 @@
 </table>
 
 <!-- FOOTER -->
-<%= render "pod_admin_mailer/header" %>
+<%= render "pod_admin_mailer/footer" %>
 
 </body>
 </html>
