@@ -1,7 +1,7 @@
 # To do
 
-- Figure out the 'next game released' code
-- Work on a very basic design for the comments list page
+- Put some tests in for next game released
+- Transfer the email styling to the comments page
 
 Before merging:
 

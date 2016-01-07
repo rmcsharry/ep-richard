@@ -19,6 +19,22 @@ class Pod < ActiveRecord::Base
     ((Date.today - pod_go_live_date)/7).to_i
   end
 
+  def current_game
+    non_default_games = Game.where("in_default_set = false").order("position ASC")
+    next_game = non_default_games[self.week_number-1]
+    return next_game.name if next_game
+  end
+
+  def next_game
+    non_default_games = Game.where("in_default_set = false").order("position ASC")
+    next_game = non_default_games[self.week_number]
+    if next_game
+      return next_game.name
+    else
+      return nil
+    end
+  end
+
   def parents_who_visited(timescale)
     if timescale == "last_week"
       start_date = Date.today.midnight - 7.days
