@@ -6,7 +6,7 @@
     <h4>Default set</h4>
     <div class="list-group">
     <%- @default_games.each_with_index do |game, index| %>
-      <%= render 'shared/admin_game_item', object: game %>
+      <%= render 'shared/admin_game_item', object: game, default: true %>
     <%- end %>
     </div>
   </div>
@@ -17,7 +17,7 @@
     <h4>Games released weekly</h4>
     <div class="list-group">
     <%- @weekly_games.each_with_index do |game, index| %>
-      <%= render 'shared/admin_game_item', object: game %>
+      <%= render 'shared/admin_game_item', object: game, default: false, week: index+1 %>
     <%- end %>
     </div>
   </div>
