@@ -1,6 +1,5 @@
 # To do
 
-- Put it on prod! Just still sending only to us. With a daily send.
 - Put some tests in for next game released (email text)
 - Fix that deprecation warning on the pod admin tests
 - Check lato is actually on in that email
