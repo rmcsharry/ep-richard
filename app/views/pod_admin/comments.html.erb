@@ -1,0 +1,36 @@
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic');
+  .comments {
+    list-style-type: none;
+    margin: 20px 0 0 10px;
+    padding: 0;
+    width: 500px;
+    color: #7E7E7E;
+    font-size: 16px;
+    line-height: 24px;
+    font-family: Lato, Helvetica, Arial, sans-serif;
+  }
+
+  .comments-comment {
+    margin: 0;
+    padding: 0 0 0 10px;
+    border-left: 2px solid #8CC63F;
+    margin-bottom: 25px;
+  }
+
+  .comments-comment .highlight {
+    color: #353637!important;
+  }
+
+</style>
+
+<h1>Comments</h1>
+
+<ul class="comments">
+<%- @comments.each do |comment| %>
+  <li class="comments-comment">
+    <p><b class="highlight"><%= comment.parent.name %></b> on <%= comment.game.name %></p>
+    <p><%= comment.body %></p>
+  </li>
+<%- end %>
+</ul>

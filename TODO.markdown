@@ -4,8 +4,8 @@
 - What is the postmark account? You couldn't find it before
 - Put it on prod! Just still sending only to us. With a daily send.
 - Put some tests in for next game released (email text)
-- Transfer the email styling to the comments page
 - Fix that deprecation warning on the pod admin tests
+- Check lato is actually on in that email
 
 Test to look at:
 
