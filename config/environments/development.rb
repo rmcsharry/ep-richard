@@ -41,7 +41,6 @@ Rails.application.configure do
     :password => '6711ed07-373b-4599-8419-72f76829e166',
     :address => 'smtp.postmarkapp.com',
     :port => 587,
-    # :domain => "gmail.com",
     :authentication => "plain",
     :enable_starttls_auto => true
   }

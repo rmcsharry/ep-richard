@@ -1,11 +1,10 @@
 # To do
 
-- Do you need to add the postmark config to config/environments/production.rb?
-- What is the postmark account? You couldn't find it before
 - Put it on prod! Just still sending only to us. With a daily send.
 - Put some tests in for next game released (email text)
 - Fix that deprecation warning on the pod admin tests
 - Check lato is actually on in that email
+- Test error emails are still being sent
 
 Test to look at:
 
@@ -19,7 +18,3 @@ Before merging:
 - Look through all the commits in this branch before merging
 - Send the first batch only to hello@easypeasy and bsafwat@gmail and check before sending out for real
 - So send out manually for the first week or two
-
-Later:
-
-- Allow pod admins to delete comments
