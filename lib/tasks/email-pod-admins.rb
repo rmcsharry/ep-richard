@@ -1,7 +1,7 @@
 # x rails runner lib/tasks/email-pod-admins.rb
 puts "\n== Sending out pod admin emails #{Time.now}\n\n"
 
-PodAdmin.all.limit(4).each do |pod_admin|
+PodAdmin.all.each do |pod_admin|
   if pod_admin.send_analytics_email
     puts "  - SENT EMAIL: #{pod_admin.email}"
   else
