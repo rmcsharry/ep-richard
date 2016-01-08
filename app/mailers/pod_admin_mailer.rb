@@ -4,6 +4,5 @@ class PodAdminMailer < ApplicationMailer
     @pod = @pod_admin.pod
     subject = 'EasyPeasy weekly report'
     mail(to: 'bsafwat@gmail.com', subject: subject)
-    mail(to: 'hello@easypeasyapp.com', subject: subject)
   end
 end
