@@ -22,6 +22,19 @@
     color: #353637!important;
   }
 
+  .comments-comment input[type='submit'] {
+    background: transparent;
+    border: 0 none;
+    padding: 0;
+    margin: 0;
+    color: #800000;
+    font-size: 12px;
+  }
+
+  .comments-comment input[type='submit']:hover {
+    color: red;
+  }
+
 </style>
 
 <h1>Comments</h1>
@@ -31,6 +44,7 @@
   <li class="comments-comment">
     <p><b class="highlight"><%= comment.parent.name %></b> on <%= comment.game.name %></p>
     <p><%= comment.body %></p>
+    <p><%= button_to "delete", comment, :method => :delete %></p>
   </li>
 <%- end %>
 </ul>
