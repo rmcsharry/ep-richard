@@ -1,8 +1,18 @@
 # To do
 
+- Do you need to add the postmark config to config/environments/production.rb?
+- What is the postmark account? You couldn't find it before
 - Put it on prod! Just still sending only to us. With a daily send.
-- Put some tests in for next game released
+- Put some tests in for next game released (email text)
 - Transfer the email styling to the comments page
+- Fix that deprecation warning on the pod admin tests
+
+Test to look at:
+
+      it "should say what the next game to be released will be" do
+        expect(page).to have_content("next game released will be Game 2")
+      end
+
 
 Before merging:
 
