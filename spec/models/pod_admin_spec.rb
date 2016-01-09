@@ -5,10 +5,10 @@ RSpec.describe PodAdmin, :type => :model do
   describe "sending out the analytics email" do
     let(:pod) { Fabricate(:pod) }
     let(:pod_admin) { Fabricate(:pod_admin, pod: pod) }
-    
+
     before do
-      PodAdminMailer.stub(:analytics_email).and_return(true)
-      PodAdminMailer.analytics_email.stub(:deliver).and_return(true)
+      allow(PodAdminMailer).to receive(:analytics_email).and_return(true)
+      allow(PodAdminMailer.analytics_email).to receive(:deliver).and_return(true)
     end
 
     describe "when a pod is not live" do
