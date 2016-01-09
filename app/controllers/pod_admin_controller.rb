@@ -2,10 +2,6 @@ class PodAdminController < ApplicationController
   before_filter :pod_admin_login_required
   layout 'admin'
 
-  def test
-    raise "Test error"
-  end
-
   def index
     redirect_to pod_admin_dashboard_path if current_admin.pod && current_admin.pod.go_live_date
   end
