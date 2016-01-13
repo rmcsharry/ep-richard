@@ -1,8 +1,6 @@
 # To do
 
 - Put some tests in for next game released (email text)
-- Check lato is actually on in that email
-- Test error emails are still being sent
 
 Test to look at:
 
