@@ -8,6 +8,8 @@
     comments_last_week = Comment.where(pod_id: @pod.id, created_at: start_date..end_date).order("created_at ASC")
     also = (most_popular_game_last_week == most_popular_game_all_time)
     not_commented = Parent.not_commented(@pod.id)
+    parents_who_visited = Parent.find(@pod.parents_who_visited("last_week"))
+    parents_who_did_not_visit = Parent.find(@pod.parents_who_did_not_visit("last_week"))
 %>
 
 <!DOCTYPE html>
@@ -40,10 +42,34 @@
 
                     <!-- parents who visited row -->
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                        Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= @pod.parents_who_visited("last_week").count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week.
-                        <%- if @pod.parents_who_visited("last_week").count > 0 %>The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.<%- end %>
+                        Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= parents_who_visited.count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week.
+                        <%- if parents_who_visited.count > 0 %>The most visited game was <b class="highlight"><%= most_popular_game_last_week %></b>, and the most popular game so far is <%= "also " if also %><b class="highlight"><%= most_popular_game_all_time %></b>.<%- end %>
                     </td></tr>
 
+					<!-- list of parents who DID visit row -->
+                    <%- if parents_who_visited.count > 0 %>
+                    <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                        The <b class="highlight"><%= pluralize(parents_who_visited.count, 'parent') %>&nbsp;</b>who visited your Pod last week <%- if parents_who_visited.count > 1 %>were<%- else %>was<%- end %>:                      
+                        <b class="highlight">
+                        <%- parents_who_visited.each_with_index do |parent, index| %>
+                          <%= parent.name %><%- if index+1 < parents_who_visited.count %>, <%- else %>.<%- end %>
+                        <%- end %>           
+                        </b>                                      
+                    </td></tr>
+                    <%- end %>
+
+					<!-- list of parents who DID NOT visit row -->
+                    <%- if parents_who_did_not_visit.count > 0 %>
+                    <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+                        The <b class="highlight"><%= pluralize(parents_who_did_not_visit.count, 'parent') %>&nbsp;</b>who <b>did not</b> visit your Pod last week <%- if parents_who_did_not_visit.count > 1 %>were<%- else %>was<%- end %>:                       
+                        <b class="highlight">
+                        <%- parents_who_did_not_visit.each_with_index do |parent, index| %>
+                          <%= parent.name %><%- if index+1 < parents_who_did_not_visit.count %>, <%- else %>.<%- end %>
+                        <%- end %>           
+                        </b>             
+                    </td></tr>
+                    <%- end %>									
+					
                     <!-- comments stats row -->
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
                         Your pod posted <b class="highlight"><%= pluralize(@pod.comments_last_week.count, 'message') %></b> last week.
