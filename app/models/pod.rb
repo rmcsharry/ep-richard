@@ -48,6 +48,17 @@ class Pod < ActiveRecord::Base
       parents.append(log.parent_id)
     end
     return parents.uniq
+  end 
+  
+  def parents_who_did_not_visit(timescale)
+    # if no parents visited, we will just return all of them
+    parents = self.parents.ids
+
+    # get the parents who did visit
+    visited = self.parents_who_visited(timescale)
+    if !visited.nil?
+      return parents - visited # array subtraction works here as visited will always contain all or a subset of parents
+    end
   end
 
   def most_popular_games(timescale)
