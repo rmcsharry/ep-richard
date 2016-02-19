@@ -8,7 +8,7 @@
     comments_last_week = Comment.where(pod_id: @pod.id, created_at: start_date..end_date).order("created_at ASC")
     also = (most_popular_game_last_week == most_popular_game_all_time)
     not_commented = Parent.not_commented(@pod.id)
-    parents_who_visited = Parent.find(@pod.parents_who_visited("last_week"))
+    parents_who_visited = @pod.parents_who_visited("last_week")
     parents_who_did_not_visit = Parent.find(@pod.parents_who_did_not_visit("last_week"))
 %>
 
@@ -51,8 +51,8 @@
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
                         The <b class="highlight"><%= pluralize(parents_who_visited.count, 'parent') %>&nbsp;</b>who visited your Pod last week <%- if parents_who_visited.count > 1 %>were<%- else %>was<%- end %>:                      
                         <b class="highlight">
-                        <%- parents_who_visited.each_with_index do |parent, index| %>
-                          <%= parent.name %><%- if index+1 < parents_who_visited.count %>, <%- else %>.<%- end %>
+                        <%- parents_who_visited.each_with_index do |(parent, times), index| %>
+                          <%= Parent.find_by_id(parent).name %> (<%= times %> visits)<%- if index+1 < parents_who_visited.count %>, <%- else %>.<%- end %>
                         <%- end %>           
                         </b>                                      
                     </td></tr>

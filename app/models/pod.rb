@@ -47,15 +47,20 @@ class Pod < ActiveRecord::Base
     log_for_timescale.each do |log|
       parents.append(log.parent_id)
     end
-    return parents.uniq
+    # create a hash of parent_id and number of visits
+    parent_visits = Hash.new
+    parents.uniq.each do |parent_id|
+      parent_visits.store(parent_id, parents.count(parent_id))
+    end
+    return parent_visits.sort_by(&:last).reverse.to_h # sort in reverse order of number of visits
   end 
   
   def parents_who_did_not_visit(timescale)
     # if no parents visited, we will just return all of them
     parents = self.parents.ids
 
-    # get the parents who did visit
-    visited = self.parents_who_visited(timescale)
+    # get the parents who did visit as an array of their ids
+    visited = self.parents_who_visited(timescale).keys
     if !visited.nil?
       return parents - visited # array subtraction works here as visited will always contain all or a subset of parents
     end
