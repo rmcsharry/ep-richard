@@ -2,18 +2,26 @@ development:
   adapter: postgresql
   encoding: unicode
   database: easypeasy_development
-  username: basil
-  password: 
-  host: localhost
+  #username: basil
+  #password: 
+  #host: localhost
+  username: postgres
+  password: admin
+  host: <%= ENV['POSTGRES_IP'] %>
+  port: <%= ENV['POSTGRES_PORT'] %>
 
 test:
   adapter: postgresql
   encoding: unicode
   database: easypeasy_test
   pool: 5
-  username: basil
-  password: 
-  host: localhost
+  #username: basil
+  #password: 
+  #host: localhost
+  username: postgres
+  password: admin
+  host: <%= ENV['POSTGRES_IP'] %>
+  port: <%= ENV['POSTGRES_PORT'] %>  
 
 production:
   adapter: postgresql
@@ -21,3 +29,4 @@ production:
   database: easypeasy_production
   pool: 5
   username: easypeasy
+
