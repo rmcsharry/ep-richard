@@ -118,4 +118,7 @@ class Pod < ActiveRecord::Base
     end
   end
 
+  def latest_comment
+    self.comments.last
+  end
 end

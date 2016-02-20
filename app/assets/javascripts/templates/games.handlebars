@@ -4,6 +4,19 @@
   <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
 </div>
 
+<div>
+	<blockquote>
+		The most recent comment was from <strong>{{parent.pod_lc.parent.name}}</strong>
+	 	 on <strong>{{format-date parent.pod_lc.created_at}}</strong>
+	 	 at <strong>{{format-time parent.pod_lc.created_at}}:</strong>
+	 	<br/><br/>
+	 	<i>{{parent.pod_lc.body}}</i>
+	 	<br/><br/>
+	 	on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_lc.game_id}}">{{parent.pod_lc_game_name}}</a>
+	 </blockquote>
+</div>
+
+
 <ul class="gamesList">
 {{#each game in sortedGames}}
   {{#link-to 'game' game class='gameItem u-cf' tagName='li'}}
