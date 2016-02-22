@@ -5,15 +5,15 @@
 </div>
 
 <div>
-	<blockquote>
-		The most recent comment was from <strong>{{parent.pod_lc_parent_name}}</strong>
-	 	 on <strong>{{format-date parent.pod_lc.created_at}}</strong>
-	 	 at <strong>{{format-time parent.pod_lc.created_at}}:</strong>
-	 	<br/><br/>
-	 	<i>{{parent.pod_lc.body}}</i>
-	 	<br/><br/>
-	 	on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_lc.game_id}}">{{parent.pod_lc_game_name}}</a>
-	 </blockquote>
+  <blockquote>
+	The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
+	on <strong>{{format-date parent.pod_latest_comment.created_at}}</strong>
+	at <strong>{{format-time parent.pod_latest_comment.created_at}}:</strong>
+	<br/><br/>
+	<i>{{parent.pod_latest_comment.body}}</i>
+	<br/><br/>
+	on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game_id}}">{{parent.pod_latest_comment_game_name}}</a>
+   </blockquote>
 </div>
 
 
