@@ -10,10 +10,14 @@ class ParentSerializer < ActiveModel::Serializer
   end
   
   def pod_latest_comment_parent_name
-    object.pod.latest_comment.parent.name
+    if !object.pod.latest_comment.nil?
+      object.pod.latest_comment.parent.name
+    end
   end
   
   def pod_latest_comment_game_name
-    object.pod.latest_comment.game.name
+    if !object.pod.latest_comment.nil?
+      object.pod.latest_comment.game.name
+    end
   end
 end

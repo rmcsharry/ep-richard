@@ -4,6 +4,7 @@
   <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
 </div>
 
+{{#if parent.pod_latest_comment}}
 <div>
   <blockquote>
 	The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
@@ -15,6 +16,13 @@
 	on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game_id}}">{{parent.pod_latest_comment_game_name}}</a>
    </blockquote>
 </div>
+{{else}}
+<div>
+  <blockquote>
+	There are no comments on any of the games...yet!
+   </blockquote>
+</div>
+{{/if}}
 
 
 <ul class="gamesList">
