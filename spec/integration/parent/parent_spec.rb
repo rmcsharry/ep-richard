@@ -39,6 +39,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
     let!(:game) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
     let(:pod) { Fabricate(:pod, go_live_date: Date.today - 1.week) }
     let!(:parent) { Fabricate(:parent, pod: pod) }
+    let!(:parent2) { Fabricate(:parent, pod: pod) }
 
     it "should show them 1 extra game" do
       visit "/#/#{parent.slug}/games"
@@ -46,10 +47,11 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       expect(page).to have_content('Game 2')
     end
     
-    it "should show the latest comment from a parent in the same pod" do      
-      Fabricate(:comment, body: 'Here is my comment', parent: parent, game: game)
+    it "should show the latest comment from another parent in the same pod" do
+      latest_comment = 'Here is another parents latest comment'
+      Fabricate(:comment, body: latest_comment, parent: parent2, game: game)
       visit "/#/#{parent.slug}/games"
-      expect(page).to have_content('Here is my comment')
+      expect(page).to have_content(latest_comment)
     end
   end
 
