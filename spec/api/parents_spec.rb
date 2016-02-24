@@ -39,8 +39,12 @@ RSpec.describe "the parents API", :type => :request do
       
       parent_response = json(response.body)[:parent]
       pod_latest_comment = parent_response[:pod_latest_comment]
-
+      pod_latest_comment_parent_name = parent_response[:pod_latest_comment_parent_name]
+      pod_latest_comment_game_name = parent_response[:pod_latest_comment_game_name]
+      
       expect(pod_latest_comment[:id].as_json).to eq comment2.id
+      expect(pod_latest_comment_parent_name.as_json).to eq "Gerard" 
+      expect(pod_latest_comment_game_name.as_json).to eq "Test game"
     end
   end
   
