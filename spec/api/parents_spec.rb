@@ -4,13 +4,17 @@ RSpec.describe "the parents API", :type => :request do
 
   describe "parents dashboard" do
 
-    it "returns no latest comment when there are none" do
+    it "returns no latest comment when there are none for this parents pod" do
       game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
 
       pod1 = Pod.create!(name: "Pod 1")
+      pod2 = Pod.create!(name: "Pod 2")
       
       parent1 = Parent.create!(name: "Richard", phone: "07963250340", pod: pod1)
-      parent2 = Parent.create!(name: "Gerard", phone: "07963250340", pod: pod1)
+      parent2 = Parent.create!(name: "Gerard", phone: "07963250340", pod: pod2)
+      
+      latest_comment = "This is the latest comment on pod2"
+      comment = Comment.create!(body: latest_comment,   game: game, parent: parent2)
 
       get "api/parents/#{parent1.slug}"
       
