@@ -3,6 +3,15 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'twilio-ruby'
 
+ActiveSupport::Logger.class_eval do 
+  # monkey patching here so there aren't duplicate lines in console/server
+  # fixed in Rails 4.2, see https://github.com/rails/rails/pull/22592
+  def self.broadcast(logger) 
+    Module.new do
+    end
+  end
+end
+
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
@@ -14,6 +23,8 @@ module Easypeasy
       Devise::SessionsController.layout "admin"
       Devise::PasswordsController.layout "admin"
     end
+
+    config.logger.define_singleton_method(:extend) {|*args| }
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
