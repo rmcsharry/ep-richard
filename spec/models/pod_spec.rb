@@ -62,6 +62,23 @@ RSpec.describe Pod, :type => :model do
         expect(pod.parents_who_did_not_visit("all_time")).to eq []            
       end     
     end  # two parent context  
+
+    describe "returns latest comment" do
+      it "from a parent" do
+        game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
+  
+        pod1 = Pod.create!(name: "Pod 1")
+        
+        parent1 = Parent.create!(name: "Richard", phone: "07963250340", pod: pod1)
+        parent2 = Parent.create!(name: "Gerard", phone: "07963250340", pod: pod1)
+  
+        latest_comment = "This is the latest comment"
+        comment1 = Comment.create!(body: "Hello", game: game, parent: parent1)
+        comment2 = Comment.create!(body: latest_comment,   game: game, parent: parent2)
+        
+        expect(pod1.latest_comment.body).to include(latest_comment)
+      end
+    end
     
     private
     def log_a_visit(parent)

@@ -4,6 +4,27 @@
   <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
 </div>
 
+{{#if parent.pod_latest_comment}}
+<div>
+  <blockquote>
+	The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
+	on <strong>{{format-date parent.pod_latest_comment.created_at}}</strong>
+	at <strong>{{format-time parent.pod_latest_comment.created_at}}:</strong>
+	<br/><br/>
+	<i>{{parent.pod_latest_comment.body}}</i>
+	<br/><br/>
+	on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game_id}}">{{parent.pod_latest_comment_game_name}}</a>
+   </blockquote>
+</div>
+{{else}}
+<div>
+  <blockquote>
+	There are no comments on any of the games...yet!
+   </blockquote>
+</div>
+{{/if}}
+
+
 <ul class="gamesList">
 {{#each game in sortedGames}}
   {{#link-to 'game' game class='gameItem u-cf' tagName='li'}}

@@ -50,3 +50,24 @@ p {
   color: $text-light;
   margin: 1em 0;
 }
+
+blockquote {
+  background: white;
+  border: 1px solid grey;
+  border-left:0.5em solid $green;
+  margin:1.5em 1em;
+  padding:.5em 1em;
+  font-size: 16px;
+}
+
+blockquote :first-child {  
+  display:inline-block;
+}
+
+blockquote :last-child {
+  margin-bottom:5px;
+}
+
+blockquote p {
+  display: inline;
+}

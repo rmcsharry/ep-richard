@@ -5,15 +5,21 @@ RSpec.describe "Parents", :js => true, :type => :feature do
   describe "accessing EasyPeasy as a parent" do
     let!(:parent) { Fabricate(:parent) }
 
-    it "should show the games" do
+    before do
       Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true)
       Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true)
-
       visit "/#/#{parent.slug}/games"
-
+    end
+    
+    it "should show the games" do
       expect(page).to have_content('Game 1')
       expect(page).to have_content('Game 2')
     end
+
+    it "should see there are no comments when no parents in the pod have commented yet" do
+      expect(page).to have_content('There are no comments on any of the games...yet!')
+    end
+   
   end
 
   describe "accessing EasyPeasy with a parent slug that doesn't exist" do
@@ -30,13 +36,22 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', created_at: 1.day.ago)
     end
 
+    let!(:game) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
     let(:pod) { Fabricate(:pod, go_live_date: Date.today - 1.week) }
     let!(:parent) { Fabricate(:parent, pod: pod) }
+    let!(:parent2) { Fabricate(:parent, pod: pod) }
 
     it "should show them 1 extra game" do
       visit "/#/#{parent.slug}/games"
       expect(page).to have_content('Game 1')
       expect(page).to have_content('Game 2')
+    end
+    
+    it "should show the latest comment from another parent in the same pod" do
+      latest_comment = 'Here is another parents latest comment'
+      Fabricate(:comment, body: latest_comment, parent: parent2, game: game)
+      visit "/#/#{parent.slug}/games"
+      expect(page).to have_content(latest_comment)
     end
   end
 
