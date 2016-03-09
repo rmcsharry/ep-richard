@@ -8,13 +8,23 @@
       </div>
       <div class="form-group">
         <%= f.label :description %>
-        <%= f.text_area :description, placeholder: "", class: "form-control", rows: 3 %>
+        <%= f.text_field :description, placeholder: "", class: "form-control", rows: 3 %>
         <small>Keep this very short!</small>
+      </div>
+      <div class="form-group">
+        <%= f.label :did_you_know_fact %>
+        <%= f.text_field :did_you_know_fact, placeholder: "", class: "form-control", rows: 7 %>
+        <small>This is the key fact about how the game benefits children. It appears before the instructions and is also sent as an SMS to parents. Keep it to one sentence.</small>
       </div>
       <div class="form-group">
         <%= f.label :instructions %>
         <%= f.text_area :instructions, placeholder: "", class: "form-control", rows: 7 %>
         <small>This is the text that appears next to the video on the game page. You can use <a href="/markdown.html" target="_blank">Markdown</a> to format your instructions</small>
+      </div>
+      <div class="form-group">
+        <%= f.label :top_tip %>
+        <%= f.text_field :top_tip, placeholder: "", class: "form-control", rows: 7 %>
+        <small>This is a handy tip to help parents. This will appear after the instructions. Again, keep it to one sentence.</small>
       </div>
       <div class="form-group">
         <%= f.label :position %>
