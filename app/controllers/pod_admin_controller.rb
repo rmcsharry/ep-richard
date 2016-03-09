@@ -32,11 +32,6 @@ class PodAdminController < ApplicationController
     
     if @pod.go_live_date
       flash[:notice] = build_flash_comment(@pod.latest_comment)
-      # if @pod.latest_comment
-        # flash[:success] = "The latest comment is " + @pod.latest_comment.body.to_s
-      # else
-        # flash[:success] = "There are no comments on any games...yet!"
-      # end
     end  
   end
   
