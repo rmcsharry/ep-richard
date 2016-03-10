@@ -22,7 +22,7 @@ class Pod < ActiveRecord::Base
   def current_game
     non_default_games = Game.where("in_default_set = false").order("position ASC")
     next_game = non_default_games[self.week_number-1]
-    return next_game.name if next_game
+    return next_game if next_game
   end
 
   def next_game
