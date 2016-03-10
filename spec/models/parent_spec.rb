@@ -113,6 +113,7 @@ RSpec.describe Parent, :type => :model do
             # so we just test that this method returns true
             # (ie. it will be able to send sms when Sunday arrives)
             expect(parent.send_weekend_sms).to eq(true)
+          end
 
           it "should send the did you know fact on day 2 of that week" do
             expect(parent.send_did_you_know_fact(Date.today - 5.days)).to eq(true)
