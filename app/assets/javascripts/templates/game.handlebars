@@ -13,8 +13,20 @@
   </div>
 
   <div class="markdownInstructions">
-    {{{model.instructions}}}
+  	<div>
+  		<h1>Did you know?</h1>
+  		{{{model.did_you_know_fact}}}
+  	</div>
+  	<p></p>
+  	<div>
+    	{{{model.instructions}}}
+    </div>
+	<div>
+		<h1>Top tip</h1>
+  		{{{model.top_tip}}}
+  	</div>
   </div>
+  <br/>
 
   {{#unless commentsOpen}}
   {{#link-to 'comments' class="Button easyButton"}}Chat with parents in your pod{{/link-to}}

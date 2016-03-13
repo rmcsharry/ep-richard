@@ -5,6 +5,8 @@ class GameSerializer < ActiveModel::Serializer
              :name,
              :description,
              :instructions,
+             :top_tip,
+             :did_you_know_fact,
              :image_url,
              :video_url,
              :video_iframeurl,
