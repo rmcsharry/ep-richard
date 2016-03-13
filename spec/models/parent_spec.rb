@@ -71,7 +71,7 @@ RSpec.describe Parent, :type => :model do
 
       describe "when there is a game for that week" do
         let!(:game1) { Fabricate(:game, in_default_set: true) }
-        let!(:game2) { Fabricate(:game) }
+        let!(:game2) { Fabricate(:game, did_you_know_fact: "The did you know fact.", top_tip: "The top tip.") }
 
         describe "when the parent has never been notified" do
           it "should send them a notification" do
@@ -107,6 +107,13 @@ RSpec.describe Parent, :type => :model do
             expect(parent.notify).to eq(true)
             expect(parent.notify).to eq(false)
           end
+          
+          it "should be able to send the weekend sms when Sunday rolls around" do
+            # note we cannot test for Sunday, it is specified in the job itself (lib/tasks)
+            # so we just test that this method returns true
+            # (ie. it will be able to send sms when Sunday arrives)
+            expect(parent.send_weekend_sms).to eq(true)
+          end          
         end
       end
 
@@ -116,6 +123,13 @@ RSpec.describe Parent, :type => :model do
         it "should not send them a notification" do
           expect(parent.notify).to eq(false)
         end
+        
+        it "should not be able to send the weekend sms when Sunday rolls around" do
+          # note we cannot test for Sunday, it is specified in the job itself (lib/tasks)
+          # so we just test that this method returns false 
+          # (ie. that it will not be able to send sms when Sunday arrives)
+          expect(parent.send_weekend_sms).to eq(false)
+        end        
       end
     end
 

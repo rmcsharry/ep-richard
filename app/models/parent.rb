@@ -50,19 +50,35 @@ class Parent < ActiveRecord::Base
     return false if !self.pod.go_live_date
     return false if self.pod.week_number == 0
     return false if !Game.non_default[self.pod.week_number - 1]
+    return true
+  end
+
+  def should_send_first_sms?    
     return false if self.last_notification && self.last_notification > Date.today - 7.days
     return true
   end
 
   def notify
     message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
-    if should_notify?
+    if should_notify? && should_send_first_sms?
       self.last_notification = Date.today
       send_sms(message) if self.save
       return true
     else
       return false
     end
+  end
+
+  def send_weekend_sms
+    game = self.pod.current_game
+    return false if game.nil?     
+    message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
+    if should_notify?
+      send_sms(message)
+      return true
+    else
+      return false
+    end    
   end
 
   def send_sms(message)
