@@ -4,9 +4,10 @@
   width: 100%;
   index: 1;
   position: absolute;
+  opacity: 0.8;
 }
 
-.introBackground {
+.screen1 {
   background-image: image_url('intro1.png');
   background-repeat: no-repeat;
   background-position: center;
@@ -15,19 +16,34 @@
   width: 100%;
   position: fixed;
   index: 2;
+  cursor: pointer; 
 }
 
-.welcomeMessage {
+.screen2 {
+  background-image: image_url('intro2.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  index: 2;
+  cursor: pointer; 
+}
+
+.introMessage {
   position: fixed;
   top: 50%;
   left: 50%;
   color: white;
   text-align: center;  
   font-weight: 600;
+  cursor: pointer;
+  line-height: 150%;
 }
 
 @media (max-width: 400px) {
-  .welcomeMessage {
+  .introMessage {
     font-size: 0.8em;
     width: 200px;
     margin-top: -80px;
@@ -35,7 +51,7 @@
   }
 }
 @media (min-width: 401px) {
-  .welcomeMessage {
+  .introMessage {
     font-size: 1.0em;
     width: 250px;
     margin-top: -80px;
@@ -43,7 +59,7 @@
   }
 }
 @media (min-width: 500px) {
-  .welcomeMessage {
+  .introMessage {
     font-size: 1.2em;
     margin-top: -100px;
     margin-left: -170px;

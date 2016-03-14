@@ -1,13 +1,26 @@
 {{#if parent.first_visit}}
 	<div class="introTileBackground"> 
 	</div>
-	<div class="introBackground">
-	</div>
-	<div class="welcomeMessage">
-	Welcome to EasyPeasy!
-	<br/><br/>
-	With EasyPeasy, playing together helps your child develop key skills for school and life.
-	</div>
+	{{#if isScreenOne}}
+		<div id='introScreen1' class='screen1' {{action 'nextScreen'}}>
+		</div>
+		<div class='introMessage' {{action 'nextScreen'}}>
+			Welcome to EasyPeasy!
+			<br/><br/>
+			With EasyPeasy, playing together helps your child develop key skills for school and life.	
+		</div>		
+	{{else}}
+	  <div id='introScreen2' class='screen2' {{action 'nextScreen'}}>
+	  </div>
+		<div class='introMessage' {{action 'nextScreen'}}>
+			Our games are designed<br/> with experts to build<br/> determination, creativity,<br/> confidence and self-control.
+			<br/><br/>		
+			<button class='Button easyButton hide' {{action 'nextScreen'}}>Get Started!</button>
+		</div>
+	{{/if}}
+		
+
+	
 {{else}}
 <div class="mainContent">
 
