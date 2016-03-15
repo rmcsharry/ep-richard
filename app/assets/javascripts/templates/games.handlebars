@@ -1,4 +1,4 @@
-{{#if parent.first_visit}}
+{{#if (and parent.first_visit startNotClicked)}}
 	<div class="introTileBackground"> 
 	</div>
 	{{#if isScreenOne}}
@@ -24,7 +24,7 @@
 		<div id='message2' class='introMessage' {{action 'screenThree'}}>
 			You can share your experience with other parents in your Pod by leaving comments under each game.
 			<br/><br/>		
-			<button class='Button easyButton hide' {{action 'nextScreen'}}>Get Started!</button>
+			<button class='Button easyButton' {{action 'getStarted'}}>Get Started!</button>
 		</div>
 	{{/if}}		
 
