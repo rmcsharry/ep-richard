@@ -55,7 +55,7 @@
   line-height: 150%;
 }
 
-@media screen 
+@media all 
   and (min-device-width: 0px) 
   and (min-device-height: 0px) {
   .introMessage {
@@ -66,7 +66,7 @@
   }
 }
 
-@media screen 
+@media all 
   and (min-device-width: 320px) 
   and (min-device-height: 320px) {
   .introMessage {
@@ -76,7 +76,7 @@
     margin-left: -80px;
   }
 }
-@media screen 
+@media all 
   and (min-device-width: 320px) 
   and (min-device-height: 400px) {    
   .introMessage {
@@ -86,7 +86,7 @@
     margin-left: -100px;        
   }
 }
-@media screen 
+@media all 
   and (min-device-width: 320px) 
   and (min-device-height: 500px) {    
   .introMessage {
