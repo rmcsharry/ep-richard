@@ -6,10 +6,19 @@ Easypeasy.GamesController = Ember.Controller.extend
   sortedGames: Ember.computed.sort('model', 'sortProperties')
 
   isScreenOne: true
+  isScreenTwo: false
+  isScreenThree: false
   
   actions:
-    nextScreen: ->
+    screenOne: ->
+	    @toggleProperty 'isScreenOne'
+	    @toggleProperty 'isScreenTwo'
+	    return false
+    screenTwo: ->  
+      @toggleProperty 'isScreenTwo'
+      @toggleProperty 'isScreenThree'
+      return false
+    screenThree: ->  
+      @toggleProperty 'isScreenThree'
       @toggleProperty 'isScreenOne'
       return false
-  
-
