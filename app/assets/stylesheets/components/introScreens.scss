@@ -95,4 +95,24 @@
     margin-top: -100px;
     margin-left: -140px;        
   }
+}
+@media all 
+  and (min-width: 900px) 
+  and (min-height: 400px) {    
+  .introMessage {
+    width: 320px;
+    font-size: 1.6em;
+    margin-top: -100px;
+    margin-left: -160px;        
+  }
 }  
+@media all
+  and (min-width: 900px)
+  and (min-height: 600px) {
+  .introMessage {
+    width: 400px;
+    font-size: 1.8em;
+    margin-top: -100px;
+    margin-left: -200px;        
+  }      
+ }
