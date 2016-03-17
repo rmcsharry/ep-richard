@@ -82,7 +82,6 @@ class Parent < ActiveRecord::Base
     message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
               " Try it out with the game " + game.name + " here: " +
               "http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
-         
     # send only if it has been 2 days since the welcome message for the current game was sent 
     try_to_send(message, date, 2)    
   end
@@ -93,18 +92,8 @@ class Parent < ActiveRecord::Base
     message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
               " How did you play the game? Share your thoughts here: " +
               "http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
-         
     # send only if it has been 4 days since the welcome message for the current game was sent 
     try_to_send(message, date, 4)
-  end
-
-  def try_to_send(message, date=nil, num_days=nil)
-    if should_notify? && (date.nil? || date == self.last_notification + num_days.days)
-      send_sms(message)
-      return true
-    else
-      return false     
-    end
   end
 
   def send_sms(message)
@@ -129,4 +118,14 @@ class Parent < ActiveRecord::Base
     not_commented
   end
 
+  private 
+  def try_to_send(message, date=nil, num_days=nil)
+    if should_notify? && (date.nil? || date == self.last_notification + num_days.days)
+      send_sms(message)
+      return true
+    else
+      return false     
+    end
+  end
+  
 end
