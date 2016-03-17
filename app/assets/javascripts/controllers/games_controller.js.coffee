@@ -13,9 +13,9 @@ Easypeasy.GamesController = Ember.Controller.extend
   
   actions:
     screenOne: ->
-	    @toggleProperty 'isScreenOne'
-	    @toggleProperty 'isScreenTwo'
-	    return false
+      @toggleProperty 'isScreenOne'
+	  @toggleProperty 'isScreenTwo'
+	  return false
     screenTwo: ->  
       @toggleProperty 'isScreenTwo'
       @toggleProperty 'isScreenThree'
