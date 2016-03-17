@@ -1,0 +1,53 @@
+.introTileBackground {
+  background-image: image_url('bg_square.jpg');
+  height: 100%;
+  width: 100%;
+  index: 1;
+  position: absolute;
+}
+
+.introBackground {
+  background-image: image_url('intro1.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  index: 2;
+}
+
+.welcomeMessage {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  color: white;
+  text-align: center;  
+  font-weight: 600;
+}
+
+@media (max-width: 400px) {
+  .welcomeMessage {
+    font-size: 0.8em;
+    width: 200px;
+    margin-top: -80px;
+    margin-left: -100px;
+  }
+}
+@media (min-width: 401px) {
+  .welcomeMessage {
+    font-size: 1.0em;
+    width: 250px;
+    margin-top: -80px;
+    margin-left: -125px;    
+  }
+}
+@media (min-width: 500px) {
+  .welcomeMessage {
+    font-size: 1.2em;
+    margin-top: -100px;
+    margin-left: -170px;
+    width: 340px;    
+  }
+}
+  
