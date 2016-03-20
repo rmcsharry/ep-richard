@@ -28,6 +28,5 @@ Easypeasy.GamesController = Ember.Controller.extend
       @toggleProperty 'isScreenThree'
       return false           
     startClicked: ->
-      alert('here')
       @toggleProperty 'isStartNotClicked'
       return false
