@@ -1,12 +1,12 @@
 {{#if (and parent.first_visit isStartNotClicked)}}
 	{{#if isScreenOne}}
-		{{screen-1 swipedRight='rightFromOne'}}	
+		{{screen-1 swipedLeft='rightFromOne'}}	
 	{{/if}}
 	{{#if isScreenTwo}}
-		{{screen-2 swipedRight='rightFromTwo' swipedLeft='leftFromTwo'}}
+		{{screen-2 swipedLeft='rightFromTwo' swipedRight='leftFromTwo'}}
 	{{/if}}
 	{{#if isScreenThree}}
-		{{screen-3 swipedLeft='leftFromThree' getStarted='startClicked'}}
+		{{screen-3 swipedRight='leftFromThree' getStarted='startClicked'}}
 	{{/if}}		
 
 	

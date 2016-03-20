@@ -1,7 +1,7 @@
 Easypeasy.Screen3Component = Ember.Component.extend({
   gestures: {
-    swipeLeft: function (event) {
-      this.sendAction('swipedLeft');
+    swipeRight: function (event) {
+      this.sendAction('swipedRight');
       return false; // return `false` to stop bubbling
     },
 	tap: function (event) {
