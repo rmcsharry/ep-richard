@@ -1,35 +1,12 @@
-{{#if (and parent.first_visit startNotClicked)}}
+{{#if (and parent.first_visit isStartNotClicked)}}
 	{{#if isScreenOne}}
-		<div class="introBackground"> 
-		</div>
-		<button id='introScreen1' class='screen1' {{action 'screenOne'}}>
-		</button>
-		<div id='message1' class='introMessage' {{action 'screenOne'}}>
-			Welcome to EasyPeasy!
-			<br/><br/>
-			With EasyPeasy, playing together helps your child develop key skills for school and life.	
-		</div>		
+		{{screen-1 swipedRight='rightFromOne'}}	
 	{{/if}}
 	{{#if isScreenTwo}}
-		<div class="introGreenBackground"> 
-		</div>
-		<button id='introScreen2' class='screen2' {{action 'screenTwo'}}>
-		</button>
-		<div id='message2' class='introMessage' {{action 'screenTwo'}}>
-			Our games are designed with experts to build determination, creativity, confidence and self-control.
-			<br/><br/>		
-		</div>
+		{{screen-2 swipedRight='rightFromTwo' swipedLeft='leftFromTwo'}}
 	{{/if}}
 	{{#if isScreenThree}}
-		<div class="introRedBackground"> 
-		</div>
-		<button id='introScreen3' class='screen3' {{action 'getStarted'}}>
-		</button>
-		<div id='message2' class='introMessage' {{action 'getStarted'}}>
-			You can share your experience with other parents in your Pod by leaving comments under each game.
-			<br/><br/>		
-			<button class='Button easyButton' {{action 'getStarted'}}>Get Started!</button>
-		</div>
+		{{screen-3 swipedLeft='leftFromThree' getStarted='startClicked'}}
 	{{/if}}		
 
 	
