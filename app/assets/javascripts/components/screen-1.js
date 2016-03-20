@@ -4,5 +4,9 @@ Easypeasy.Screen1Component = Ember.Component.extend({
       this.sendAction('swipedLeft');
       return false; // return `false` to stop bubbling
     },
+    tap: function (event) {
+      this.sendAction('swipedLeft');
+      return false; // return `false` to stop bubbling
+    },    
   }
 });

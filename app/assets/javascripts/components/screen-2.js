@@ -7,6 +7,10 @@ Easypeasy.Screen2Component = Ember.Component.extend({
     swipeRight: function (event) {
       this.sendAction('swipedRight');
       return false; // return `false` to stop bubbling
-    }    
+    },
+    tap: function (event) {
+      this.sendAction('swipedLeft');
+      return false; // return `false` to stop bubbling
+    }
   }
 });
