@@ -22,7 +22,12 @@
   <!-- Add to home screen -->
   <%= stylesheet_link_tag 'addtohomescreen', media: 'all' %>
   <script>
-  addToHomescreen();
+  addToHomescreen({
+  	skipFirstVisit: true;
+  	maxDisplayCount: 1;
+  	startDelay: 0.2;
+  	lifespan: 0;
+  });
   </script>
   
   <meta name="viewport" content="width=device-width, initial-scale=1">
