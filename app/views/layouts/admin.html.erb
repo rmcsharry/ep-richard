@@ -8,6 +8,18 @@
     <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <%= stylesheet_link_tag 'admin', media: 'all' %>
     <%= csrf_meta_tags %>
+    <!-- Add to home screen -->
+    <%= stylesheet_link_tag 'addtohomescreen', media: 'all' %>
+    <%= javascript_include_tag 'addtohomescreen' %>
+    <script>
+    addToHomescreen({
+  	  skipFirstVisit: true,
+  	  maxDisplayCount: 1,
+  	  startDelay: 0.2,
+  	  lifespan: 0,
+  	  debug: true
+    });
+    </script>
   </head>
 
   <body>
