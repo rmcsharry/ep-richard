@@ -24,7 +24,7 @@ class PodAdminController < ApplicationController
     else
       flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy for assistance."
     end
-    redirect_to pod_admin_path
+    redirect_to pod_admin_dashboard_path
   end
 
   def dashboard
