@@ -1,1 +1,1 @@
-Rails.application.config.assets.precompile += %w( admin.css addtohomescreen.css addtohomescreen.js )
+Rails.application.config.assets.precompile += %w( admin.css addtohomescreen.css addtohomescreen.js addtohomescreen_custom.css )

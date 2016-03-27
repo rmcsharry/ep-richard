@@ -1,0 +1,47 @@
+ /*Add custom classes for the text on the popup*/
+.ath-title {
+	position: absolute;
+	margin: 0.5em 0 3em 1em;
+	float:left;
+}
+.ath-text {
+	margin-top: 3.5em;
+}
+
+ /* Override the plugin add to home classes*/
+.ath-container {
+	float: right;
+	padding-top: 0.5em;
+	text-align: left;
+}
+.ath-application-icon {
+	float: left;   
+    margin: 3em 1em 0.5em 0.7em;
+}
+.ath-container:before {
+    position: relative;
+    float: right;
+}
+.ath-container.ath-icon:before {
+	position: relative;
+    float: right;
+    margin-top: -0.6em;
+    margin-right: -0.6em;    
+}
+.ath-container.ath-android.ath-icon:before {
+	position: relative;
+    float: right;
+    margin-top: -0.6em;
+    margin-right: -0.6em;    
+}
+.ath-container.ath-ios .ath-application-icon {
+	float: left;   
+    margin: 3em 1em 0.5em 0.7em;
+}
+.ath-container.ath-ios .ath-application-icon {
+	height: 4em;
+	width: 4em;
+}
+.ath-ios.ath-phone:after {
+	z-index: -1;
+}

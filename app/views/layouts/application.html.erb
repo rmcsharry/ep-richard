@@ -23,12 +23,15 @@
   
   <!-- Add to home screen -->
   <%= stylesheet_link_tag 'addtohomescreen', media: 'all' %>
+  <%= stylesheet_link_tag 'addtohomescreen_custom', media: 'all' %>
   <script>
   addToHomescreen({
-  	skipFirstVisit: true,
-  	maxDisplayCount: 1,
+  	skipFirstVisit: false,
+  	maxDisplayCount: 100,
   	startDelay: 0.2,
-  	lifespan: 0
+  	lifespan: 0,
+  	message: '<div class="ath-title">Add me to your homescreen</div><div class="ath-text">1. Tap %icon menu<br/>2. Tap <strong>add to homescreen</strong></div>',
+  	debug: true // set to true in order to test on desktop
   });
   </script>
   
