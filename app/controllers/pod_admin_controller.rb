@@ -5,7 +5,7 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    redirect_to pod_admin_dashboard_path if current_admin.pod && current_admin.pod.go_live_date
+    redirect_to pod_admin_games_path if current_admin.pod && current_admin.pod.go_live_date
   end
 
   def analytics
@@ -24,14 +24,14 @@ class PodAdminController < ApplicationController
     else
       flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy for assistance."
     end
-    redirect_to pod_admin_path
+    redirect_to pod_admin_dashboard_path
   end
 
   def dashboard
     @pod = current_admin.pod
     
     if @pod.go_live_date
-      flash[:notice] = build_flash_comment(@pod.latest_comment)
+      flash.now[:notice] = build_flash_comment(@pod.latest_comment)
     end  
   end
   
