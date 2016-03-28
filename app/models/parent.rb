@@ -7,6 +7,7 @@ class Parent < ActiveRecord::Base
 
   belongs_to :pod
   has_many :comments, dependent: :destroy
+  has_many :parent_visit_logs, dependent: :destroy
 
   def set_slug
     if self.slug.nil?
