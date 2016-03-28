@@ -24,6 +24,7 @@ gem "exception_notification", :git => "git://github.com/rails/exception_notifica
 gem 'twilio-ruby', '~> 3.12', require: false
 gem 'whenever', :require => false
 gem 'acts_as_list'
+gem 'rails_real_favicon', :require => false
 
 group :development, :test do
   gem 'spring', require: false

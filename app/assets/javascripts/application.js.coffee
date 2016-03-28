@@ -7,6 +7,7 @@
 #= require easypeasy
 #= require hammer
 #= require ember-hammer
+#= require addtohomescreen
 
 # for more details see: http://emberjs.com/guides/application/
 window.Easypeasy = Ember.Application.create()
