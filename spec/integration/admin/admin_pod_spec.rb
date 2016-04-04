@@ -93,7 +93,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
     let!(:pod) { Fabricate(:pod, name: 'Import pod name') }
     let!(:parent) { Fabricate(:parent, pod: pod, phone: '07444007986') }
         
-    it "should allow importing parents" do
+    it "should allow importing new parents" do
       visit edit_admin_pod_path(pod)
 
       attach_file('file', Rails.root.join('spec/fixtures/files/2_new_parents_test.csv'))
@@ -101,7 +101,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       expect(page).to have_text("2 parents imported to #{pod.name}")
     end
 
-    it "should not import existing parents" do
+    it "should not allow import existing parents" do
       visit edit_admin_pod_path(pod)
 
       attach_file('file', Rails.root.join('spec/fixtures/files/existing_parents_test.csv'))
