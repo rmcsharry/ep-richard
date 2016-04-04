@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 RSpec.describe "EZY admin", :js => false, :type => :feature do
 
@@ -85,6 +85,35 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
 
       expect(current_path).to eq(admin_pods_path)
       expect(page).not_to have_content('Save the Children')
+    end
+  end
+    
+  describe "importing parents" do
+    require 'csv'
+    let!(:pod) { Fabricate(:pod, name: 'Import pod name') }
+    let!(:parent) { Fabricate(:parent, pod: pod, phone: '07444007986') }
+        
+    it "should allow importing parents" do
+      visit edit_admin_pod_path(pod)
+
+      attach_file('file', Rails.root.join('spec/fixtures/files/2_new_parents_test.csv'))
+      click_button 'Import CSV'
+      expect(page).to have_text("2 parents imported to #{pod.name}")
+    end
+
+    it "should not import existing parents" do
+      visit edit_admin_pod_path(pod)
+
+      attach_file('file', Rails.root.join('spec/fixtures/files/existing_parents_test.csv'))
+      click_button 'Import CSV'
+      expect(page).to have_text("0 parents imported to #{pod.name}")
+    end
+    
+    it "should detect not selecting a file" do
+      visit edit_admin_pod_path(pod)
+      
+      click_button 'Import CSV'
+      expect(page).to have_text("No file found - please select a CSV file.")      
     end
   end
 
