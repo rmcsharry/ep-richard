@@ -27,13 +27,13 @@ gem 'acts_as_list'
 gem 'rails_real_favicon', :require => false
 
 group :development, :test do
-  gem 'spring', require: false
-  gem 'spring-commands-rspec', require: false
-  gem 'rspec-rails', '~> 3.0.0', require: false
-  gem 'capybara', require: false
-  gem 'poltergeist', '~> 1.6.0', require: false
-  gem 'database_cleaner', require: false
-  gem 'fabrication', require: false
+  gem 'spring'
+  gem 'spring-commands-rspec'
+  gem 'rspec-rails', '~> 3.0.0'
+  gem 'capybara'
+  gem 'poltergeist', '~> 1.6.0'
+  gem 'database_cleaner'
+  gem 'fabrication'
 end
 
 group :development do
