@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160309152305) do
+ActiveRecord::Schema.define(version: 20160405071556) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,8 +32,12 @@ ActiveRecord::Schema.define(version: 20160309152305) do
     t.string   "type"
     t.integer  "pod_id"
     t.datetime "last_analytics_email_sent"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "admins", ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true, using: :btree
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
@@ -54,7 +58,7 @@ ActiveRecord::Schema.define(version: 20160309152305) do
     t.string   "image_url"
     t.text     "instructions"
     t.string   "video_url"
-    t.boolean  "in_default_set", default: false
+    t.boolean  "in_default_set",    default: false
     t.integer  "position"
     t.text     "top_tip"
     t.text     "did_you_know_fact"
