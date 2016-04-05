@@ -14,8 +14,8 @@
 <%= render "pod_form" %>
 
 <h3>Import a CSV file of Parents</h3>
-  <%= form_tag admin_pod_import_path(@pod), multipart: true do %>
-    <%= file_field_tag :file %>
-    <br/>
-    <%= submit_tag "Import CSV", class: "btn btn-med btn-primary"%>
-  <% end %>
+<%= form_tag admin_pod_import_path(@pod), multipart: true do %>
+  <%= file_field_tag :file %>
+  <br/>
+  <%= submit_tag "Import CSV", class: "btn btn-med btn-primary"%>
+<% end %>
