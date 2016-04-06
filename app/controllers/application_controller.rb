@@ -26,7 +26,6 @@ class ApplicationController < ActionController::Base
     admin_login_path
   end
   def after_sign_in_path_for(resource_or_scope)
-    Rails.logger.info "AFTER SIGN IN"
     if resource_or_scope.type == 'PodAdmin'
       pod_admin_path
     else
