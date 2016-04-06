@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   devise_for :admin, :controllers => {confirmations: 'admin/confirmations'}
 
   devise_scope :admin do
-    patch "/confirm" => "admin/confirmations#confirm"
+    patch "admin/confirm" => "admin/confirmations#confirm"
     get '/admin/logout' => 'devise/sessions#destroy'
     get '/admin/signup', to: 'devise/registrations#new', as: 'admin_signup'
     get '/admin/login', to: 'devise/sessions#new', as: 'admin_login'
@@ -42,6 +42,7 @@ Rails.application.routes.draw do
     get '/comments', to: :comments
     resources :parents
     resources :games
+    resources :pods, except: :index
   end
 
 end

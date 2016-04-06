@@ -1,7 +1,19 @@
 class Admin::ConfirmationsController < Devise::ConfirmationsController
-
+  skip_before_action :verify_authenticity_token, only: [:create]
+  
   layout 'admin'
-  # Note: the resource_class hers is Admin (since that is our Devise user class)
+  # Note: in this controller, the resource_class is Admin (since that is our Devise user class)
+  
+  def create
+    # create is called from a separate sign-up application, so there will be no authenticity token, this is a pure API call
+    email_address = params[:email]
+    if email_address.nil?
+      render json: {account: 'Not created'}, status: :unprocessible_entity, content_type: 'json'
+    else
+      Admin.create!(email: email_address, type: 'PodAdmin')
+      render json: {head: :ok}, status: :created, content_type: 'json'
+    end
+  end
   
   def show
     if params[:confirmation_token].present?
@@ -24,8 +36,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
 
     if resource.valid? && resource.password_match?
       resource.type = 'PodAdmin'
-      self.resource.confirm
-      set_flash_message :notice, :confirmed
+      self.resource.confirm # this triggers a save of the resource
       Rails.logger.info resource_name
       sign_in_and_redirect resource
     else
