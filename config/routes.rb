@@ -34,7 +34,6 @@ Rails.application.routes.draw do
   match '/pod_admin/send_welcome_sms/:id', to: 'pod_admin/parents#send_welcome_sms', via: [:post]
 
   resources :comments
-  resources :pod_admin
   
   namespace :pod_admin do
     get '/', to: :index
