@@ -20,9 +20,12 @@ Rails.application.routes.draw do
   end
 
   get '/admin', to: 'admin#index'
+  
   namespace :admin do
     resources :games
-    resources :pods
+    resources :pods do
+      post '/import', to: :parents_import 
+    end
     resources :pod_admins
   end
 

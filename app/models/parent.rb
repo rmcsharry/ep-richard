@@ -1,4 +1,6 @@
 class Parent < ActiveRecord::Base
+  require 'csv'
+  
   validates :name, presence: true
   validates :phone, presence: true
   # validates :phone, uniqueness: true
@@ -119,6 +121,31 @@ class Parent < ActiveRecord::Base
       not_commented.append(p) if p.comments.count == 0
     end
     not_commented
+  end
+
+  def self.import(file, pod_id)
+    new_parent_count = 0
+    if !file.nil?
+      CSV.foreach(file.path, headers: true, :header_converters => lambda { |h| h.try(:downcase) }) do |row|
+  
+        parent_hash = row.to_hash
+        existing_parent = Parent.where(phone: parent_hash["phone"]).first
+        
+        # TODO: need to know what feedback to give to the user for error, success and existing records
+        if existing_parent.nil?
+          parent = Parent.new(parent_hash)
+          if parent.valid?
+            parent.pod_id = pod_id
+            parent.save
+            new_parent_count = new_parent_count + 1
+          end
+        else
+          # TODO: currently do nothing, we need to know what to do if the phone already exists
+          # existing_parent.update_attributes(parent_hash)
+        end
+      end
+    end
+    return new_parent_count
   end
 
   private 
