@@ -10,7 +10,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
     if email_address.nil?
       render json: {account: 'Not created'}, status: :unprocessible_entity, content_type: 'json'
     else
-      Admin.create!(email: email_address, type: 'PodAdmin')
+      Admin.create!(email: email_address)
       render json: {head: :ok}, status: :created, content_type: 'json'
     end
   end
@@ -36,7 +36,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
 
     if resource.valid? && resource.password_match?
       resource.type = 'PodAdmin'
-      self.resource.confirm # this triggers a save of the resource
+      self.resource.confirm # this triggers a save of the resource (without firing validations, so we now have a PodAdmin without a Pod!)
       Rails.logger.info resource_name
       sign_in_and_redirect resource
     else
