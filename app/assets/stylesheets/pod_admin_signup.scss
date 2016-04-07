@@ -1,0 +1,60 @@
+@import 'colors';
+body {
+  font-family: 'Lato', Helvetica, Arial, sans-serif;
+}
+
+strong {
+  font-weight: 700;
+  color: black;
+}
+
+.center-me {
+  width: 500px;
+  margin: 0px auto;
+  margin-top: 50px;
+}
+
+.vertical-spacer {
+  height: 40px;
+}
+
+.circle-name {
+  color: lightgrey;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.circle {
+  margin-top: -5px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  line-height: 26px;
+  border: 2px;
+  border-style: solid;
+  border-color: lightgrey;
+
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+
+  background-color: #f8f8f8;
+  color: lightgrey;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.highlighted {
+  color: $green;
+  border-color: $green;
+}
+
+.btn-success {
+  background-color: $green;
+  color: white;
+  padding-left: 2.5em;
+  padding-right: 2.5em;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  border-radius: 0px;
+}
+
