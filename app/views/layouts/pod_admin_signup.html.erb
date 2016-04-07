@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>EasyPeasy PodAdmin</title>
+    <%= render 'favicon' %>
+  	<link href='//fonts.googleapis.com/css?family=Lato:400,700&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+  	      
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <%= stylesheet_link_tag 'pod_admin_signup', media: 'all' %>
+    <%= csrf_meta_tags %>
+
+  </head>
+
+  <body class="center-me">
+  	<nav class="navbar navbar-default" role="navigation">
+    	<div class="container-fluid">  	
+	    	<div class="navbar-header">
+	      		<a class="navbar-brand" href="<%= pod_admin_dashboard_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
+	    	</div>
+    	</div>
+
+	    <div class="container-fluid">
+    		<%= yield %>
+		</div>
+	</nav>
+  </body>
+</html>
