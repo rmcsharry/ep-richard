@@ -20,11 +20,12 @@ gem 'unicorn', require: false
 gem 'pry', require: false
 gem 'devise'
 gem 'autoprefixer-rails'
-gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
+gem "exception_notification", git: "git://github.com/rails/exception_notification", require: 'exception_notifier'
 gem 'twilio-ruby', '~> 3.12', require: false
-gem 'whenever', :require => false
+gem 'whenever', require: false
 gem 'acts_as_list'
-gem 'rails_real_favicon', :require => false
+gem 'rails_real_favicon', require: false
+gem 'wicked', require: false
 
 group :development, :test do
   gem 'spring'
