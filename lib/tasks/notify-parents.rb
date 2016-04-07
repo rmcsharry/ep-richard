@@ -8,25 +8,25 @@ live_pods.each do |pod|
 
   pod.parents.each do |parent|
     if parent.notify
-      puts "  - NOTIFIED: #{parent.name} (#{parent.phone})"
+      puts "  - SENT WELCOME SMS: #{parent.name} (#{parent.phone})"
     else
-      puts "  - SKIPPED: #{parent.name} (#{parent.phone})"
+      puts "  - SKIPPED WELCOME SMS: #{parent.name} (#{parent.phone})"
     end
-  end
 
-  if parent.send_did_you_know_fact
-    puts "  - SENT DID YOU KNOW FACT: #{parent.name} (#{parent.phone})"
-  else
-    puts "  - SKIPPED: #{parent.name} (#{parent.phone})"
-  end
+    if parent.send_did_you_know_fact
+      puts "  - SENT DID YOU KNOW FACT: #{parent.name} (#{parent.phone})"
+    else
+      puts "  - SKIPPED DID YOU KNOW FACT: #{parent.name} (#{parent.phone})"
+    end
   
-  if parent.send_top_tip
-    puts "  - SENT TOP TIP: #{parent.name} (#{parent.phone})"
-  else
-    puts "  - SKIPPED: #{parent.name} (#{parent.phone})"
-  end
+    if parent.send_top_tip
+      puts "  - SENT TOP TIP: #{parent.name} (#{parent.phone})"
+    else
+      puts "  - SKIPPED TOP TIP: #{parent.name} (#{parent.phone})"
+    end
   
-  puts "\n"
+    puts "\n"
+  end
 
 end
 
