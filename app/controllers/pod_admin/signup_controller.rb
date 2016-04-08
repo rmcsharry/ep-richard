@@ -23,9 +23,11 @@ class PodAdmin::SignupController < PodAdminController
       when :step01
         @pod = Pod.new(pod_params)
         @pod.attributes = pod_params
-        @pod.save!
-        current_admin.pod = @pod
-        session[:pod_id] = @pod.id # store the id so we can add parents to it in following steps
+        if @pod.valid?
+          @pod.save!
+          current_admin.pod = @pod
+          session[:pod_id] = @pod.id # store the id so we can add parents to it in following steps
+        end
         render_wizard @pod # saves the pod, triggers validations
       when :step02
         @pod = Pod.find(session[:pod_id])
