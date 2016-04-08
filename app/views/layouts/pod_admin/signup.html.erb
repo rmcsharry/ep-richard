@@ -23,6 +23,28 @@
     	</div>
 
 	    <div class="container-fluid">
+<div class="row">
+	<div class="vertical-spacer">
+	</div>
+  	<div class="col-md-1">
+  		<span class="circle <%= 'highlighted' if request.path_parameters[:id].to_s == 'step01' %>">1</span>
+  	</div>
+  	<div class="col-md-3 circle-name <%= 'highlighted' if request.path_parameters[:id].to_s == 'step01' %>">
+  		Ready
+  	</div>
+	<div class="col-md-1">
+  		<span class="circle <%= 'highlighted' if request.path_parameters[:id].to_s == 'step02' %>">2</span>
+  	</div>
+  	<div class="col-md-3 circle-name <%= 'highlighted' if request.path_parameters[:id].to_s == 'step02' %>">
+  		Steady
+  	</div>
+	<div class="col-md-1">
+  		<span class="circle <%= 'highlighted' if request.path_parameters[:id].to_s == 'step03' %>">3</span>
+  	</div>
+	<div class="col-md-3 circle-name <%= 'highlighted' if request.path_parameters[:id].to_s == 'step03' %>">
+  		Go!
+  	</div>
+</div>	    	
     		<%= yield %>
 		</div>
 	</nav>

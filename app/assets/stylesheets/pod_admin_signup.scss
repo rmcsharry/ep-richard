@@ -1,6 +1,7 @@
 @import 'colors';
 body {
   font-family: 'Lato', Helvetica, Arial, sans-serif;
+  color: #626262;
 }
 
 strong {
@@ -8,8 +9,37 @@ strong {
   color: black;
 }
 
+a:link {
+  color: #626262;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: $green;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black;
+}
+
+.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #BABABA;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #BABABA;
+   opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #BABABA;
+   opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #BABABA;
+}
+
 .center-me {
-  width: 500px;
+  width: 550px;
   margin: 0px auto;
   margin-top: 50px;
 }
@@ -51,10 +81,8 @@ strong {
 .btn-success {
   background-color: $green;
   color: white;
-  padding-left: 2.5em;
-  padding-right: 2.5em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding: 0.5em 2.5em 0.5em 2.5em;
   border-radius: 0px;
+  margin-right: 20px;
 }
 

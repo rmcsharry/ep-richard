@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     get '/comments', to: :comments
     resources :parents
     resources :games
-    resources :pods, except: :index
+    resources :signup
   end
 
 end

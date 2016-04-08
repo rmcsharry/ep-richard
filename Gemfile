@@ -24,8 +24,8 @@ gem "exception_notification", git: "git://github.com/rails/exception_notificatio
 gem 'twilio-ruby', '~> 3.12', require: false
 gem 'whenever', require: false
 gem 'acts_as_list'
-gem 'rails_real_favicon', require: false
-gem 'wicked', require: false
+gem 'rails_real_favicon', require: false # cross-device favicon
+gem 'wicked' # wizard builder
 
 group :development, :test do
   gem 'spring'

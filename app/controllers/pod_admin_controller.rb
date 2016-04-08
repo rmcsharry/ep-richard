@@ -5,7 +5,13 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    redirect_to pod_admin_games_path if current_admin.pod && current_admin.pod.go_live_date
+    if current_admin.pod && current_admin.pod.go_live_date
+      # this pod admin has a pod which is already live
+      redirect_to pod_admin_games_path 
+    elsif current_admin.pod.nil?
+      # this pod admin has not finished creating their pod (ie they signed-up via other website and admin/confirmations/create)
+      redirect_to pod_admin_signup_path
+    end
   end
 
   def analytics
