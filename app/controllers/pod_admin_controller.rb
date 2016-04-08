@@ -10,7 +10,7 @@ class PodAdminController < ApplicationController
       redirect_to pod_admin_games_path 
     elsif current_admin.pod.nil?
       # this pod admin has not finished creating their pod (ie they signed-up via other website and admin/confirmations/create)
-      redirect_to pod_admin_signup_path
+      redirect_to pod_admin_signup_path(id: 'step01')
     end
   end
 

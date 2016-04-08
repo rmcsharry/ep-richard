@@ -13,7 +13,7 @@ class PodAdmin::SignupController < PodAdminController
         @pod.parents.build
       when :step03
         @pod = Pod.find(session[:pod_id])
-        1.times{ @pod.parents.build }
+        2.times{ @pod.parents.build }
     end
     render_wizard
   end
@@ -31,11 +31,12 @@ class PodAdmin::SignupController < PodAdminController
         render_wizard @pod # saves the pod, triggers validations
       when :step02
         @pod = Pod.find(session[:pod_id])
-        @parent = @pod.parents.build(pod_params[:parents_attributes]['0'])      
-        render_wizard @parent # saves the parent, triggers validations
+        pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
+        render_wizard @pod # saves the parent, triggers validations
       when :step03
         @pod = Pod.find(session[:pod_id])
-        @pod.parents.build(pod_params[:parents_attributes]['0'])
+        pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
+        #@pod.parents.build(pod_params[:parents_attributes]['0'])
         #@pod.parents.build(pod_params[:parents_attributes]['1'])
         Rails.logger.info @pod.parents
         if @pod.save
