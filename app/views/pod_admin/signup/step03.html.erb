@@ -17,7 +17,10 @@
 			<%= f.fields_for :parents, include_id: false do |parent_fields| %>
 				<div class="row">
 					<div class="col-md-12">
-						<%= render 'shared/error_messages', object: parent_fields.object %>
+						<!-- If both feilds are blank, no point to show errors, since user has not entered anything -->
+						<% if !(parent_fields.object.name.blank? && parent_fields.object.phone.blank?) %>
+							<%= render 'shared/error_messages', object: parent_fields.object %>
+						<% end %>
 					</div>
 				</div>					
 				<div class="row">

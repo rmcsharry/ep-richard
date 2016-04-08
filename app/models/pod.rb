@@ -5,7 +5,7 @@ class Pod < ActiveRecord::Base
   has_many :parents
   has_many :comments
   
-  accepts_nested_attributes_for :parents, reject_if: proc { |attr| [name, description].any? :blank? }
+  accepts_nested_attributes_for :parents, allow_destroy: true
 
   def set_go_live_date
     if !self.go_live_date
