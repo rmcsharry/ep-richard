@@ -12,39 +12,5 @@
 </div>
 <br/>
 
-
-<%= form_for @pod, url: wizard_path, method: :patch, html: {role: "form"} do |f| %>
-	<div class="row">
-		<div class="col-md-12">
-			<%= f.fields_for :parents, include_id: false do |parent_fields| %>
-				<div class="row">
-					<div class="col-md-12">
-						<%= render 'shared/error_messages', object: parent_fields.object %>
-					</div>
-				</div>					
-				<div class="row">
-					<div class="col-md-6">
-					  	<div class="form-group">    
-					    	<%= parent_fields.text_field :name, placeholder: "your full name", class: "form-control" if parent_fields.object.new_record? %>
-					  	</div>
-					</div>
-					<div class="col-md-6">
-					  	<div class="form-group">    
-					    	<%= parent_fields.text_field :phone, placeholder: "your mobile phone number", class: "form-control" if parent_fields.object.new_record? %>
-					  	</div>
-					</div>
-				</div>				
-			<% end %>
-		</div>
-	</div>
-	<div class="vertical-spacer"></div>
-	<div class="row">
-		<div class="col-md-12">
-		  	<div class="form-group">
-		    	<%= f.submit "Go!", class: "btn btn-success" %>
-		    	<%= link_to "Skip for now", next_wizard_path %>
-		  	</div>
-		</div>
-	</div>
-<% end %>
+<%= render 'parent_form' %>
 

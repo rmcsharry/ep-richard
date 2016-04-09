@@ -11,9 +11,11 @@ class PodAdmin::SignupController < PodAdminController
       when :step02
         @pod = Pod.find(session[:pod_id])
         @pod.parents.build
+        @submit_text = "Send"
       when :step03
         @pod = Pod.find(session[:pod_id])
         2.times{ @pod.parents.build } # this allows to sets of fields to show so the user can add up to 2 parents
+        @submit_text = "Go!"
     end
     render_wizard
   end
@@ -21,7 +23,11 @@ class PodAdmin::SignupController < PodAdminController
   def update
     case step
       when :step01
-        @pod = Pod.new(pod_params)
+        if session[:pod_id].nil?
+          @pod = Pod.new(pod_params)
+        else
+          @pod = Pod.find(session[:pod_id]) # if the user hit back button, retrieve the same pod_id
+        end
         @pod.attributes = pod_params
         if @pod.valid?
           @pod.save!
