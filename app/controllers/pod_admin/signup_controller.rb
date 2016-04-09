@@ -14,7 +14,7 @@ class PodAdmin::SignupController < PodAdminController
         @submit_text = "Send"
       when :step03
         @pod = Pod.find(session[:pod_id])
-        2.times{ @pod.parents.build } # this allows to sets of fields to show so the user can add up to 2 parents
+        2.times{ @pod.parents.build } # this allows 2 sets of fields to show so the user can add up to 2 parents
         @submit_text = "Go!"
     end
     render_wizard
