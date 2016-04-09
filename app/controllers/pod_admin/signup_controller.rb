@@ -38,21 +38,32 @@ class PodAdmin::SignupController < PodAdminController
         pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
         render_wizard @pod # saves the parent, triggers validations
       when :step03
-        @pod = Pod.find(session[:pod_id])
-        is_one_record_blank = try_build_parents
-        
-        if @pod.valid?
-          @pod.save
-          redirect_to pod_admin_path
-        else
-          @pod.parents.build if is_one_record_blank
-          render_wizard @pod
+        @pod = Pod.find(session[:pod_id])       
+        if try_build_parents && !@pod.valid?
+          @pod.parents.build
         end
+        render_wizard @pod
     end
   end
   
   private
     def finish_wizard_path
+      # Now the wizard is finished, send the sms to all the parents that were added
+      error_sending = false     
+      current_admin.pod.parents.each do |parent|
+        begin
+          parent.send_welcome_sms
+        rescue Twilio::REST::RequestError => e
+          error_sending = true
+        else
+          parent.log_welcome_sms_sent
+        end
+      end
+      if !error_sending
+        flash[:danger] = "We were unable to send the welcome SMS to the parents you added, please try again using the Parents menu."
+      else
+        flash[:notice] = "Welcome SMS sent to the parents you added."
+      end
       pod_admin_path
     end
  
