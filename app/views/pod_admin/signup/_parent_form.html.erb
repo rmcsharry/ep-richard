@@ -29,7 +29,11 @@
 	<div class="row">
 		<div class="col-md-12">
 		  	<div class="form-group">
-		    	<%= f.submit @submit_text, class: "btn btn-success" %>
+		  		<% if request.path_parameters[:id].to_s == 'step02' %>
+		    		<%= f.submit "Send", class: "btn btn-success" %>
+		    	<% else %>
+		    		<%= f.submit "Go!", class: "btn btn-success" %>
+		    	<% end %>
 		    	<%= link_to "Skip for now", next_wizard_path %>
 		  	</div>
 		</div>

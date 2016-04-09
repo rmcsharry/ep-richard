@@ -11,11 +11,9 @@ class PodAdmin::SignupController < PodAdminController
       when :step02
         @pod = Pod.find(session[:pod_id])
         @pod.parents.build
-        @submit_text = "Send"
       when :step03
         @pod = Pod.find(session[:pod_id])
         2.times{ @pod.parents.build } # this allows 2 sets of fields to show so the user can add up to 2 parents
-        @submit_text = "Go!"
     end
     render_wizard
   end
@@ -61,27 +59,15 @@ class PodAdmin::SignupController < PodAdminController
     def pod_params
       params.require(:pod).permit(:id, :name, parents_attributes: [:id, :name, :phone])
     end
-
-    def parent_params
-      # This is so we can create a parent separate from a pod in step 2
-      params.require(:parent).permit(:name, :phone)
-    end
-    
-    def delete_ids! x
-      # recursive function to remove embedded id records
-      x.reject!{|k,v| 'id' == k} if x.is_a? Hash
-      x.each{|k,v| delete_ids! x[k]} if x.is_a? Hash
-    end
     
     def try_build_parents
       is_blank_submitted = false
-      params = delete_ids! pod_params # we need to remove the record that was created in step 2 or it will show on the form
-      params[:parents_attributes].each do |k,v| 
+      pod_params[:parents_attributes].each do |k,v| 
         if v[:name].blank? && v[:phone].blank?
           v.merge!({:_destroy => '1'}) # when the pod saves, this empty record will be discarded
-          is_blank_submitted = true # since we discarded an an empty submission, we can put it back in the view should validations fail on the other record
+          is_blank_submitted = true # since we discarded an empty record, we need to put it back in the view (only if validations fail on the other record
         else
-          @pod.parents.build(params[:parents_attributes][k])
+          @pod.parents.build(pod_params[:parents_attributes][k])
         end
       end
       return is_blank_submitted
