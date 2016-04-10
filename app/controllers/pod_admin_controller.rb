@@ -5,8 +5,8 @@ class PodAdminController < ApplicationController
   layout 'admin'
 
   def index
-    if current_admin.pod && current_admin.pod.go_live_date
-      # this pod admin has a pod which is already live
+    if current_admin.pod
+      # this pod admin has a pod so show dashboard
       redirect_to pod_admin_dashboard_path 
     elsif current_admin.pod.nil?
       # this pod admin has not finished creating their pod (ie they signed-up via other website and admin/confirmations/create)
