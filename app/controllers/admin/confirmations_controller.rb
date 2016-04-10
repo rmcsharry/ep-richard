@@ -1,7 +1,7 @@
 class Admin::ConfirmationsController < Devise::ConfirmationsController
   skip_before_action :verify_authenticity_token, only: [:create]
   
-  layout 'admin'
+  layout 'pod_admin/signup'
   # Note: in this controller, the resource_class is Admin (since that is our Devise user class)
   
   def create
