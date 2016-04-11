@@ -1,3 +1,5 @@
 <%# Dashboard would go here but we're currently doing stats in an email. %>
 
+<% if current_admin.pod.go_live_date %>
 <p>This pod has been live since <strong><%= current_admin.pod.go_live_date.strftime("%B %e, %Y") %></strong>.</p>
+<% end %>
