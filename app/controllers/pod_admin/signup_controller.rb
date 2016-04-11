@@ -49,20 +49,24 @@ class PodAdmin::SignupController < PodAdminController
   private
     def finish_wizard_path
       # Now the wizard is finished, send the sms to all the parents that were added
-      error_sending = false     
-      current_admin.pod.parents.each do |parent|
-        begin
-          parent.send_welcome_sms
-        rescue Twilio::REST::RequestError => e
-          error_sending = true
-        else
-          parent.log_welcome_sms_sent
+      if current_admin.pod.parents.count > 0
+        error_sending = false   
+        # TODO: Put this into a helper and share it with similar code in parent model 
+        current_admin.pod.parents.each do |parent|
+          begin
+            parent.send_welcome_sms
+          rescue Twilio::REST::RequestError => e
+            error_sending = true
+            break
+          else
+            parent.log_welcome_sms_sent
+          end
         end
-      end
-      if !error_sending
-        flash[:danger] = "We were unable to send the welcome SMS to the parents you added, please try again using the Parents menu."
-      else
-        flash[:notice] = "Welcome SMS sent to the parents you added."
+        if !error_sending
+          flash[:danger] = "We were unable to send the welcome SMS to the parents you added, please try again using the Parents menu."
+        else
+          flash[:notice] = "Welcome SMS sent to the parents you added."
+        end
       end
       pod_admin_path
     end
