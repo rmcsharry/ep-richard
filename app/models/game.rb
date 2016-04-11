@@ -46,7 +46,9 @@ class Game < ActiveRecord::Base
       if parent.pod && parent.pod.go_live_date
         parent = Parent.find_by_slug(parent_slug)
         non_default_games = Game.where("in_default_set = false").order("position ASC")
-        non_default_games[0, parent.pod.week_number]
+        non_default_games[0, parent.pod.week_number].each do |game|
+          game.position = game.position * -1 # the non default games should appear in reverse order, since they get released weekly
+        end
       else
         []
       end
