@@ -18,7 +18,7 @@ gem 'coffee-rails'
 gem 'foreman', require: false
 gem 'unicorn', require: false
 gem 'pry', require: false
-gem 'devise'
+gem 'devise', '~> 3.5.4'
 gem 'autoprefixer-rails'
 gem "exception_notification", git: "git://github.com/rails/exception_notification", require: 'exception_notifier'
 gem 'twilio-ruby', '~> 3.12', require: false
