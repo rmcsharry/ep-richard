@@ -18,13 +18,14 @@ gem 'coffee-rails'
 gem 'foreman', require: false
 gem 'unicorn', require: false
 gem 'pry', require: false
-gem 'devise'
+gem 'devise', '~> 3.5.4'
 gem 'autoprefixer-rails'
-gem "exception_notification", :git => "git://github.com/rails/exception_notification", :require => 'exception_notifier'
+gem "exception_notification", git: "git://github.com/rails/exception_notification", require: 'exception_notifier'
 gem 'twilio-ruby', '~> 3.12', require: false
-gem 'whenever', :require => false
+gem 'whenever', require: false
 gem 'acts_as_list'
-gem 'rails_real_favicon', :require => false
+gem 'rails_real_favicon', require: false # cross-device favicon
+gem 'wicked' # wizard builder
 
 group :development, :test do
   gem 'spring'

@@ -1,0 +1,51 @@
+<div class="row">
+	<div class="col-md-12">
+		<div class="vertical-spacer"></div>
+		<p><strong>
+		Before we begin, please set your password:
+		</p></strong>
+		<small>
+		Your password must have a minimum length of 8 characters.<br/>
+		</small>   
+	</div>
+</div>
+
+<div class="vertical-spacer"></div>
+
+<div class="row">
+ 	<div class="col-md-12">
+	<%= form_for(resource, as: resource_name, method: :patch, url: admin_confirm_path) do |f| %>
+		<div class="row">
+			<div class="col-md-12">
+				<%= render 'shared/error_messages', object: resource %>
+			</div>
+		</div>    
+
+		<div class="col-md-8">
+	      	<div class="form-group">
+	      		<%= f.label :email %><small> - this is your account name</small>
+	        	<%= f.email_field :email, disabled: true, input_html: { value: resource.email }, class: "form-control" %>
+	      	</div>
+	
+	      	<div class="form-group">
+	        	<% if @minimum_password_length %>
+	        		<em>(<%= @minimum_password_length %> characters minimum)</em>
+	        	<% end %><br/>
+	        	<%= f.password_field :password, autocomplete: "off", autofocus: true, placeholder: 'Password', class: "form-control" %>
+	      	</div>
+	
+	      	<div class="form-group">
+	        	<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Password confirmation', class: "form-control" %>
+	      	</div>
+	
+	      	<div class="form-group">
+	        	<%= f.hidden_field :confirmation_token, autocomplete: "off", value: @original_token %>
+	      	</div>   
+			<div class="vertical-spacer"></div>
+	      	<div class="form-group">
+	        	<%= f.submit "Confirm account", class: "btn btn-success" %>
+	      	</div>
+		</div>
+  	<% end %>
+	</div>
+</div>

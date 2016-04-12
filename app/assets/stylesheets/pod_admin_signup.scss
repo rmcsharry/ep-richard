@@ -1,0 +1,88 @@
+@import 'colors';
+body {
+  font-family: 'Lato', Helvetica, Arial, sans-serif;
+  color: #626262;
+}
+
+strong {
+  font-weight: 700;
+  color: black;
+}
+
+a:link {
+  color: #626262;
+  text-decoration: underline;
+}
+
+a:visited {
+  color: $green;
+  text-decoration: underline;
+}
+
+a:hover {
+  color: black;
+}
+
+.form-control::-webkit-input-placeholder { /* WebKit, Blink, Edge */
+    color: #BABABA;
+}
+.form-control:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+   color:    #BABABA;
+   opacity:  1;
+}
+.form-control::-moz-placeholder { /* Mozilla Firefox 19+ */
+   color:    #BABABA;
+   opacity:  1;
+}
+.form-control:-ms-input-placeholder { /* Internet Explorer 10-11 */
+   color:    #BABABA;
+}
+
+.center-me {
+  width: 550px;
+  margin: 0px auto;
+  margin-top: 50px;
+}
+
+.vertical-spacer {
+  height: 40px;
+}
+
+.circle-name {
+  color: lightgrey;
+  font-weight: 700;
+  font-size: 1.1em;
+}
+
+.circle {
+  margin-top: -5px;
+  display: block;
+  height: 30px;
+  width: 30px;
+  line-height: 26px;
+  border: 2px;
+  border-style: solid;
+  border-color: lightgrey;
+
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+
+  background-color: #f8f8f8;
+  color: lightgrey;
+  text-align: center;
+  font-size: 1.1em;
+}
+
+.highlighted {
+  color: $green;
+  border-color: $green;
+}
+
+.btn-success {
+  background-color: $green;
+  color: white;
+  padding: 0.5em 2.5em 0.5em 2.5em;
+  border-radius: 0px;
+  margin-right: 20px;
+}
+
