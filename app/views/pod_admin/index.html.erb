@@ -8,11 +8,12 @@
 <%# Pod not yet live %>
 <% if current_admin.pod && !current_admin.pod.go_live_date %>
 <div class="row">
-  <div class="col-md-5">
-    <p>Your pod is not yet live.</p>
-    <p>If you are <b>completely sure</b> you want to make it live (there is no undo!) then <a href="#" onclick="showGoLiveButton()">click here</a> to reveal the go-live button. Questions? See the help guide in the menu above.</p>
+  <div class="col-md-6 col-md-offset-3">
+    <p class="lead">Welcome to <strong><%= current_admin.pod.name %>'s</strong> Pod!</p>
+    <p>As Pod Administrator, you can use this dashboard to add more parents to your pod, review EasyPeasy's games, view and manage parent comments, and more.</p>
+    <p>EasyPeasy will send a weekly game to all of the parents that you have added to your 'Pod'. When you are ready to start sharing games with parents, <a href="#" onclick="showGoLiveButton()">click here to start</a>.</p>
     <div id="goLiveButton" style="display: none;">
-      <%= button_to "Make this pod live", { action: "set_go_live_date_for_pod", id: current_admin.pod_id, method: :post }, { class: 'btn btn-primary'} %>
+      <%= button_to "Go Live", { action: "set_go_live_date_for_pod", id: current_admin.pod_id, method: :post }, { class: 'btn btn-primary'} %>
     </div>
   </div>
 </div>
