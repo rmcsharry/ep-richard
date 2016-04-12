@@ -63,9 +63,9 @@ class PodAdmin::SignupController < PodAdminController
           end
         end
         if error_sending
-          flash[:danger] = "We were unable to send the welcome SMS to the parents you added, please try again using the Parents menu."
+          flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu."
         else
-          flash[:notice] = "Welcome SMS sent to the parents you added."
+          flash[:notice] = "Awesome, these parents have now received a text message to their phone."
         end
       end
       pod_admin_path
