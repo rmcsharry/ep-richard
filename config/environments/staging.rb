@@ -98,6 +98,6 @@ Rails.application.configure do
     :sender_address => %{"Notifier" <admin@minified.net>},
     :exception_recipients => %w{basil@minified.net}
 
-  config.action_mailer.default_url_options = { host: 'ep-richard.herokuapp.com/' }
+  config.action_mailer.default_url_options = { host: 'ep-richard.herokuapp.com' }
 
 end
