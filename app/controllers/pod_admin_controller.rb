@@ -6,8 +6,9 @@ class PodAdminController < ApplicationController
 
   def index
     if current_admin.pod && current_admin.pod.go_live_date
-      # this pod admin has a pod so show dashboard
-      redirect_to pod_admin_games_path
+      flash.now[:notice] = build_flash_comment(current_admin.pod.latest_comment)
+      # TODO: this is temporary, update later to show dashboard
+      # redirect_to pod_admin_dashboard_path
     elsif current_admin.pod.nil?
       # this pod admin has not finished creating their pod (ie they signed-up via other website and admin/confirmations/create)
       redirect_to pod_admin_signup_path(id: 'step01')
@@ -31,14 +32,6 @@ class PodAdminController < ApplicationController
       flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy for assistance."
     end
     redirect_to pod_admin_dashboard_path
-  end
-
-  def dashboard
-    @pod = current_admin.pod
-    
-    if @pod.go_live_date
-      flash.now[:notice] = build_flash_comment(@pod.latest_comment)
-    end  
   end
   
 end
