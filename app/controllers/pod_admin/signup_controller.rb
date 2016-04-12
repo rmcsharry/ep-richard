@@ -63,9 +63,9 @@ class PodAdmin::SignupController < PodAdminController
           end
         end
         if error_sending
-          flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu."
+          flash[:notice] = "Whoops! Something went wrong - please try sending again using the Parents menu."
         else
-          flash[:success] = "Awesome, these parents have now received a text message to their phone."
+          flash[:notice] = "Awesome, these parents have now received a text message to their phone."
         end
       end
       pod_admin_path
