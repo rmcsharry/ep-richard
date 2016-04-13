@@ -18,6 +18,11 @@ See `docs` folder for more documentation.
     cd /home/easypeasy/app/
     sudo su easypeasy
     bundle exec rails console production
+
+### Access the DB on production
+
+    ssh `whoami`@85.159.211.37
+    psql easypeasy_production
  
 ### Import the production database
 
