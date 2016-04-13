@@ -38,7 +38,7 @@
           <li><a href="<%= admin_pods_path %>">Pods</a></li>
           <li><a href="<%= admin_pod_admins_path %>">Pod admins</a></li>
         </ul>
-        <% elsif current_admin && current_admin.type == 'PodAdmin' && current_admin.pod %>
+        <% elsif current_admin && current_admin.type == 'PodAdmin' && current_admin.pod && current_admin.pod.is_active? %>
         <ul class="nav navbar-nav">
           <p class="navbar-text"><span class="glyphicon glyphicon-bookmark"></span><strong> <%= current_admin.pod.name %></strong></p>
           <li><a href="<%= pod_admin_parents_path %>">Parents</a></li>
@@ -57,13 +57,7 @@
     <div class="container-fluid">
       <% if current_admin && current_admin.type == 'PodAdmin' && current_admin.pod %>
         <div class="alert alert-success">
-            <%
-              days_left = (14 - (Date.today.strftime("%j").to_i - current_admin.pod.created_at.strftime("%j").to_i))
-              if days_left < 0
-                days_left = 0
-              end
-            %>
-            You have <strong><%= days_left %> days left</strong> of your free trial! To keep using EasyPeasy check out our
+            You have <strong><%= current_admin.pod.days_left %> days left</strong> of your free trial! To keep using EasyPeasy check out our
             <a href="http://www.easypeasyapp.com/pricing.html" target="_blank"><strong>pricing plans</strong></a>
         </div>
       <% end %>
