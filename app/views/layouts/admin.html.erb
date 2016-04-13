@@ -30,7 +30,7 @@
     <nav class="navbar navbar-default" role="navigation">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="<%= pod_admin_dashboard_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
+          <a class="navbar-brand" href="<%= pod_admin_path %>"><img src="<%= asset_path 'logo-oneliner.png' %>" style="height: 44px;" /></a>
         </div>
         <% if current_admin && current_admin.type != 'PodAdmin' %>
         <ul class="nav navbar-nav">
