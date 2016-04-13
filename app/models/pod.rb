@@ -123,4 +123,15 @@ class Pod < ActiveRecord::Base
   def latest_comment
     self.comments.last
   end
+  
+  def days_left
+    days = self.inactive_date.strftime("%j").to_i - Date.today.strftime("%j").to_i
+    return 0 if days < 0
+    return days
+  end
+  
+  def is_active?
+    return true if (self.inactive_date.blank? || self.days_left > 0) # if inactive_date is blank, we don't care about trial days left, the pod is active
+    return false
+  end
 end
