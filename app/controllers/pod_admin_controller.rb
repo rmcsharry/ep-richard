@@ -2,11 +2,12 @@ class PodAdminController < ApplicationController
   include FlashNoticeHelper
   
   before_filter :pod_admin_login_required
+  before_filter :is_trial_expired, except: [:expired]
   layout 'admin'
 
   def index
     if current_admin.pod && current_admin.pod.go_live_date
-      flash_pod_active_or_inactive
+      flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
     elsif current_admin.pod.nil?
@@ -35,13 +36,9 @@ class PodAdminController < ApplicationController
   end
 
   private
-  
-    def flash_pod_active_or_inactive
-      if current_admin.pod.inactive_date.blank? || current_admin.pod.days_left > 0
-        flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
-      else
-        flash.now[:danger] = "Hm. I can't find your pod. Please contact a member of EasyPeasy staff to sort this out. Sorry for the inconvenience."
-      end
+ 
+    def is_trial_expired
+      redirect_to pod_admin_expired_path if !current_admin.pod.is_active?  
     end
     
 end
