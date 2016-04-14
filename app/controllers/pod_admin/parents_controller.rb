@@ -25,7 +25,7 @@ class PodAdmin::ParentsController < PodAdminController
     @parent.pod = current_admin.pod
 
     if @parent.save
-      flash[:notice] = "Ok! Added #{@parent.name.split[0]} to the pod."
+      flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
       redirect_to pod_admin_parent_path(@parent)
     else
       render 'new'
@@ -42,7 +42,7 @@ class PodAdmin::ParentsController < PodAdminController
     @parent.update_attributes(parent_params)
 
     if @parent.save
-      flash[:notice] = "#{@parent.name.split[0]} updated."
+      flash[:success] = "#{@parent.name.split[0]} updated."
       redirect_to pod_admin_path
     else
       render 'edit'
@@ -53,9 +53,9 @@ class PodAdmin::ParentsController < PodAdminController
     parent = Parent.find(params[:id])
     parent_name = parent.name.split[0]
     if parent.delete
-      flash[:notice] = "Ok, deleted #{parent_name}!"
+      flash[:success] = "Ok, deleted #{parent_name}!"
     else
-      flash[:notice] = "Hm. That didn't seem to work."
+      flash[:danger] = "Hm. That didn't seem to work."
     end
     redirect_to pod_admin_parents_path
   end
@@ -66,10 +66,10 @@ class PodAdmin::ParentsController < PodAdminController
     begin
       @parent.send_welcome_sms
     rescue Twilio::REST::RequestError => e
-      flash[:notice] = "Hm. That didn't work. Please contact EasyPeasy and tell them there was an error with code #{e.code}. Sorry for the inconvenience."
+      flash[:danger] = "Hm. That didn't work. Please contact EasyPeasy and tell them there was an error with code #{e.code}. Sorry for the inconvenience."
     else
       @parent.log_welcome_sms_sent
-      flash[:notice] = "SMS sent!"
+      flash[:success] = "SMS sent!"
     end
 
     redirect_to pod_admin_parents_path

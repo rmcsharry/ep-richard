@@ -23,7 +23,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
     end
     self.resource = resource_class.find_or_initialize_with_error_by(:confirmation_token, @original_token)  
     if resource.confirmed?
-      flash[:notice] = "That account has already been confirmed. Please login."
+      flash[:warning] = "That account has already been confirmed. Please login."
       redirect_to admin_login_path
     end
     super if resource.nil?
