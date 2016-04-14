@@ -37,13 +37,13 @@ class PodAdminController < ApplicationController
 
   def expired
     # If pod is active, prevent showing the expired page
-    redirect_to pod_admin_path if current_admin.pod && current_admin.pod.is_active?
+    redirect_to pod_admin_path if current_admin.pod.is_active?
   end
   
   private
  
     def is_trial_expired
-      redirect_to pod_admin_expired_path if !current_admin.pod.is_active?  
+      redirect_to pod_admin_expired_path if !current_admin.pod.is_active?
     end
     
 end

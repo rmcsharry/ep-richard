@@ -1,6 +1,6 @@
 class Pod < ActiveRecord::Base
   validates :name, presence: true
-
+  
   has_one :pod_admin
   has_many :parents
   has_many :comments
@@ -133,5 +133,9 @@ class Pod < ActiveRecord::Base
   def is_active?
     return true if (self.inactive_date.blank? || self.days_left > 0) # if inactive_date is blank, we don't care about trial days left, the pod is active
     return false
+  end
+  
+  def is_in_trial?
+    return true if self.inactive_date && self.days_left > 0
   end
 end

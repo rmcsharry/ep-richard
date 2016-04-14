@@ -21,4 +21,13 @@ class PodAdmin < Admin
       return false
     end
   end
+  
+  def send_trial_reminder_email(support_person_name=nil)
+    if self.pod.is_in_trial? && (self.pod.days_left == 7 || self.pod.days_left == 2)
+      PodAdminMailer.trial_reminder_email(self, support_person_name).deliver
+      return true
+    else
+      return false
+    end
+  end
 end
