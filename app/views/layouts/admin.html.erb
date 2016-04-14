@@ -55,7 +55,7 @@
     </nav>
 
     <div class="container-fluid">
-      <% if current_admin && current_admin.type == 'PodAdmin' && current_admin.pod %>
+      <% if current_admin && current_admin.type == 'PodAdmin' && current_admin.pod && !current_admin.pod.is_active?%>
         <div class="alert alert-success">
             You have <strong><%= current_admin.pod.days_left %> days left</strong> of your free trial! To keep using EasyPeasy check out our
             <a href="http://www.easypeasyapp.com/pricing.html" target="_blank"><strong>pricing plans</strong></a>
