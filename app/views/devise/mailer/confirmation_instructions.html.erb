@@ -1,5 +1,54 @@
-<p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
+<body style="background:#97ce57; font-family: Helvetica; margin: 0; padding: 0;">
+	<center>
+		<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" style="max-width: 600px; background: #ffffff; padding: 20px;">
+	    	<tr>
+	        	<td align="center" valign="top">
+	            	<!-- BEGIN TEMPLATE // -->
+	            	<table border="0" cellpadding="0" cellspacing="0">
+	                	<tr>
+	                    	<td align="center" valign="top">
+	                        	<!-- BEGIN HEADER // -->
+	                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+	                                <tr>
+	                                    <td valign="top">
+	                                    	<img src="http://www.easypeasyapp.com/images/EasyPeasyLogoTransparent150.png" width="150px" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                            <!-- // END HEADER -->
+	                        </td>
+	                    </tr>
+	                	<tr>
+	                    	<td align="center" valign="top">
+	                        	<!-- BEGIN BODY // -->
+	                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
+	                                <tr>
+	                                    <td valign="top">
+	                                        <h3 style="padding: 0 0 20px">Thank you for your interest in EasyPeasy</h3>
+											<p style="font-size:16px;">
+											Thank you for your interest in EasyPeasy</p>
+											<p style="font-size:16px;">
+											With EasyPeasy, children learn through play at home, so they arrive at school ready to learn.</p>
+											<p style="font-size:16px;">
+											Use EasyPeasy to invite parents to your school's 'Pod', send them educational games that all align to the EYFS curriculum, and share and network together - all through your simple online dashboard.</p>
+											<p style="font-size:16px;">
+											To start your free trial, just click the button below!</p>
+											<p style=" padding: 40px 0;">																					
+											<%= link_to 'Start free trial', confirmation_url(@resource, confirmation_token: @token), style: 'background: #97ce57; color: #ffffff; text-decoration: none; padding: 10px 25px; font-size: 20px; border-radius: 2px;' %>
+											</p>
+											
+											<p style="font-size:14px;border-top:1px solid #f0f0f0; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
+											<p style="font-size:14px;">You can reach us by phone on <strong>02037734277</strong>, by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
+	                                    </td>
+	                                </tr>
+	                            </table>
+	                            <!-- // END BODY -->
+	                        </td>
+	                    </tr>
+	                </table>
+	                <!-- // END TEMPLATE -->
+	            </td>
+	        </tr>
+	    </table>
+	</center>
+<body>
