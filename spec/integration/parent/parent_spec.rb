@@ -10,16 +10,28 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true)
       visit "/#/#{parent.slug}/games"
     end
-    
-    it "should show the games" do
-      expect(page).to have_content('Game 1')
-      expect(page).to have_content('Game 2')
-    end
 
-    it "should see there are no comments when no parents in the pod have commented yet" do
-      expect(page).to have_content('There are no comments on any of the games...yet!')
+    context "for the first time" do
+      it "should show the welcome intro screen" do
+        expect(page).to have_content('Welcome to EasyPeasy!')
+        expect(page).to have_content('With EasyPeasy, playing together helps your child develop key skills for school and life.')
+        # Note: do not try clicking the screen to check if the 2nd and 3rd intro screens load, Capybara fails to detect Ember component changes
+      end
+  
     end
-   
+    
+    context "after the first time" do
+      it "should show the games" do
+        visit "/#/#{parent.slug}/games" # trigger 2nd visit
+        expect(page).to have_content('Game 1')
+        expect(page).to have_content('Game 2')
+      end
+  
+      it "should see there are no comments when no parents in the pod have commented yet" do
+        visit "/#/#{parent.slug}/games" # trigger 2nd visit
+        expect(page).to have_content('There are no comments on any of the games...yet!')
+      end
+    end
   end
 
   describe "accessing EasyPeasy with a parent slug that doesn't exist" do
@@ -34,6 +46,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
     before do
       Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
       Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', created_at: 1.day.ago)
+      visit "/#/#{parent.slug}/games" # trigger a first visit so the intro screens are not shown
     end
 
     let!(:game) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }

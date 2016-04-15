@@ -14,7 +14,7 @@ RSpec.describe "Go live", :js => true, :type => :feature do
       pod_admin = Fabricate(:pod_admin, pod: pod)
       login_as_specific_pod_admin(pod_admin)
       click_link "click here"
-      expect(page).to have_button("Make this pod live")
+      expect(page).to have_button("Go Live")
     end
 
     describe "clicking the button" do
@@ -23,7 +23,7 @@ RSpec.describe "Go live", :js => true, :type => :feature do
         pod_admin = Fabricate(:pod_admin, pod: pod)
         login_as_specific_pod_admin(pod_admin)
         click_link "click here"
-        click_button "Make this pod live"
+        click_button "Go Live"
       end
 
       it "should set the go live date to today" do
@@ -32,7 +32,7 @@ RSpec.describe "Go live", :js => true, :type => :feature do
       end
 
       it "should no longer show the button" do
-        expect(page).not_to have_button("Make this pod live")
+        expect(page).not_to have_button("Go Live")
       end
     end
 
