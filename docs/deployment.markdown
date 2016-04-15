@@ -36,6 +36,14 @@ Other things that might be relevant:
 
 1. Add the user to the Bitbucket team/repo
 2. Make sure the user's key is added to their Bitbucket account
+3. Ensure ssh-agent is enabled:
+   
+   # start the ssh-agent in the background
+   eval "$(ssh-agent -s)"
+   
+4. Add your SSH key to the ssh-agent. If you used an existing SSH key rather than generating a new SSH key, you'll need to replace id_rsa in the command with the name of your existing private key file.
+   
+   $ ssh-add ~/.ssh/id_rsa
 
 
 Troubleshooting
