@@ -44,3 +44,7 @@ end
 group :test do
   gem 'webmock'
 end
+
+group :staging do
+  ruby '2.1.2'
+end

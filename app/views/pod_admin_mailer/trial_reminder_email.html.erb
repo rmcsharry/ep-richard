@@ -1,0 +1,53 @@
+
+<html>
+	<body style="background:#97ce57; font-family: Helvetica; margin: 0; padding: 0;">
+		<center>
+			<table align="center" border="0" cellpadding="0" cellspacing="0" height="100%" style="max-width: 600px; background: #ffffff; padding: 20px;">
+		    	<tr>
+		        	<td align="center" valign="top">
+		            	<!-- BEGIN TEMPLATE // -->
+		            	<table border="0" cellpadding="0" cellspacing="0">
+		                	<tr>
+		                    	<td align="center" valign="top">
+		                        	<!-- BEGIN HEADER // -->
+		                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+		                                <tr>
+		                                    <td valign="top">
+		                                    	<img src="http://www.easypeasyapp.com/images/EasyPeasyLogoTransparent150.png" width="150px" id="headerImage" mc:label="header_image" mc:edit="header_image" mc:allowdesigner mc:allowtext />
+		                                    </td>
+		                                </tr>
+		                            </table>
+		                            <!-- // END HEADER -->
+		                        </td>
+		                    </tr>
+		                	<tr>
+		                    	<td align="center" valign="top">
+		                        	<!-- BEGIN BODY // -->
+		                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
+		                                <tr>
+		                                    <td valign="top">
+		                                        <h3 style="padding: 0 0 20px">Hi <%= if @support_person_name.nil? then @pod_admin.email else @support_person_name end %>,</h3>
+												<p style="font-size:16px;">
+												<% if !@support_person_name.nil? %>
+												<p style="font-size:16px;"><strong>Pod name: <%= @pod.name %></strong><br/>
+												<p style="font-size:16px;"><strong>Pod id: <%= @pod.id %></strong><br/>
+												<p style="font-size:16px;"><strong>Pod admin: <%= @pod_admin.email %></strong><br/><br/>
+												<% end %>
+												Your 14 day trial of EasyPeasy is coming to an end in <strong><%= @pod.days_left %> days</strong> (on <%= @pod.inactive_date.strftime("%A, %B %e, %Y") %>).</p>
+												<p style="font-size:16px;">We want you to stay with us! View our <a href="http://www.easypeasyapp.com/pricing.html" style="color: #f97234;" target="_blank">pricing packages</a> or contact us for a personalised quote for your school, nursery or children's centre.</p>
+												<p style="padding-bottom: 20px;">You can reach us by phone on <strong>02037734277</strong>, by email on <a href="mailto:hello@easypeasyapp.com" style="color: #f97234;">hello@easypeasyapp.com</a> or by responding to this email.</p>
+												<p style="font-size:14px;border-top:1px solid #f0f0f0; padding: 20px 0 0">If you received this email by mistake, please disregard this email.</p>
+		                                    </td>
+		                                </tr>
+		                            </table>
+		                            <!-- // END BODY -->
+		                        </td>
+		                    </tr>
+		                </table>
+		                <!-- // END TEMPLATE -->
+		            </td>
+		        </tr>
+		    </table>
+		</center>
+	</body>
+</html>

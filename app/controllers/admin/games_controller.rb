@@ -12,7 +12,7 @@ class Admin::GamesController < AdminController
   def create
     @game = Game.new(game_params)
     if @game.publish
-      flash[:notice] = "New game added!"
+      flash[:success] = "New game successfully added!"
       redirect_to admin_games_path
     else
       render 'new'
@@ -28,7 +28,7 @@ class Admin::GamesController < AdminController
     @game.update(game_params)
 
     if @game.publish
-      flash[:notice] = "New game added!"
+      flash[:success] = "Game successfully updated!"
       redirect_to admin_games_path
     else
       render 'edit'

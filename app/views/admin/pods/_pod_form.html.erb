@@ -7,6 +7,12 @@
         <%= f.text_field :name, placeholder: "", class: "form-control" %>
         <%= f.label :description %>
         <%= f.text_field :description, placeholder: "", class: "form-control" %>
+        <div class="row">
+        <div class="col-md-6">
+		<%= f.label :inactive_date %>
+        <%= f.date_field :inactive_date, placeholder: "", class: "form-control" %><small> leave this blank to make pod active</small>
+        </div>
+        </div>
       </div>
       <div class="form-group">
         <% if params[:action] == 'edit' %>

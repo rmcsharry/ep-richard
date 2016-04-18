@@ -48,6 +48,9 @@ class PodAdmin::SignupController < PodAdminController
   
   private
     def finish_wizard_path
+      @pod = Pod.find(session[:pod_id])
+      @pod.inactive_date = Date.today + 14.days # free trial ends at start of 15th day (ie. midnight of the 14th day)
+      @pod.save
       # Now the wizard is finished, send the sms to all the parents that were added
       if current_admin.pod.parents.count > 0
         error_sending = false   
@@ -63,9 +66,9 @@ class PodAdmin::SignupController < PodAdminController
           end
         end
         if error_sending
-          flash[:notice] = "Whoops! Something went wrong - please try sending again using the Parents menu."
+          flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu."
         else
-          flash[:notice] = "Awesome, these parents have now received a text message to their phone."
+          flash[:success] = "Awesome, these parents have now received a text message to their phone."
         end
       end
       pod_admin_path

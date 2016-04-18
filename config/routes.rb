@@ -40,6 +40,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: :dashboard
     get '/analytics', to: :analytics
     get '/comments', to: :comments
+    get '/expired', to: :expired
     resources :parents
     resources :games
     resources :signup

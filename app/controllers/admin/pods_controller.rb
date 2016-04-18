@@ -36,7 +36,7 @@ class Admin::PodsController < AdminController
   private
 
     def pod_params
-      params.require(:pod).permit(:name, :description)
+      params.require(:pod).permit(:name, :description, :inactive_date)
     end
 
 end
