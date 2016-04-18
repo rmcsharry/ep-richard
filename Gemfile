@@ -46,5 +46,5 @@ group :test do
 end
 
 group :staging do
-  ruby '2.2.4'
+  ruby '2.1.2'
 end
