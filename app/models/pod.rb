@@ -125,7 +125,7 @@ class Pod < ActiveRecord::Base
   end
   
   def days_left
-    days = self.inactive_date.strftime("%j").to_i - Date.today.strftime("%j").to_i
+    days = self.inactive_date.strftime("%j").to_i - Date.today.strftime("%j").to_i unless self.inactive_date.nil?
     return 0 if days < 0
     return days
   end
@@ -137,5 +137,6 @@ class Pod < ActiveRecord::Base
   
   def is_in_trial?
     return true if self.inactive_date && self.days_left > 0
+    return false
   end
 end
