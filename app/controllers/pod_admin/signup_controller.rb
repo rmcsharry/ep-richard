@@ -49,7 +49,7 @@ class PodAdmin::SignupController < PodAdminController
   private
     def finish_wizard_path
       @pod = Pod.find(session[:pod_id])
-      @pod.inactive_date = DateTime.now.beginning_of_day + 15.days # free trial ends at start of 15th day (ie. midnight of the 14th day)
+      @pod.inactive_date = Date.today + 14.days # free trial ends at start of 15th day (ie. midnight of the 14th day)
       @pod.save
       # Now the wizard is finished, send the sms to all the parents that were added
       if current_admin.pod.parents.count > 0
