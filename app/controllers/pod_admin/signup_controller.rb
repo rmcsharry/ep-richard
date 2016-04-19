@@ -1,7 +1,8 @@
 class PodAdmin::SignupController < PodAdminController
   include Wicked::Wizard
   steps :step01, :step02, :step03
-  
+  @@error_sending = {}
+    
   layout 'pod_admin/signup'
   
   def show
@@ -13,6 +14,7 @@ class PodAdmin::SignupController < PodAdminController
         @pod.parents.build
       when :step03
         @pod = Pod.find(session[:pod_id])
+        send_welcome_sms(@pod.parents.first) # since step 2 succeeded, we just saved the pod with possibly one parent, so send them the sms
         2.times{ @pod.parents.build } # this allows 2 sets of fields to show so the user can add up to 2 parents
     end
     render_wizard
@@ -34,7 +36,7 @@ class PodAdmin::SignupController < PodAdminController
         end
         render_wizard @pod # saves the pod, triggers validations
       when :step02
-        @pod = Pod.find(session[:pod_id])       
+        @pod = Pod.find(session[:pod_id])
         pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
         render_wizard @pod # saves the parent, triggers validations
       when :step03
@@ -47,31 +49,50 @@ class PodAdmin::SignupController < PodAdminController
   end
   
   private
+    def send_welcome_sms(parent)
+      return if parent.nil?
+      @@error_sending = { parent.name => try_sending_welcome_sms(parent) }
+    end
+
+    # TODO: Put this into a helper and share it with similar code in parent model     
+    def try_sending_welcome_sms(parent)
+      begin
+        parent.send_welcome_sms
+      rescue Twilio::REST::RequestError => e
+        return false
+      else
+        parent.log_welcome_sms_sent
+        return true
+      end
+    end
+    
     def finish_wizard_path
       @pod = Pod.find(session[:pod_id])
       @pod.inactive_date = Date.today + 14.days # free trial ends at start of 15th day (ie. midnight of the 14th day)
       @pod.save
-      # Now the wizard is finished, send the sms to all the parents that were added
+      # Now the wizard is finished, send the sms to the parents that were added (if any)
       if current_admin.pod.parents.count > 0
-        error_sending = false   
-        # TODO: Put this into a helper and share it with similar code in parent model 
-        current_admin.pod.parents.each do |parent|
-          begin
-            parent.send_welcome_sms
-          rescue Twilio::REST::RequestError => e
-            error_sending = true
-            break
-          else
-            parent.log_welcome_sms_sent
-          end
-        end
-        if error_sending
-          flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu."
-        else
-          flash[:success] = "Awesome, these parents have now received a text message to their phone."
-        end
+        try_to_send_sms_to_new_parents
+        process_errors
       end
       pod_admin_path
+    end
+ 
+    def try_to_send_sms_to_new_parents
+      current_admin.pod.parents.where('welcome_sms_sent = ?', false).each do |parent|
+        @@error_sending.store(parent.name, try_sending_welcome_sms(parent))
+      end
+    end
+    
+    def process_errors
+      error_parents = @@error_sending.select{|k,v| v == false}
+      if error_parents.count == 0
+        flash[:success] = "Awesome, these parents have now received a text message to their phone."
+      else
+        error_parents = @@error_sending.map{|k,v| k if v == false}.compact
+        result = error_parents.map{|s| "#{s}"}.join(', ')
+        flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu. The SMS did not get sent for: #{result}."
+      end      
     end
  
     def pod_params
