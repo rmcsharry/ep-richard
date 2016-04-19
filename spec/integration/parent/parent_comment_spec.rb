@@ -18,6 +18,7 @@ RSpec.describe "Comments", :js => true, :type => :feature do
     Fabricate(:parent_visit_log, parent: parent)
     Fabricate(:parent_visit_log, parent: parent2)
     visit "/#/#{parent.slug}/games/"
+    sleep 0.02
     find(:css, '.gameItem').click
   end
 

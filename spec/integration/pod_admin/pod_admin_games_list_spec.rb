@@ -30,7 +30,7 @@ RSpec.describe "Games List", :js => false, :type => :feature do
         expect(page).to have_link("Games")
       end
 
-      it "clicking should show all games, even those in the future and not in the default set" do
+      it "clicking Games link should show all games, even those in the future and not in the default set" do
         click_link "Games"
         expect(page).to have_text("Game 1")
         expect(page).to have_text("Game 2")

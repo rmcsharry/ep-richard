@@ -22,7 +22,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
     
     context "after the first time" do
       before do
-        Fabricate(:parent_visit_log, parent: parent) # record a first visit so intro screens are not shown
+        Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
         visit "/#/#{parent.slug}/games"
       end
       
@@ -49,7 +49,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
     before do
       Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
       Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', created_at: 1.day.ago)
-      Fabricate(:parent_visit_log, parent: parent) # record a first visit so intro screens are not shown
+      Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
     end
 
     let!(:game) { Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true) }
