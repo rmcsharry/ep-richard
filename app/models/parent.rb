@@ -77,7 +77,7 @@ class Parent < ActiveRecord::Base
   def send_weekend_sms
     game = self.pod.current_game
     return false if game.nil?     
-    message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
+    message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
     try_to_send(message)
   end       
 
