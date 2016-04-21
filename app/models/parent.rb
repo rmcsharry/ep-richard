@@ -86,7 +86,7 @@ class Parent < ActiveRecord::Base
     return false if game.nil?
     message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
               " Try it out with the game " + game.name + " here: " +
-              "http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
+              "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
     # send only if it has been 2 days since the welcome message for the current game was sent 
     try_to_send(message, date, 2)    
   end
@@ -96,7 +96,7 @@ class Parent < ActiveRecord::Base
     return false if game.nil? 
     message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
               " How did you play the game? Share your thoughts here: " +
-              "http://play.easypeasyapp.com/#/#{self.slug}/games/" + game.id.to_s
+              "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
     # send only if it has been 4 days since the welcome message for the current game was sent 
     try_to_send(message, date, 4)
   end
