@@ -33,3 +33,18 @@ hr {
   max-width: 900px;
   margin: 0px auto;
 }
+
+.center-me {
+    max-width: 600px;
+    margin: 0px auto;
+    margin-top: 50px;
+    padding: 0 20px;
+}
+
+.alert-error {
+    background-color: #f2dede;
+    border-color: #eed3d7;
+    color: #b94a48;
+    text-align: left;
+    padding: 20px;
+ }
