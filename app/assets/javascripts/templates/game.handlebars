@@ -37,3 +37,11 @@
 	
 	</div>
 </div>
+
+<script>
+  ga('send', {
+    'hitType': 'pageview',
+    'page': location.pathname + location.hash,
+    'title': "{{model.name}} - {{parent.pod_name}}"
+  });
+</script>
