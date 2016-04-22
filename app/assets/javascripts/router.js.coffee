@@ -10,12 +10,6 @@ Easypeasy.Router.map ()->
       @resource 'comments',   path: '/comments'
 
 Easypeasy.Router.reopen
-  notifyGoogleAnalytics: ( ->
-    ga 'send', 'pageview',
-      'page':  location.hash,
-      'title': this.get('url'),
-  ).on('didTransition')
-
   logTransition: ( ->
     $.post('/api/log', { location: this.get('url') })
   ).on('didTransition')

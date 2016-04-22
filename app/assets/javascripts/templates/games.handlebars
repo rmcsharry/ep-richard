@@ -56,3 +56,11 @@
 	</ul>
 </div>
 {{/if}}
+
+<script>
+  ga('send', {
+    'hitType': 'pageview',
+    'page': location.pathname + location.hash,
+    'title': "{{parent.pod_name}}"
+  });
+</script>
