@@ -18,3 +18,5 @@
 # Ignore Aptana Studio files
 .project
 
+# Ignore MS Code ide files
+.vscode
