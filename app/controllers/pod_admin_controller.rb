@@ -10,7 +10,7 @@ class PodAdminController < ApplicationController
       flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
-    elsif current_admin.pod.blank?
+    elsif current_admin.pod_id.blank?
       # this pod admin has not finished creating their pod (ie they signed-up via other website and admin/confirmations/create)
       redirect_to pod_admin_signup_path(id: 'step01')
     end

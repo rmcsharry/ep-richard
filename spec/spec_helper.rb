@@ -38,8 +38,9 @@ class WarningSuppressor
   end
 end
 
+options = {:window_size => [640, 1136], :phantomjs_logger => WarningSuppressor, :js_errors => false} # TODO remove the js_errors and fix pages that have JS errors
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, :window_size => [640, 1136], :phantomjs_logger => WarningSuppressor)
+  Capybara::Poltergeist::Driver.new(app, options)
 end
 
 Capybara.javascript_driver = :poltergeist
@@ -52,7 +53,7 @@ def json(body)
 end
 
 def screenshot
-  page.driver.render('./tmp/screenshot.png')
+  page.driver.save_screenshot('./tmp/screenshot.png')
   `open ./tmp/screenshot.png`
 end
 

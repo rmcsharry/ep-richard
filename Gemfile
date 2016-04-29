@@ -32,9 +32,10 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'rspec-rails', '~> 3.0.0'
   gem 'capybara'
-  gem 'poltergeist', '~> 1.6.0'
+  gem 'poltergeist', '~> 1.9.0'
   gem 'database_cleaner'
   gem 'fabrication'
+  gem 'launchy'
 end
 
 group :development do

@@ -20,13 +20,13 @@ RSpec.describe "setting games as default", :js => true, :type => :feature do
       fill_in 'Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2'
       check('Add to default set')
       click_button 'Add game'
-
+      
+      Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
       visit "/#/#{parent.slug}/games"
 
       expect(page).not_to have_content('Freeze')
       expect(page).to     have_content('Hopscotch')
     end
   end
-
 
 end

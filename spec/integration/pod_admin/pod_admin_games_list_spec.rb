@@ -30,7 +30,7 @@ RSpec.describe "Games List", :js => false, :type => :feature do
         expect(page).to have_link("Games")
       end
 
-      it "clicking should show all games, even those in the future and not in the default set" do
+      it "clicking Games link should show all games, even those in the future and not in the default set" do
         click_link "Games"
         expect(page).to have_text("Game 1")
         expect(page).to have_text("Game 2")
@@ -42,16 +42,16 @@ RSpec.describe "Games List", :js => false, :type => :feature do
           pod.set_go_live_date
         end
 
-        it "dashboard should show there are no comments for the pod" do
-          visit "/pod_admin/dashboard"
+        it "index should show there are no comments for the pod" do
+          visit "/pod_admin"
           expect(page).to have_text("There are no comments on any of the games...yet!")
         end        
                 
-        it "dashboard should show the latest comment for the pod if there is one" do
+        it "index should show the latest comment for the pod if there is one" do
           game = Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
           latest_comment = "This is the latest comment"
           Comment.create!(body: latest_comment, game: game, parent: parent)
-          visit "/pod_admin/dashboard"
+          visit "/pod_admin"
           expect(page).to have_text(latest_comment)
         end        
       end # and pod is live

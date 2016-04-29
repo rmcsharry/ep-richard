@@ -8,7 +8,8 @@ RSpec.describe "the list of games", :type => :feature do
     it "shows the games" do
       Fabricate(:game, name: "Game 1", description: "Game 1 desc", in_default_set: true)
       Fabricate(:game, name: "Game 2", description: "Game 2 desc", in_default_set: true)
-
+      Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
+      
       visit "/#/#{parent.slug}/games/"
 
       expect(page).to have_text("Game 1")
@@ -36,7 +37,8 @@ RSpec.describe "the list of games", :type => :feature do
       b.save
       c.save
       d.save
-
+      
+      Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
       visit "/#/#{parent.slug}/games/"
       expect(page).to have_selector("li.gameItem:nth-of-type(1)", text: "Position 1")
       expect(page).to have_selector("li.gameItem:nth-of-type(2)", text: "Position 2")
@@ -50,6 +52,7 @@ RSpec.describe "the list of games", :type => :feature do
 
       Fabricate(:game, name: "Default and higher position", position: 1, in_default_set: true)
       Fabricate(:game, name: "Not default and lower position", position: 2, in_default_set: false)
+      Fabricate(:parent_visit_log, parent: parent_in_old_pod) # fabricate a first visit so intro screens are not shown
 
       visit "/#/#{parent_in_old_pod.slug}/games/"
       expect(page).to have_selector("li.gameItem:nth-of-type(1)", text: "Not default and lower position")
