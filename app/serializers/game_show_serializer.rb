@@ -1,6 +1,7 @@
 require 'redcarpet'
 
-class GameSerializer < ActiveModel::Serializer
+class GameShowSerializer < ActiveModel::Serializer
+
   attributes :id,
              :name,
              :description,
@@ -14,7 +15,16 @@ class GameSerializer < ActiveModel::Serializer
              :in_default_set,
              :position,
              :created_at
+             has_many :comments
 
+  def comments
+    if serialization_options[:pod_id]
+      object.comments.where('pod_id = ?', serialization_options[:pod_id])
+    else
+      object.comments
+    end
+  end
+  
   def instructions
     if object.instructions
       renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
