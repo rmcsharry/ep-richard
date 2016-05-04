@@ -13,7 +13,7 @@ gem 'jquery-rails'
 
 gem 'ember-rails'
 gem 'handlebars', require: false
-gem 'active_model_serializers'
+gem 'active_model_serializers', '0.9.3'
 gem 'coffee-rails'
 gem 'foreman', require: false
 gem 'unicorn', require: false
