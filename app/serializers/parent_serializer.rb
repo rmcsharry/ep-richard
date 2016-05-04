@@ -1,5 +1,14 @@
 class ParentSerializer < ActiveModel::Serializer
-  attributes :id, :name, :first_name, :pod_name, :phone, :slug, :pod_latest_comment, :pod_latest_comment_parent_name, :pod_latest_comment_game_name, :first_visit
+  attributes :id,
+             :name,
+             :first_name,
+             :pod_name,
+             :phone,
+             :slug,
+             :pod_latest_comment,
+             :pod_latest_comment_parent_name,
+             :pod_latest_comment_game_name,
+             :first_visit
 
   def first_visit
     object.parent_visit_logs.count == 0
