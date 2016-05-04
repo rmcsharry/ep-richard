@@ -28,13 +28,25 @@
 	  	</div>
 	  </div>
 	  <br/>
-	
-	  {{#unless commentsOpen}}
-	  {{#link-to 'comments' class="Button easyButton"}}Chat with parents in your pod{{/link-to}}
-	  {{/unless}}
-	
-	  {{outlet}}
-	
+	  <br/>
+		
+		<div class="title">
+  		{{commentsCount}}
+		</div>
+	  
+		{{#each comment in model.comments}}
+
+		<div class="commentItem">
+			<div class="commentItem-author">{{comment.parent_name}}</div>
+			<div class="commentItem-body">{{comment.body}}</div>
+		</div>
+		{{else}}
+
+		<p class="paraSmall">No comments on this game yet! Write the first one.</p>
+
+		{{/each}}
+		
+		{{add-comment game=model parent_id=parent.id parent_name=parent.name}}
 	</div>
 </div>
 
