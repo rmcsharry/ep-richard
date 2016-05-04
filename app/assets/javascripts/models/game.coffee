@@ -10,3 +10,4 @@ Easypeasy.Game = DS.Model.extend
   in_default_set:    DS.attr 'boolean'
   position:          DS.attr 'number'
   created_at:        DS.attr 'date'
+  comments:          DS.hasMany('comment', {embedded: 'true'})
