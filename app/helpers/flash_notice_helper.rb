@@ -3,7 +3,7 @@ module FlashNoticeHelper
     if comment.nil?
       msg = "There are no comments on any of the games...yet!"
     else        
-      url = "/pod_admin/games/" + comment.game.id.to_s
+      url = "/pod_admin/game/" + comment.game.id.to_s
       msg = "The most recent comment was from <strong>" + comment.parent_name + 
             "</strong> on <strong>" + comment.created_at.strftime("%d %b %y") + 
             "</strong> at <strong>" + comment.created_at.strftime("%H:%M") + 
