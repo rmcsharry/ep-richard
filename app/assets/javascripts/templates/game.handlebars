@@ -16,37 +16,37 @@
 	  <div class="markdownInstructions">
 	  	<div>
 	  		<h1>Did you know?</h1>
-	  		{{{model.did_you_know_fact}}}
+	  		{{model.did_you_know_fact}}
 	  	</div>
 	  	<p></p>
 	  	<div>
 	    	{{{model.instructions}}}
 	    </div>
-		<div>
-			<h1>Top tip</h1>
-	  		{{{model.top_tip}}}
+			<div>
+				<h1>Top tip</h1>
+	  		{{model.top_tip}}
 	  	</div>
-	  </div>
-	  <br/>
-	  <br/>
+	  	<br/>		
+			<h1>How did it go? share your experience with other parents</h1>
+		</div>
 		
 		<div class="title">
-  		{{commentsCount}}
+			{{commentsCount}}
 		</div>
-	  
-		{{#each comment in model.comments}}
-
-		<div class="commentItem">
-			<div class="commentItem-author">{{comment.parent_name}}</div>
-			<div class="commentItem-body">{{comment.body}}</div>
-		</div>
+				
+		{{#if model.comments}}	
+			{{#each comment in model.comments}}
+				<div class="commentItem">
+					<div class="commentItem-author">{{comment.parent_name}}</div>
+					<div class="commentItem-body">{{comment.body}}</div>
+				</div>
+			{{/each}}
+			{{add-comment placeholder_text='Type your comment' 
+				game=model parent_id=parent.id parent_name=parent.name}}
 		{{else}}
-
-		<p class="paraSmall">No comments on this game yet! Write the first one.</p>
-
-		{{/each}}
-		
-		{{add-comment game=model parent_id=parent.id parent_name=parent.name}}
+			{{add-comment placeholder_text='Be the first to leave a comment for this game'
+				game=model parent_id=parent.id parent_name=parent.name}}
+		{{/if}}
 	</div>
 </div>
 
