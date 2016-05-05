@@ -14,8 +14,7 @@ class PodAdmin::SignupController < PodAdminController
         @pod.parents.build
       when :step03
         @pod = Pod.find(session[:pod_id])
-        # since step 2 succeeded, we just saved the pod with possibly one parent, so send them the sms
-        @@sms_results = { parent.name => try_sending_welcome_sms(parent) }
+        send_sms_to_first_parent(@pod.parents.first)# since step 2 succeeded, we just saved the pod with possibly one parent, so send them the sms
         2.times{ @pod.parents.build } # this allows 2 sets of fields to show so the user can add up to 2 parents
     end
     render_wizard
@@ -50,6 +49,11 @@ class PodAdmin::SignupController < PodAdminController
   end
   
   private
+    def send_sms_to_first_parent(parent)
+      return if parent.nil?
+      @@sms_results = { parent.name => try_sending_welcome_sms(parent) }
+    end
+    
     # TODO: Put this into a helper and share it with similar code in parent model     
     def try_sending_welcome_sms(parent)
       begin
@@ -65,7 +69,7 @@ class PodAdmin::SignupController < PodAdminController
     def finish_wizard_path
       @pod = Pod.find(session[:pod_id])
       @pod.inactive_date = Date.today + 14.days # free trial ends at start of 15th day (ie. midnight of the 14th day)
-      @pod.save
+      @pod.set_go_live_date
       # Now the wizard is finished, send the sms to the parents that were added (if any)
       if current_admin.pod.parents.count > 0
         try_to_send_sms_to_new_parents
