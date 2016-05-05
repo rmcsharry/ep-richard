@@ -1,7 +1,7 @@
 class PodAdmin::SignupController < PodAdminController
   include Wicked::Wizard
   steps :step01, :step02, :step03
-  @@error_sending = {}
+  @@sms_results = {}
     
   layout 'pod_admin/signup'
   
@@ -14,7 +14,8 @@ class PodAdmin::SignupController < PodAdminController
         @pod.parents.build
       when :step03
         @pod = Pod.find(session[:pod_id])
-        send_welcome_sms(@pod.parents.first) # since step 2 succeeded, we just saved the pod with possibly one parent, so send them the sms
+        # since step 2 succeeded, we just saved the pod with possibly one parent, so send them the sms
+        @@sms_results = { parent.name => try_sending_welcome_sms(parent) }
         2.times{ @pod.parents.build } # this allows 2 sets of fields to show so the user can add up to 2 parents
     end
     render_wizard
@@ -49,11 +50,6 @@ class PodAdmin::SignupController < PodAdminController
   end
   
   private
-    def send_welcome_sms(parent)
-      return if parent.nil?
-      @@error_sending = { parent.name => try_sending_welcome_sms(parent) }
-    end
-
     # TODO: Put this into a helper and share it with similar code in parent model     
     def try_sending_welcome_sms(parent)
       begin
@@ -80,19 +76,19 @@ class PodAdmin::SignupController < PodAdminController
  
     def try_to_send_sms_to_new_parents
       current_admin.pod.parents.where('welcome_sms_sent = ?', false).each do |parent|
-        @@error_sending.store(parent.name, try_sending_welcome_sms(parent))
+        @@sms_results.store(parent.name, try_sending_welcome_sms(parent))
       end
     end
     
     def process_errors
-      error_parents = @@error_sending.select{|k,v| v == false}
-      if error_parents.count == 0
+      sms_errors = @@sms_results.select{|k,v| v == false}
+      if sms_errors.count == 0
         flash[:success] = "Awesome, these parents have now received a text message to their phone."
       else
-        error_parents = @@error_sending.map{|k,v| k if v == false}.compact
-        result = error_parents.map{|s| "#{s}"}.join(', ')
-        flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu. The SMS did not get sent for: #{result}."
-      end      
+        sms_errors = @@sms_results.map{|k,v| k if v == false}.compact
+        formatted_errors = sms_errors.map{|s| "#{s}"}.join(', ')
+        flash[:danger] = "Whoops! Something went wrong - please try sending again using the Parents menu. The SMS did not get sent for: #{formatted_errors}."
+      end
     end
  
     def pod_params
@@ -104,7 +100,7 @@ class PodAdmin::SignupController < PodAdminController
       pod_params[:parents_attributes].each do |k,v| 
         if v[:name].blank? && v[:phone].blank?
           v.merge!({:_destroy => '1'}) # when the pod saves, this empty record will be discarded
-          is_blank_submitted = true # since we discarded an empty record, we need to put it back in the view (only if validations fail on the other record
+          is_blank_submitted = true # since we discarded an empty record, we need to put it back in the view (only if validations fail on the other record)
         else
           @pod.parents.build(pod_params[:parents_attributes][k])
         end
