@@ -29,24 +29,26 @@
 	  	<br/>		
 			<h1>How did it go? share your experience with other parents</h1>
 		</div>
-		
-		<div class="title">
-			{{commentsCount}}
-		</div>
-				
-		{{#if model.comments}}	
-			{{#each comment in model.comments}}
-				<div class="commentItem">
-					<div class="commentItem-author">{{comment.parent_name}}</div>
-					<div class="commentItem-body">{{comment.body}}</div>
-				</div>
-			{{/each}}
+						
+		{{#if model.comments}}
 			{{add-comment placeholder_text='Type your comment' 
 				game=model parent_id=parent.id parent_name=parent.name}}
 		{{else}}
 			{{add-comment placeholder_text='Be the first to leave a comment for this game'
 				game=model parent_id=parent.id parent_name=parent.name}}
 		{{/if}}
+
+		<div class="title">
+			{{commentsCount}}
+		</div>
+
+		{{#each comment in sortedComments}}
+			<div class="commentItem">
+				<div class="commentItem-author">{{comment.parent_name}}</div>
+				<div class="commentItem-body">{{comment.body}}</div>
+			</div>
+		{{/each}}
+	
 	</div>
 </div>
 
