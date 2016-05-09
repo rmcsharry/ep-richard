@@ -7,7 +7,7 @@ class Game < ActiveRecord::Base
 
   def comments_for_pod(pod_id)
     parents = Pod.find(pod_id).parents
-    filtered_comments = self.comments.map do |comment|
+    filtered_comments = self.comments.order(created_at: :desc).map do |comment|
       comment if parents.include?(comment.parent)
     end
     filtered_comments.compact
