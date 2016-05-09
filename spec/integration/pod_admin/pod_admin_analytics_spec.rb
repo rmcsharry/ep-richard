@@ -55,7 +55,7 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
 
       it "a parent visiting a game page directly should be counted as a visit" do
         visit "/#/#{parent1.slug}/game/#{game1.id}"
-        expect(ParentVisitLog.count).to eq(1)
+        expect(ParentVisitLog.count).to eq(2)
       end
 
       describe "most visited game stat" do
