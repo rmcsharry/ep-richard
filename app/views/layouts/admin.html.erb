@@ -87,9 +87,9 @@
           "pod_description": "<%=current_admin.pod.description%>",
           "pod_admin_id": "<%=current_admin.id%>",
           "pod_id": "<%=current_admin.pod.id%>",
-          "pod_go_live_date_at": <%=current_admin.pod.go_live_date.to_time.to_i%>,
-          "created_at": <%=current_admin.created_at.to_time.to_i%>,
-          "last_analytics_email_at": <%=current_admin.last_analytics_email_sent.to_time.to_i%>,
+          "pod_go_live_date_at": <%= current_admin.pod.go_live_date.to_time.to_i if current_admin.pod.go_live_date %>,
+          "created_at": <%= current_admin.created_at.to_time.to_i %>,
+          "last_analytics_email_at": <%= current_admin.last_analytics_email_sent.to_time.to_i if current_admin.last_analytics_email_sent %>,
           "type": "PodAdmin"
         };
       </script>
