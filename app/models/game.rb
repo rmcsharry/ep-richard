@@ -6,11 +6,7 @@ class Game < ActiveRecord::Base
   acts_as_list add_new_at: :top
 
   def comments_for_pod(pod_id)
-    parents = Pod.find(pod_id).parents
-    filtered_comments = self.comments.order(created_at: :desc).map do |comment|
-      comment if parents.include?(comment.parent)
-    end
-    filtered_comments.compact
+    self.comments.where('pod_id = ?', pod_id).order(created_at: :desc)
   end
 
   def video_iframeurl
