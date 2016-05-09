@@ -24,7 +24,6 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "accessing the comments page for a game" do
     it "should display the comments page for the game" do
-      click_link 'Chat with parents in your pod'
       expect(page).to have_content('Here is my comment')
       expect(page).to have_content('A comment from parent 2')
       expect(page).to have_content('Bob S.')
@@ -33,17 +32,15 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "adding a comment" do
     it "should show the comment after you add it" do
-      click_link   'Chat with parents in your pod'
       fill_in      'comment', with: 'This was a great game.'
-      click_button 'Add comment'
-
+      click_button 'Share comment'
+      
       expect(page).to have_content('This was a great game.')
     end
 
     it "should not allow you to add a blank comment" do
-      click_link   'Chat with parents in your pod'
       fill_in      'comment', with: ' '
-      click_button 'Add comment'
+      click_button 'Share comment'
 
       expect(page).to have_selector('.commentItem', count: 2)
     end
@@ -51,12 +48,12 @@ RSpec.describe "Comments", :js => true, :type => :feature do
 
   describe "viewing commments" do
     it "should show you comments only from other members of your pod" do
-      visit "/#/#{parent.slug}/game/#{game.id}/comments/"
+      visit "/#/#{parent.slug}/game/#{game.id}/"
       expect(page).to have_content('Here is my comment')
 
       visit "/"
 
-      visit "/#/#{parent_from_pod2.slug}/game/#{game.id}/comments/"
+      visit "/#/#{parent_from_pod2.slug}/game/#{game.id}/"
       expect(page).not_to have_content('Here is my comment')
     end
   end

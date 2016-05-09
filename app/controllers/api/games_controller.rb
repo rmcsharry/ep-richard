@@ -17,7 +17,7 @@ module API
       if parent
         render json: game, serializer: GameShowSerializer, root: :game, pod_id: parent.pod.id, status: 200
       else
-        render json: game, serializer: GameShowsSerializer, root: :game, status: 200
+        render json: game, serializer: GameShowSerializer, root: :game, status: 200
       end
     end
 
