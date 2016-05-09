@@ -1,8 +1,12 @@
 Easypeasy.GameController = Ember.Controller.extend
-  needs: ['application', 'parent']
+  needs: ['application', 'parent', 'comments']
   application: Ember.computed.alias("controllers.application")
   parent: Ember.computed.alias('controllers.parent.model')
-
-  commentsOpen: ( ->
-    @get('application.currentRouteName') == 'comments'
-  ).property('application.currentRouteName')
+   
+  commentsCount: ( ->
+    count = @get('model.comments.length')
+    if count == 1
+      "#{count} comment"
+    else
+      "#{count} comments"
+  ).property('model.comments.length')
