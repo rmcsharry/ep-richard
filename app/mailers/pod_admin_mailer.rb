@@ -8,7 +8,7 @@ class PodAdminMailer < ApplicationMailer
 
   def greetings_email(pod_admin)
     @pod_admin = pod_admin
-    subject = 'Greetings from EasyPeasy'
+    subject = 'Greetings from EasyPeasy!'
     mail(to: "#{@pod_admin.email}", bcc: "hello@easypeasyapp.com", subject: subject)
   end
   
