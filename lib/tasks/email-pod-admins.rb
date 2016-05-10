@@ -9,18 +9,24 @@ pod_admins.all.each do |pod_admin|
   else
     puts "  - SKIPPED EMAIL: #{pod_admin.email}"
   end
-  
+
+  if pod_admin.send_greetings_email
+    puts "  - SENT GREETINGS EMAIL: #{pod_admin.email}"
+  else
+    puts "  - SKIPPED GREETINGS EMAIL: #{pod_admin.email}"
+  end
+    
   if pod_admin.send_trial_reminder_email
     puts "  - SENT TRIAL REMINDER EMAIL: #{pod_admin.email}"
   else
     puts "  - SKIPPED TRIAL REMINDER EMAIL: #{pod_admin.email}"
   end
-
+  
   if pod_admin.send_trial_reminder_email('Jen')
     puts "  - SENT TRIAL REMINDER EMAIL COPY: Jen - hello@easypeasyapp.com"
   else
     puts "  - SKIPPED TRIAL REMINDER COPY: Jen - hello@easypeasyapp.com"
-  end  
+  end
 end
 
 puts "\n== Finished email pod admin job #{Time.now}\n\n"
