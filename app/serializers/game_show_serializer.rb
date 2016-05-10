@@ -19,9 +19,9 @@ class GameShowSerializer < ActiveModel::Serializer
 
   def comments
     if serialization_options[:pod_id]
-      object.comments.where('pod_id = ?', serialization_options[:pod_id])
+      object.comments_for_pod(serialization_options[:pod_id])
     else
-      object.comments
+      object.comments.order(created_at: :desc)
     end
   end
   

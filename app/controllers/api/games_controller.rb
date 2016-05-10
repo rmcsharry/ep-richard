@@ -17,6 +17,7 @@ module API
       if parent
         render json: game, serializer: GameShowSerializer, root: :game, pod_id: parent.pod.id, status: 200
       else
+        # In theory a parent should never end up here, so this api response should never fire
         render json: game, serializer: GameShowSerializer, root: :game, status: 200
       end
     end
