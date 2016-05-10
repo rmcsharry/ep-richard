@@ -5,6 +5,12 @@ class PodAdminMailer < ApplicationMailer
     subject = 'EasyPeasy weekly report'
     mail(to: "#{@pod_admin.email}", bcc: "bsafwat@gmail.com, hello@easypeasyapp.com, jane@easypeasyapp.com", subject: subject)
   end
+
+  def greetings_email(pod_admin)
+    @pod_admin = pod_admin
+    subject = 'Greetings from EasyPeasy'
+    mail(to: "#{@pod_admin.email}", bcc: "hello@easypeasyapp.com", subject: subject)
+  end
   
   def trial_reminder_email(pod_admin, support_person_name=nil)
     @pod_admin = pod_admin
