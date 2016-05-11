@@ -11,13 +11,13 @@ RSpec.describe PodAdmin, :type => :model do
       allow(PodAdminMailer.analytics_email).to receive(:deliver).and_return(true)
     end
 
-    describe "when a pod is not live" do
+    context "when a pod is not live" do
       it "should not send out the analytics email" do
         expect(pod_admin.should_send_analytics_email?).to eq(false)
       end
     end
 
-    describe "when a pod is live" do
+    context "when a pod is live" do
       before { pod.go_live_date = Date.today - 7.days }
 
       it "should update the last notified date" do
@@ -48,9 +48,36 @@ RSpec.describe PodAdmin, :type => :model do
       end
 
       describe "a week after the last game" do
-        it "should not send out the analytics email"
+        pending "should not send out the analytics email"
       end
     end
 
+    describe "sending out the greetings email" do
+      let(:pod) { Fabricate(:pod) }
+      let(:pod_admin) { Fabricate(:pod_admin, pod: pod) }
+
+      before do
+        allow(PodAdminMailer).to receive(:greetings_email).and_return(true)
+        allow(PodAdminMailer.greetings_email).to receive(:deliver).and_return(true)
+      end
+    
+      context "a day after new PodAdmin registers" do
+        it "should send out the greetings email" do
+          pod_admin.created_at = Date.yesterday
+          expect(pod_admin.send_greetings_email).to eq(true)
+        end
+      end
+
+      context "on the day the PodAdmin registers" do
+        it "should snot end out the greetings email" do
+          pod_admin.created_at = Date.today
+          expect(pod_admin.send_greetings_email).to eq(false)
+        end
+      end
+    end
+    
+    describe "sending out the trial reminder email" do
+    end
+    
   end
 end
