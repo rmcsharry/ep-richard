@@ -58,13 +58,13 @@
     app_id: 'igw37dwb',
     name: "{{parent.name}}",
     user_id: "{{parent.id}}",
-    "phone": "{{parent.phone}}",
     "pod_name": "{{parent.pod_name}}",
-    "pod_id": "{{parent.pod_id}}",
     "slug": "{{parent.slug}}",
     "game_name": "{{model.name}}",
     "type": "parent"
   });
+
+  Intercom('update');
 
   // Google Analytics
   ga('send', {
