@@ -24,7 +24,7 @@
 	                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
 	                                <tr>
 	                                    <td valign="top">
-	                                        <h3 style="padding: 0 0 20px">Thank you for your interest in EasyPeasy</h3>
+											<h3 style="padding: 0 0 20px">Hi <%= @resource.email %>,</h3>
 											<p style="font-size:16px;">
 											Thank you for your interest in EasyPeasy</p>
 											<p style="font-size:16px;">
@@ -36,7 +36,7 @@
 											<p style=" padding: 40px 0;">																					
 											<%= link_to 'Start free trial', confirmation_url(@resource, confirmation_token: @token), style: 'background: #97ce57; color: #ffffff; text-decoration: none; padding: 10px 25px; font-size: 20px; border-radius: 2px;' %>
 											</p>
-											
+											<hr>
 											<p style="font-size:14px;border-top:1px solid #f0f0f0; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
 											<p style="font-size:14px;">You can reach us by phone on <strong>02037734277</strong>, by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
 	                                    </td>
