@@ -33,8 +33,8 @@ class Parent < ActiveRecord::Base
       @client = Twilio::REST::Client.new account_sid, auth_token
 
       @client.account.messages.create({
-        :from => '+441290211660',
-        :to => self.phone,
+        :from => 'EasyPeasy',
+        :to => "+44#{self.phone}",
         :body => "Hi #{self.first_name}, #{self.pod.name} invites you to join other parents in your community on" + 
           " EasyPeasy: an app for parents that sends you fun, simple game ideas to support your child's early development." + 
           " Get started here: http://play.easypeasyapp.com/#/#{self.slug}/games"
@@ -107,8 +107,8 @@ class Parent < ActiveRecord::Base
       auth_token = 'f82546484dc3dfc96989f5930a13e508'
       @client = Twilio::REST::Client.new account_sid, auth_token
       @client.account.messages.create({
-        :from => '+441290211660',
-        :to => self.phone,
+        :from => 'EasyPeasy',
+        :to => "+44#{self.phone}",
         :body => message
       })
     end
