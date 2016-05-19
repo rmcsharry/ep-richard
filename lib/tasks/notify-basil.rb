@@ -5,12 +5,12 @@ auth_token = 'f82546484dc3dfc96989f5930a13e508'
 
 @client.account.messages.create({
   :from => '+441290211660',
-  :to => "07515337356",
+  :to => "+447515337356",
   :body => "Hello. Easypeasy daily notifications have just run."
 })
 
 @client.account.messages.create({
-  :from => '+441290211660',
-  :to => "07787512225",
+  :from => 'EasyPeasy',
+  :to => "+447787512225",
   :body => "Hello. Easypeasy daily notifications have just run."
 })
