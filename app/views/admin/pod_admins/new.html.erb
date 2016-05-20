@@ -9,7 +9,13 @@
   <hr />
 
   <% if Pod.all.count > 0 %>
-    <%= render "pod_admin_form" %>
+    <div class="row">
+      <div class="col-md-5">
+        <div class="well well-lg">    
+          <%= render "pod_admin_form" %>
+        </div>
+      </div>
+    </div>
   <% else %>
     <p class="lead">You need to add a pod before you can add a pod admin.</p>
   <% end %>
