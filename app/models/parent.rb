@@ -35,9 +35,22 @@ class Parent < ActiveRecord::Base
       @client.account.messages.create({
         :from => 'EasyPeasy',
         :to => "+44#{self.phone}",
-        :body => "Hi #{self.first_name}, #{self.pod.name} invites you to join other parents in your community on" + 
-          " EasyPeasy: an app for parents that sends you fun, simple game ideas to support your child's early development." + 
-          " Get started here: http://play.easypeasyapp.com/#/#{self.slug}/games"
+        salutation = "Hi #{self.first_name}, "
+        common_body = " to use {pod.name} for free with other parents in your community on EasyPeasy" + 
+                      " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
+                      " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
+                      " and we will send you a new game every week."
+
+        
+        if self.pod.pod_admin.nil?
+          :body => salutation + "you have been invited" + common_body
+        else
+          if self.pod.pod_admin.name
+            :body => salutation + "#{self.pod.pod_admin.name} has invited you" + common_body
+          else
+            :body => salutation + "#{self.pod.pod_admin.preferred_name} has invited you" + common_body
+          end
+        end
       })
     end
   end
