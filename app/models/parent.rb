@@ -32,25 +32,25 @@ class Parent < ActiveRecord::Base
 
       @client = Twilio::REST::Client.new account_sid, auth_token
 
+      salutation = "Hi #{self.first_name}, "
+      body = " to use {pod.name} for free with other parents in your community on EasyPeasy" + 
+                    " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
+                    " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
+                    " and we will send you a new game every week."
+      if self.pod.pod_admin.nil?
+        message = salutation + "you have been invited" + body
+      else
+        if self.pod.pod_admin.name
+          message = salutation + "#{self.pod.pod_admin.name} has invited you" + body
+        else
+          message = salutation + "#{self.pod.pod_admin.preferred_name} has invited you" + body
+        end
+      end
+
       @client.account.messages.create({
         :from => 'EasyPeasy',
         :to => "+44#{self.phone}",
-        salutation = "Hi #{self.first_name}, "
-        common_body = " to use {pod.name} for free with other parents in your community on EasyPeasy" + 
-                      " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
-                      " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
-                      " and we will send you a new game every week."
-
-        
-        if self.pod.pod_admin.nil?
-          :body => salutation + "you have been invited" + common_body
-        else
-          if self.pod.pod_admin.name
-            :body => salutation + "#{self.pod.pod_admin.name} has invited you" + common_body
-          else
-            :body => salutation + "#{self.pod.pod_admin.preferred_name} has invited you" + common_body
-          end
-        end
+        :body => message
       })
     end
   end
