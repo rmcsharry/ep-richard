@@ -26,6 +26,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
       flash[:warning] = "That account has already been confirmed. Please login."
       redirect_to admin_login_path
     end
+    @minimum_password_length = 8
     super if resource.nil?
   end
 
@@ -46,7 +47,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
 
  private
    def permitted_params
-     params.require(resource_name).permit(:confirmation_token, :password, :password_confirmation)
+     params.require(resource_name).permit(:confirmation_token, :preferred_name, :password, :password_confirmation)
    end
    
 end
