@@ -24,19 +24,17 @@
 		</div>
 		<div class="row col-md-12">
 			<div class="col-md-6 form-group">
-				<%= f.password_field :password, autocomplete: "off", autofocus: true, placeholder: 'Password', class: "form-control" %>
-				<% if @minimum_password_length %>
-					<em><small>(<%= @minimum_password_length %> characters minimum)</small></em>
-				<% end %>				
+				<%= f.password_field :password, required: true, autocomplete: "off", autofocus: true, placeholder: 'Password', class: "form-control" %>
+				<em><small>(<%= Devise.password_length.first %> characters minimum)</small></em>
 			</div>
 			<div class="col-md-6 form-group">
-				<%= f.password_field :password_confirmation, autocomplete: "off", placeholder: 'Password confirmation', class: "form-control" %>
+				<%= f.password_field :password_confirmation, required: true, autocomplete: "off", placeholder: 'Password confirmation', class: "form-control" %>
 			</div>
 		</div>
 					
 		<div class="row col-md-12">
 			<div class="col-md-12 form-group">
-				<%= f.text_field :preferred_name, placeholder: "What should we call you? (eg. when we send you an email)", autocomplete: "off", class: "form-control" %>
+				<%= f.text_field :preferred_name, required: true, placeholder: "What should we call you? (eg. when we send you an email)", autocomplete: "off", class: "form-control" %>
 			</div>
 		</div>  
 	

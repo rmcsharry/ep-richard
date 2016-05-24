@@ -26,7 +26,6 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
       flash[:warning] = "That account has already been confirmed. Please login."
       redirect_to admin_login_path
     end
-    @minimum_password_length = 8
     super if resource.nil?
   end
 
@@ -35,7 +34,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
     self.resource = resource_class.find_or_initialize_with_error_by(:confirmation_token, @original_token)    
     resource.assign_attributes(permitted_params) unless params[resource_name].nil?
 
-    if resource.valid? && resource.password_match?
+    if resource.password_match?
       resource.type = 'PodAdmin'
       self.resource.confirm # this triggers a save of the resource (without firing validations, so we now have a PodAdmin without a Pod!)
       Rails.logger.info resource_name
