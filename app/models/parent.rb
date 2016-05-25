@@ -61,14 +61,14 @@ class Parent < ActiveRecord::Base
     return true
   end
 
-  def should_send_first_sms?    
+  def should_send_new_game_sms?    
     return false if self.last_notification && self.last_notification > Date.today - 7.days
     return true
   end
 
   def notify
     message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
-    if should_notify? && should_send_first_sms?
+    if should_notify? && should_send_new_game_sms?
       self.last_notification = Date.today
       send_sms(message) if self.save
       return true
