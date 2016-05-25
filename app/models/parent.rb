@@ -58,6 +58,7 @@ class Parent < ActiveRecord::Base
     return false if !self.pod.go_live_date
     return false if self.pod.week_number == 0
     return false if !Game.non_default[self.pod.week_number - 1]
+    return false if !self.pod.is_active?
     return true
   end
 
