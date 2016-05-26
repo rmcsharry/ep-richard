@@ -3,6 +3,8 @@ class Admin < ActiveRecord::Base
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :recoverable, :rememberable, :trackable, :validatable, :confirmable, :registerable
   
+  validates :preferred_name, presence: true
+  
   def password_required?
     super if confirmed?
   end
