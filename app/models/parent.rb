@@ -32,10 +32,7 @@ class Parent < ActiveRecord::Base
 
       @client = Twilio::REST::Client.new account_sid, auth_token
 
-      body = "Hi #{self.first_name}, you have been invited to use #{pod.name} for free with other parents in your community on EasyPeasy" + 
-                  " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
-                  " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
-                  " and we will send you a new game every week."
+      body = build_welcome_message
       
       @client.account.messages.create({
         :from => 'EasyPeasy',
@@ -172,7 +169,7 @@ class Parent < ActiveRecord::Base
     if !self.pod.pod_admin.nil?
       if self.pod.pod_admin.name
         greeting = "#{self.pod.pod_admin.name} has invited you"
-      else
+      elsif self.pod.pod_admin.preferred_name
         greeting = "#{self.pod.pod_admin.preferred_name} has invited you"
       end
     end
