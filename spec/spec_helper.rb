@@ -1,5 +1,6 @@
 require 'capybara/poltergeist'
 require 'webmock/rspec'
+require 'nilify_blanks'
 
 # Tell webmock to allow connections to localhost
 WebMock.disable_net_connect!(:allow_localhost => true)
