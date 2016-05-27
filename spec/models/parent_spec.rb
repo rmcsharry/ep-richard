@@ -66,7 +66,7 @@ RSpec.describe Parent, :type => :model do
     
     context "when we don't know the pod admin name or preferred name" do
       # Note we are testing a private method here (use of send) because this method is important  
-      it "should include it in the message" do
+      it "should change the message intro" do
         pod_admin.name = nil
         pod_admin.preferred_name = nil
         
@@ -74,6 +74,50 @@ RSpec.describe Parent, :type => :model do
         expect(parent.send(:build_welcome_message)).not_to include("has invited you")
       end
     end
+
+    context "when the pod admin name is an empty string" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should not use it" do
+        pod_admin.name = ''
+        pod_admin.preferred_name = nil
+        
+        expect(parent.send(:build_welcome_message)).to include("you have been invited")
+        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+      end
+    end
+
+    context "when the pod admin preferred_name is an empty string" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should not use it" do
+        pod_admin.name = nil
+        pod_admin.preferred_name = ' '
+        
+        expect(parent.send(:build_welcome_message)).to include("you have been invited")
+        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+      end
+    end
+    
+    context "when the pod admin name is only whitespace" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should not use it" do
+        pod_admin.name = ' '
+        pod_admin.preferred_name = nil
+        
+        expect(parent.send(:build_welcome_message)).to include("you have been invited")
+        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+      end
+    end
+    
+    context "when the pod admin preferred_name is only whitespace" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should not use it" do
+        pod_admin.name = nil
+        pod_admin.preferred_name = ' '
+        
+        expect(parent.send(:build_welcome_message)).to include("you have been invited")
+        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+      end
+    end    
     
   end
 
