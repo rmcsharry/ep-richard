@@ -26,7 +26,7 @@ gem 'whenever', require: false
 gem 'acts_as_list'
 gem 'rails_real_favicon', require: false # cross-device favicon
 gem 'wicked' # wizard builder
-gem 'strip_attributes', require: false # prevents saving empty strings to db
+gem 'normalize_attributes', require: false # prevents saving empty strings to db
 
 group :development, :test do
   gem 'spring'

@@ -1,9 +1,11 @@
+require 'normalize_attributes'
 class PodAdmin < Admin
   validates :pod, presence: true
   validates :preferred_name, presence: true
 
-  strip_attributes :only => [:name, :preferred_name]
-
+  # see https://github.com/mdeering/attribute_normalizer
+  normalize_attributes :name, :preferred_name, with: :squish
+  
   belongs_to :pod
 
   def should_send_analytics_email?
