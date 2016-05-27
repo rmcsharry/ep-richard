@@ -1,10 +1,11 @@
 class PodAdmin < Admin
 include NilifyBlanks
+
   validates :pod, presence: true
   validates :preferred_name, presence: true
 
-  # see http://www.keenertech.com/articles/2011/06/11/the-empty-string-code-smell-in-rails
-  nilify_blanks only: [:name, :preferred_name]
+  nilify_blanks only: [:name]
+
   belongs_to :pod
 
   def should_send_analytics_email?
