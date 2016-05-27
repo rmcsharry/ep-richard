@@ -167,13 +167,13 @@ class Parent < ActiveRecord::Base
                   " and we will send you a new game every week."
     
     if !self.pod.pod_admin.nil?
-      if self.pod.pod_admin.name
+      if self.pod.pod_admin.name.present?
         greeting = "#{self.pod.pod_admin.name} has invited you"
-      elsif self.pod.pod_admin.preferred_name
+      elsif self.pod.pod_admin.preferred_name.present?
         greeting = "#{self.pod.pod_admin.preferred_name} has invited you"
       end
     end
     return "#{salutation} #{greeting} #{body}"
   end
-  
+
 end
