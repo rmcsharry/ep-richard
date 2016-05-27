@@ -1,7 +1,9 @@
 class PodAdmin < Admin
   validates :pod, presence: true
   validates :preferred_name, presence: true
-  
+
+  strip_attributes :only => [:name, :preferred_name]
+
   belongs_to :pod
 
   def should_send_analytics_email?
