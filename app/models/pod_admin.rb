@@ -1,11 +1,10 @@
-require 'normalize_attributes'
 class PodAdmin < Admin
+include NilifyBlanks
   validates :pod, presence: true
   validates :preferred_name, presence: true
 
-  # see https://github.com/mdeering/attribute_normalizer
-  normalize_attributes :name, :preferred_name, with: :squish
-  
+  # see http://www.keenertech.com/articles/2011/06/11/the-empty-string-code-smell-in-rails
+  nilify_blanks only: [:name, :preferred_name]
   belongs_to :pod
 
   def should_send_analytics_email?
