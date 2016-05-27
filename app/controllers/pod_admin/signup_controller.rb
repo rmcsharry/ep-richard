@@ -33,7 +33,11 @@ class PodAdmin::SignupController < PodAdminController
         render_wizard @pod # saves the pod, triggers validations
       when :step02
         @pod = get_pod_from_session(step)
-        pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
+        if !pod_params[:parents_attributes].nil?
+          pod_params[:parents_attributes].each {|k,_| @pod.parents.build(pod_params[:parents_attributes][k])}
+          current_admin.name = @pod.parents.first.name
+          current_admin.save
+        end
         render_wizard @pod # saves the parent, triggers validations
       when :step03
         @pod = get_pod_from_session(step)      

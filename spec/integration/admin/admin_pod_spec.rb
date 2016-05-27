@@ -70,7 +70,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       visit admin_pods_path
       click_link 'Initial name'
       fill_in 'Name', with: 'Edited name'
-      click_button 'Update pod'
+      click_button 'Update'
       expect(current_path).to eq(admin_pods_path)
       expect(page).to have_text('Edited name')
     end
@@ -81,7 +81,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
 
     it "should delete the pod" do
       visit edit_admin_pod_path(pod)
-      click_button 'Delete'
+      click_link 'Delete'
 
       expect(current_path).to eq(admin_pods_path)
       expect(page).not_to have_content('Save the Children')

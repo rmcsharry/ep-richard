@@ -1,26 +1,36 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= form_for [:admin, @pod_admin], html: {role: "form"} do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <div class="form-group">
-        <%= f.label :email %>
-        <%= f.text_field :email, placeholder: "", class: "form-control", autocomplete: "off" %>
+<%= form_for [:admin, @pod_admin], html: {role: "form"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :email %>
+    <%= f.text_field :email, placeholder: "", class: "form-control", autocomplete: "off" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "Full name", maxlength: "50", class: "form-control", autocomplete: "off" %>
+  </div>
+  <div class="form-group">
+    <%= f.label 'How should we address them?' %>
+    <%= f.text_field :preferred_name, maxlength: "25", placeholder: "Preferred name", class: "form-control", autocomplete: "off" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :pod %>
+    <%= f.collection_select :pod_id, Pod.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control'} %>
+  </div>
+  <div class="row">
+    <% if params[:action] == 'edit' || params[:action] == 'update' %>
+      <div class="col-md-2">
+        <%= f.submit "Update", class: "btn btn-success" %>
       </div>
-      <div class="form-group">
-        <%= f.label :password %>
-        <%= f.password_field :password, placeholder: "", class: "form-control", autocomplete: "off" %>
+      <div class="col-md-2">
+        <%= link_to("Delete", { action: :destroy, id: @pod_admin.id }, method: :delete, class: "btn btn-danger") %>
       </div>
-      <div class="form-group">
-        <%= f.label :pod %>
-        <%= f.collection_select :pod_id, Pod.order(:name), :id, :name, {include_blank: true}, {:class => 'form-control'} %>
-      </div>
-      <div class="form-group">
-        <% if params[:action] == 'edit' %>
-          <%= f.submit "Update pod admin", class: "btn btn-primary" %>
-        <% else %>
-          <%= f.submit "Add pod admin", class: "btn btn-primary" %>
-        <% end %>
+      <br/>
+    <% else %>
+      <div class="col-md-2">
+        <%= f.submit "Add pod admin", class: "btn btn-success" %>
       </div>
     <% end %>
   </div>
-</div>
+<% end %>
+
+

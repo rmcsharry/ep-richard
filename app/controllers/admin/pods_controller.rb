@@ -11,6 +11,7 @@ class Admin::PodsController < AdminController
   def create
     @pod = Pod.new(pod_params)
     if @pod.save
+      flash[:success] = "New pod successfully added!"
       redirect_to admin_pods_path
     else
       render 'new'
@@ -22,14 +23,20 @@ class Admin::PodsController < AdminController
   end
 
   def update
-    pod = Pod.find(params[:id])
-    pod.update!(pod_params)
-    redirect_to admin_pods_path
+    @pod = Pod.find(params[:id])
+    @pod.update!(pod_params)
+    if @pod.valid?
+      flash[:success] = "Pod successfully updated!"
+      redirect_to admin_pods_path
+    else
+      render 'edit'
+    end    
   end
 
   def destroy
     pod = Pod.find(params[:id])
     pod.delete
+    flash[:success] = "Pod successfully deleted!"
     redirect_to admin_pods_path
   end
 

@@ -1,26 +1,38 @@
-<div class="row">
-  <div class="col-md-4">
-    <%= form_for [:admin, @pod], html: {role: "form"} do |f| %>
-      <%= render 'shared/error_messages', object: f.object %>
-      <div class="form-group">
-        <%= f.label :name %>
-        <%= f.text_field :name, placeholder: "", class: "form-control" %>
-        <%= f.label :description %>
-        <%= f.text_field :description, placeholder: "", class: "form-control" %>
-        <div class="row">
-        <div class="col-md-6">
-		<%= f.label :inactive_date %>
-        <%= f.date_field :inactive_date, placeholder: "", class: "form-control" %><small> leave this blank to make pod active</small>
-        </div>
-        </div>
+<%= form_for [:admin, @pod], html: {role: "form"} do |f| %>
+  <%= render 'shared/error_messages', object: f.object %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, placeholder: "", class: "form-control" %>
+  </div>
+  <div class="form-group">
+      <%= f.label :description %>
+      <%= f.text_field :description, placeholder: "", class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :inactive_date %>
+        <%= f.date_field :inactive_date, placeholder: "", class: "form-control" %>
       </div>
-      <div class="form-group">
-        <% if params[:action] == 'edit' %>
-          <%= f.submit "Update pod", class: "btn btn-primary" %>
-        <% else %>
-          <%= f.submit "Add pod", class: "btn btn-primary" %>
-        <% end %>
+      <br/>
+      <div class="col-md-4">
+        <small>leave the date blank to make pod active</small>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <% if params[:action] == 'edit' || params[:action] == 'update' %>
+      <div class="col-md-2">
+        <%= f.submit "Update", class: "btn btn-success" %>
+      </div>
+      <div class="col-md-2">
+        <%= link_to("Delete", { action: :destroy, id: f.object.id }, method: :delete, class: "btn btn-danger") %>
+      </div>
+      <br/>
+    <% else %>
+      <div class="col-md-2">
+        <%= f.submit "Add pod", class: "btn btn-success" %>
       </div>
     <% end %>
   </div>
-</div>
+<% end %>

@@ -26,18 +26,18 @@ class Parent < ActiveRecord::Base
   end
 
   def send_welcome_sms
-    if Rails.env == "production" || Rails.env == "staging"
+    if Rails.env == "production" || Rails.env != "staging"
       account_sid = 'AC38de11026e8717f75248f84136413f7d'
       auth_token = 'f82546484dc3dfc96989f5930a13e508'
 
       @client = Twilio::REST::Client.new account_sid, auth_token
 
+      body = build_welcome_message
+      
       @client.account.messages.create({
         :from => 'EasyPeasy',
         :to => "+44#{self.phone}",
-        :body => "Hi #{self.first_name}, #{self.pod.name} invites you to join other parents in your community on" + 
-          " EasyPeasy: an app for parents that sends you fun, simple game ideas to support your child's early development." + 
-          " Get started here: http://play.easypeasyapp.com/#/#{self.slug}/games"
+        :body => body 
       })
     end
   end
@@ -156,6 +156,24 @@ class Parent < ActiveRecord::Base
     else
       return false     
     end
+  end
+  
+  def build_welcome_message
+    salutation = "Hi #{self.first_name},"
+    greeting = "you have been invited"
+    body = "to use {pod.name} for free with other parents in your community on EasyPeasy" + 
+                  " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
+                  " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
+                  " and we will send you a new game every week."
+    
+    if !self.pod.pod_admin.nil?
+      if self.pod.pod_admin.name
+        greeting = "#{self.pod.pod_admin.name} has invited you"
+      else
+        greeting = "#{self.pod.pod_admin.preferred_name} has invited you"
+      end
+    end
+    return "#{salutation} #{greeting} #{body}"
   end
   
 end

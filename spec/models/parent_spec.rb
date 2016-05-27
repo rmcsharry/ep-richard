@@ -32,14 +32,36 @@ RSpec.describe Parent, :type => :model do
     end
   end
 
-  describe "welcome sms flag" do
-    let(:pod) { Fabricate(:pod) }
-    let(:parent) { Fabricate(:parent, pod: pod) }
-
-    it "should let you set the 'welcome sms sent' flag to true" do
-      parent.log_welcome_sms_sent
-      expect(parent.welcome_sms_sent).to eq(true)
+  describe "welcome sms" do
+    let!(:pod) { Fabricate(:pod) }
+    let!(:parent) { Fabricate(:parent, pod: pod) }
+    let!(:pod_admin) { Fabricate(:pod_admin, name: "Mickey Mouse", pod: pod) }
+      
+    context "sent flag" do
+      it "should be set to true after a successful send" do
+        parent.log_welcome_sms_sent
+        expect(parent.welcome_sms_sent).to eq(true)
+      end
     end
+    
+    context "when we know the pod admin name" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should include it in the message" do
+        expect(parent.send(:build_welcome_message)).to include("Mickey Mouse")
+      end
+    end
+    
+    context "when we only know the pod admin preferred name" do
+      # Note we are testing a private method here (use of send) because this method is important  
+      it "should include it in the message" do
+        pod_admin.name = nil
+        pod_admin.preferred_name = 'Mick'
+        
+        expect(parent.send(:build_welcome_message)).to include("Mick")
+        expect(parent.send(:build_welcome_message)).not_to include("Mickey Mouse")
+      end
+    end
+    
   end
 
   describe "notifications" do
@@ -148,5 +170,5 @@ RSpec.describe Parent, :type => :model do
         end         
       end
     end
-  end
+  end  
 end

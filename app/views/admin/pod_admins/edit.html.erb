@@ -1,14 +1,15 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-12">
     <p><%= link_to "&larr; back".html_safe, admin_pod_admins_path %></p>
-    <h3>
-      Edit <%= @pod_admin.email %>
-      <%= form_for [:admin, @pod_admin], method: "delete", html: {class: "inline-delete-form"} do |f| %>
-        <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
-      <% end %>
-    </h3>
+    <h3>Edit pod admin</h3>
     <hr/>
   </div>
 </div>
 
-<%= render "pod_admin_form" %>
+<div class="row">
+  <div class="col-md-5">
+    <div class="well well-lg">    
+      <%= render "pod_admin_form" %>
+    </div>
+  </div>
+</div>

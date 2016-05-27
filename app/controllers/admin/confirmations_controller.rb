@@ -33,11 +33,11 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
     @original_token = params[resource_name].try(:[], :confirmation_token)
     self.resource = resource_class.find_or_initialize_with_error_by(:confirmation_token, @original_token)    
     resource.assign_attributes(permitted_params) unless params[resource_name].nil?
-
+    
+    # NB: At this point, our resource is just an Admin, so resource.valid will only fire validations on the Admin model
     if resource.valid? && resource.password_match?
-      resource.type = 'PodAdmin'
       self.resource.confirm # this triggers a save of the resource (without firing validations, so we now have a PodAdmin without a Pod!)
-      Rails.logger.info resource_name
+      resource.type = 'PodAdmin' # set the type before redirecting, this will get saved by the sign_in commit call
       sign_in_and_redirect resource
     else
       render :action => 'show'
@@ -46,7 +46,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
 
  private
    def permitted_params
-     params.require(resource_name).permit(:confirmation_token, :password, :password_confirmation)
+     params.require(resource_name).permit(:confirmation_token, :preferred_name, :password, :password_confirmation)
    end
    
 end

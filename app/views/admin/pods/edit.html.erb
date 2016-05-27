@@ -1,21 +1,27 @@
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-12">
     <p><%= link_to "&larr; back".html_safe, admin_pods_path %></p>
     <h3>
-      Edit <%= @pod.name %>
-      <%= form_for [:admin, @pod], method: "delete", html: {class: "inline-delete-form"} do |f| %>
-        <%= f.submit "Delete", class: "btn btn-xs btn-danger" %>
-      <% end %>
+      Edit pod
     </h3>
     <hr/>
   </div>
 </div>
-
-<%= render "pod_form" %>
-
-<h3>Import a CSV file of Parents</h3>
-<%= form_tag admin_pod_import_path(@pod), multipart: true do %>
-  <%= file_field_tag :file %>
-  <br/>
-  <%= submit_tag "Import CSV", class: "btn btn-med btn-primary"%>
-<% end %>
+<div class="row">
+  <div class="col-md-5">
+    <div class="well well-lg">
+      <%= render "pod_form" %>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well well-lg">
+      <h3>Import a CSV file of Parents</h3>
+      <br/>
+      <%= form_tag admin_pod_import_path(@pod), multipart: true do %>
+        <%= file_field_tag :file %>
+        <br/>
+        <%= submit_tag "Import CSV", class: "btn btn-med btn-primary"%>
+      <% end %>
+    </div>
+  </div>
+</div>
