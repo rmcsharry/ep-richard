@@ -160,20 +160,18 @@ class Parent < ActiveRecord::Base
   
   def build_welcome_message
     salutation = "Hi #{self.first_name},"
-    greeting = "you have been invited"
     body = "to use #{pod.name} for free with other parents in your community on EasyPeasy" + 
                   " - an app for parents that sends you fun, simple game ideas to support your child's early development." +
                   " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games" +
                   " and we will send you a new game every week."
-    
-    if !self.pod.pod_admin.nil?
-      if self.pod.pod_admin.name.present?
-        greeting = "#{self.pod.pod_admin.name} has invited you"
-      elsif self.pod.pod_admin.preferred_name.present?
-        greeting = "#{self.pod.pod_admin.preferred_name} has invited you"
-      end
+       
+    inviter = "#{self.pod.pod_admin.try(:name)}"    
+    inviter = "#{self.pod.pod_admin.try(:preferred_name)}" unless inviter.present?
+    if inviter.present?
+      return "#{salutation} #{inviter} has invited you #{body}"
+    else
+      return "#{salutation} you have been invited #{body}"
     end
-    return "#{salutation} #{greeting} #{body}"
   end
 
 end
