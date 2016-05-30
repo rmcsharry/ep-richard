@@ -17,19 +17,18 @@ class Pod < ActiveRecord::Base
   end
 
   def week_number
+    return nil if !self.go_live_date
     pod_go_live_date = Date.parse(self.go_live_date.to_s)
     ((Date.today - pod_go_live_date)/7).to_i
   end
 
   def current_game
-    non_default_games = Game.where("in_default_set = false").order("position ASC")
-    current_game = non_default_games[self.week_number-1]
-    return current_game if current_game
+    return nil if !self.week_number
+    return Game.non_default[self.week_number - 1]
   end
 
   def next_game
-    non_default_games = Game.where("in_default_set = false").order("position ASC")
-    next_game = non_default_games[self.week_number]
+    next_game = Game.non_default[self.week_number]
     if next_game
       return next_game.name
     else
@@ -138,5 +137,12 @@ class Pod < ActiveRecord::Base
   def is_in_trial?
     return true if self.inactive_date && self.days_left > 0
     return false
+  end
+  
+  def should_notify?
+    return false if !self.is_active?
+    return false if !self.week_number || self.week_number == 0
+    return false if self.week_number > (Game.non_default.count + 1)
+    return true
   end
 end
