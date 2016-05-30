@@ -6,6 +6,7 @@ class PodAdmin < Admin
 
   def should_send_analytics_email?
     # if making changes here, check should_notify? in parent.rb
+    return false if !self.pod.is_active?
     return false if !self.pod.go_live_date
     return false if self.pod.week_number == 0
     # return false if !Game.non_default[self.pod.week_number - 1]
