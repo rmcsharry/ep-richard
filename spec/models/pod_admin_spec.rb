@@ -1,6 +1,9 @@
 require 'rails_helper'
+require "nilify_blanks/matchers"
 
 RSpec.describe PodAdmin, :type => :model do
+
+  it {should nilify_blanks_for(:name)}
 
   describe "sending out the analytics email" do
     let(:pod) { Fabricate(:pod) }
@@ -69,7 +72,7 @@ RSpec.describe PodAdmin, :type => :model do
       end
 
       context "on the day the PodAdmin registers" do
-        it "should snot end out the greetings email" do
+        it "should not end out the greetings email" do
           pod_admin.created_at = Date.today
           expect(pod_admin.send_greetings_email).to eq(false)
         end
@@ -77,7 +80,8 @@ RSpec.describe PodAdmin, :type => :model do
     end
     
     describe "sending out the trial reminder email" do
+      pending "trial reminder tests"
     end
-    
+
   end
 end

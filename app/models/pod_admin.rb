@@ -1,7 +1,11 @@
 class PodAdmin < Admin
+include NilifyBlanks
+
   validates :pod, presence: true
   validates :preferred_name, presence: true
-  
+
+  nilify_blanks only: [:name]
+
   belongs_to :pod
 
   def should_send_analytics_email?
