@@ -37,7 +37,7 @@ RSpec.describe Admin::ConfirmationsController, :type => :controller do
         expect(response.content_type).to eq(Mime::JSON)
         expect { JSON.parse(response.body) }.to_not raise_error        
         body = JSON.parse(response.body)
-        expect(body["email"]).to include("can't be blank")
+        expect(body["errors"]).to include("Email can't be blank")
         expect(response.status).to eq(422)
       end
     end
@@ -49,7 +49,7 @@ RSpec.describe Admin::ConfirmationsController, :type => :controller do
         expect(response.content_type).to eq(Mime::JSON)
         expect { JSON.parse(response.body) }.to_not raise_error
         body = JSON.parse(response.body)
-        expect(body["email"]).to include("can't be blank")
+        expect(body["errors"]).to include("Email can't be blank")
         expect(response.status).to eq(422)
       end
     end
