@@ -6,12 +6,18 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
   
   def create
     # create is called from a separate sign-up application, so there will be no authenticity token, this is a pure API call
-    email_address = params[:email]
-    if email_address.nil?
-      render json: {account: 'Not created'}, status: :unprocessible_entity, content_type: 'json'
+    # this is also why email is not in the permitted_params, because it could possibly be changed when show/confirm methods fire
+    if Admin.exists?(email: params[:email])
+      notify_existing_admin
+      render json: {head: :not_modified}, status: :not_modified, content_type: 'json'    
     else
-      Admin.create!(email: email_address)
-      render json: {head: :ok}, status: :created, content_type: 'json'
+      new_admin = Admin.new(email: params[:email])
+      if new_admin.valid?
+        new_admin.save
+        render json: {head: :created}, status: :created, content_type: 'json'
+      else
+        render json: new_admin.errors, status: 422, content_type: 'json'
+      end
     end
   end
   
@@ -49,4 +55,9 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
      params.require(resource_name).permit(:confirmation_token, :preferred_name, :password, :password_confirmation)
    end
    
+   def notify_existing_admin
+     existing_admin = PodAdmin.find_by(email: params[:email])
+     existing_admin.resend_confirmation_instructions if existing_admin.confirmed?
+     existing_admin.send_account_already_exists_email
+   end
 end
