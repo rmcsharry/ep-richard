@@ -23,4 +23,10 @@ class PodAdminMailer < ApplicationMailer
       mail(to: 'hello@easypeasyapp.com', subject: subject)
     end
   end
+  
+  def account_already_exists_email(pod_admin)
+    @pod_admin = pod_admin
+    subject = 'Login to EasyPeasy!'
+    mail(to: "#{@pod_admin.email}", subject: subject)
+  end
 end
