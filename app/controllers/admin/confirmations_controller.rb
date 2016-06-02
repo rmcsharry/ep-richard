@@ -52,14 +52,14 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
      existing_admin = Admin.find_by(email: params[:email])
      existing_admin.resend_confirmation_instructions if existing_admin.confirmed?
      existing_admin.send_account_already_exists_email
-     render :nothing => true, status: :not_modified, content_type: 'json'     
+     render json: { head: :ok }, status: :not_modified, content_type: 'json'     
    end
    
    def create_new_admin
      new_admin = Admin.new(email: params[:email])
      if new_admin.valid?
        new_admin.save
-       render :nothing => true, status: :created, content_type: 'json'
+       render json: { head: :ok }, status: :created, content_type: 'json'
      else
        render json: { errors: new_admin.errors.full_messages }, status: :unprocessable_entity, content_type: 'json'
      end
