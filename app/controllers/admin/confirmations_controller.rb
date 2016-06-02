@@ -56,7 +56,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
    end
    
    def notify_existing_admin
-     existing_admin = PodAdmin.find_by(email: params[:email])
+     existing_admin = Admin.find_by(email: params[:email])
      existing_admin.resend_confirmation_instructions if existing_admin.confirmed?
      existing_admin.send_account_already_exists_email
    end

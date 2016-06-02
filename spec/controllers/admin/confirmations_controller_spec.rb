@@ -54,26 +54,32 @@ RSpec.describe Admin::ConfirmationsController, :type => :controller do
       end
     end
 
-    context "with an email address that already exists in the db" do
-      
-      it "resends confirmation instructions email if account is unconfirmed" do
-      end
-      
-      it "sends account already exists email if account is confirmed" do
-        pod_admin = PodAdmin.create(email: 'test@test.com', confirmed_at: Date.today)
-        post :create, email: 'test@test.com', format: :json
+    context "with an email address that exists in the db and is confirmed" do
+      let(:admin) { Fabricate(:admin, confirmed_at: Date.today) }
+        
+      it "sends account already exists email and returns 304 Not Modified" do
+        post :create, email: admin.email, format: :json
         allow(PodAdminMailer).to receive(:account_already_exists_email).and_return(true)
         allow(PodAdminMailer.account_already_exists_email).to receive(:deliver).and_return(true)
         
-        expect(pod_admin.send_account_already_exists_email).to eq(true)
-      end
-      
-      it "responds with JSON and 304 Not Modified" do
-        pod_admin = Admin.create(email: 'test@test.com')
-        post :create, email: 'test@test.com', format: :json
+        expect(admin.send_account_already_exists_email).to eq(true)
         expect(response.content_type).to eq(Mime::JSON)
-        expect(response.status).to eq(304)      
+        expect(response.status).to eq(304)
       end
     end
+    
+    context "with an email address that exists in the db and is not confirmed" do
+      let(:admin) { Fabricate(:admin, confirmed_at: nil) }
+
+      it "resends confirmation instructions email and returns 304 Not Modified" do      
+        post :create, email: admin.email, format: :json
+   
+        expect(admin.resend_confirmation_instructions).to have_content("Welcome to EasyPeasy! Confirm your details")
+        expect{ admin.resend_confirmation_instructions }.to change(Devise.mailer.deliveries, :count).by(1)
+        expect(response.content_type).to eq(Mime::JSON)
+        expect(response.status).to eq(304)
+      end
+    end
+
   end
 end

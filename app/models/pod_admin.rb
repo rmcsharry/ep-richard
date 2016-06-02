@@ -45,8 +45,4 @@ include NilifyBlanks
     end
   end
   
-  def send_account_already_exists_email
-    PodAdminMailer.account_already_exists_email(self).deliver
-    return true
-  end
 end
