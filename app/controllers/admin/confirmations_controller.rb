@@ -16,7 +16,7 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
         new_admin.save
         render json: {head: :created}, status: :created, content_type: 'json'
       else
-        render json: new_admin.errors, status: 422, content_type: 'json'
+        render json: new_admin.errors, status: :unprocessable_entity, content_type: 'json'
       end
     end
   end
