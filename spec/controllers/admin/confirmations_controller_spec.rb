@@ -55,27 +55,36 @@ RSpec.describe Admin::ConfirmationsController, :type => :controller do
     end
 
     context "with an email address that exists in the db and is confirmed" do
-      let(:admin) { Fabricate(:admin, confirmed_at: Date.today) }
+      let!(:admin) { Fabricate(:admin, confirmed_at: Date.today) }
         
       it "sends account already exists email and returns 304 Not Modified" do
-        post :create, email: admin.email, format: :json
-        allow(PodAdminMailer).to receive(:account_already_exists_email).and_return(true)
-        allow(PodAdminMailer.account_already_exists_email).to receive(:deliver).and_return(true)
+        expect(admin.confirmed?).to eq(true)
+        pod_admin_mailer_count = PodAdminMailer.deliveries.count
         
-        expect(admin.send_account_already_exists_email).to eq(true)
+        post :create, email: admin.email, format: :json
+
+        expect(PodAdminMailer.deliveries.count).to eq(pod_admin_mailer_count + 1)
+        sent_email = ActionMailer::Base.deliveries.last
+        expect(sent_email["Subject"]).to have_content("Login to EasyPeasy!")
+        expect(sent_email["to"]).to have_content(admin.email)
         expect(response.content_type).to eq(Mime::JSON)
         expect(response.status).to eq(304)
       end
     end
     
     context "with an email address that exists in the db and is not confirmed" do
-      let(:admin) { Fabricate(:admin, confirmed_at: nil) }
+      let!(:admin) { Fabricate(:admin) }
 
       it "resends confirmation instructions email and returns 304 Not Modified" do      
+        expect(admin.confirmed?).to eq(false)
+        devise_mail_count = ActionMailer::Base.deliveries.count
+        
         post :create, email: admin.email, format: :json
-   
-        expect(admin.resend_confirmation_instructions).to have_content("Welcome to EasyPeasy! Confirm your details")
-        expect{ admin.resend_confirmation_instructions }.to change(Devise.mailer.deliveries, :count).by(1)
+        
+        expect(ActionMailer::Base.deliveries.count).to eq(devise_mail_count + 1)
+        sent_email = ActionMailer::Base.deliveries.last
+        expect(sent_email["Subject"]).to have_content("Welcome to EasyPeasy! Confirm your details")
+        expect(sent_email["to"]).to have_content(admin.email)
         expect(response.content_type).to eq(Mime::JSON)
         expect(response.status).to eq(304)
       end

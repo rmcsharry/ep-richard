@@ -50,8 +50,11 @@ class Admin::ConfirmationsController < Devise::ConfirmationsController
    
    def notify_existing_admin
      existing_admin = Admin.find_by(email: params[:email])
-     existing_admin.resend_confirmation_instructions if existing_admin.confirmed?
-     existing_admin.send_account_already_exists_email
+     if existing_admin.confirmed?
+       existing_admin.send_account_already_exists_email
+     else
+       existing_admin.resend_confirmation_instructions
+     end
      render json: { head: :ok }, status: :not_modified, content_type: 'json'     
    end
    
