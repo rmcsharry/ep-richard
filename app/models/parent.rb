@@ -1,6 +1,5 @@
 class Parent < ActiveRecord::Base
   require 'csv'
-  include SendSMS
   
   validates :name, presence: true
   validates :phone, presence: true
@@ -133,7 +132,7 @@ class Parent < ActiveRecord::Base
   
   def try_to_send(message, date=nil, num_days=nil)
     if date.nil? || date == self.last_notification + num_days.days
-      SendSMS.call(message, self.phone)
+      SendSms.call(message, self.phone)
       return true
     else
       return false
