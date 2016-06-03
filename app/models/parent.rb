@@ -52,21 +52,19 @@ class Parent < ActiveRecord::Base
   end
 
   def should_notify?
-    return false if !self.pod.go_live_date
-    return false if self.pod.week_number == 0
-    return false if !Game.non_default[self.pod.week_number - 1]
-    return true
+    return false if !self.pod.current_game # don't send if there is no game this week
+    return self.pod.should_notify?
   end
 
-  def should_send_first_sms?    
+  def should_send_new_game_sms?    
     return false if self.last_notification && self.last_notification > Date.today - 7.days
     return true
   end
 
   def notify
-    message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
-    if should_notify? && should_send_first_sms?
+    if should_notify? && should_send_new_game_sms?
       self.last_notification = Date.today
+      message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
       send_sms(message) if self.save
       return true
     else
@@ -75,30 +73,39 @@ class Parent < ActiveRecord::Base
   end
 
   def send_weekend_sms
-    game = self.pod.current_game
-    return false if game.nil?     
-    message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
-    try_to_send(message)
+    if should_notify? 
+      game = self.pod.current_game
+      message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
+      try_to_send(message)
+    else
+      return false      
+    end
   end       
 
   def send_did_you_know_fact(date=Date.today)
-    game = self.pod.current_game
-    return false if game.nil?
-    message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
-              " Try it out with the game " + game.name + " here: " +
-              "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
-    # send only if it has been 2 days since the welcome message for the current game was sent 
-    try_to_send(message, date, 2)    
+    if should_notify?
+      game = self.pod.current_game
+      message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
+                " Try it out with the game " + game.name + " here: " +
+                "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
+      # send only if it has been 2 days since the notify sms for this weeks game was sent 
+      try_to_send(message, date, 2)
+    else
+      return false      
+    end    
   end
 
   def send_top_tip(date=Date.today)
-    game = self.pod.current_game
-    return false if game.nil? 
-    message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
-              " How did you play the game? Share your thoughts here: " +
-              "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
-    # send only if it has been 4 days since the welcome message for the current game was sent 
-    try_to_send(message, date, 4)
+    if should_notify?
+      game = self.pod.current_game
+      message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
+                " How did you play the game? Share your thoughts here: " +
+                "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
+      # send only if it has been 4 days since the notify sms for this weeks game was sent 
+      try_to_send(message, date, 4)
+    else
+      return false      
+    end
   end
 
   def send_sms(message)
@@ -150,7 +157,7 @@ class Parent < ActiveRecord::Base
 
   private 
   def try_to_send(message, date=nil, num_days=nil)
-    if should_notify? && (date.nil? || date == self.last_notification + num_days.days)
+    if date.nil? || date == self.last_notification + num_days.days
       send_sms(message)
       return true
     else

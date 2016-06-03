@@ -19,6 +19,13 @@ RSpec.describe PodAdmin, :type => :model do
         expect(pod_admin.should_send_analytics_email?).to eq(false)
       end
     end
+    
+    context "when a pod is not active" do
+      it "should not send out the analytics email" do
+        pod.inactive_date = Date.yesterday
+        expect(pod_admin.should_send_analytics_email?).to eq(false)
+      end
+    end
 
     context "when a pod is live" do
       before { pod.go_live_date = Date.today - 7.days }
@@ -50,8 +57,18 @@ RSpec.describe PodAdmin, :type => :model do
         end
       end
 
-      describe "a week after the last game" do
-        pending "should not send out the analytics email"
+      describe "one week after the last game has been released" do
+        it "should still send out the analytics email (last one)" do
+          pod.go_live_date = Date.today - (Game.non_default.count + 1).weeks
+          expect(pod_admin.should_send_analytics_email?).to eq(true)
+        end
+      end
+      
+      describe "two weeks after the last game has been released" do
+        it "should not send out the analytics email" do
+          pod.go_live_date = Date.today - (Game.non_default.count + 2).weeks
+          expect(pod_admin.should_send_analytics_email?).to eq(false)
+        end
       end
     end
 

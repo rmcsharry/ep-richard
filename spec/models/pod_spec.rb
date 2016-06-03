@@ -2,6 +2,18 @@ require 'rails_helper'
 
 RSpec.describe Pod, :type => :model do
 
+  describe "when it is not live" do
+    let(:pod) { Fabricate(:pod) }
+    
+    it "should not have a week number" do
+      expect(pod.week_number).to eq nil
+    end
+    
+    it "should not have a current game" do
+      expect(pod.current_game).to eq nil
+    end
+  end
+  
   describe "logs visits" do
     let(:pod) { Fabricate(:pod) }
     let(:parentA) { Fabricate(:parent, pod: pod) }
