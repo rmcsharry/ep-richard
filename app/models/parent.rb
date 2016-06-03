@@ -1,5 +1,6 @@
 class Parent < ActiveRecord::Base
   require 'csv'
+  include SendSMS
   
   validates :name, presence: true
   validates :phone, presence: true
@@ -26,20 +27,7 @@ class Parent < ActiveRecord::Base
   end
 
   def send_welcome_sms
-    if Rails.env == "production" || Rails.env == "staging"
-      account_sid = 'AC38de11026e8717f75248f84136413f7d'
-      auth_token = 'f82546484dc3dfc96989f5930a13e508'
-
-      @client = Twilio::REST::Client.new account_sid, auth_token
-
-      body = build_welcome_message
-      
-      @client.account.messages.create({
-        :from => 'EasyPeasy',
-        :to => "+44#{self.phone}",
-        :body => body 
-      })
-    end
+    try_to_send(build_welcome_message)
   end
 
   def log_welcome_sms_sent
@@ -65,8 +53,7 @@ class Parent < ActiveRecord::Base
     if should_notify? && should_send_new_game_sms?
       self.last_notification = Date.today
       message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
-      send_sms(message) if self.save
-      return true
+      try_to_send(message) if self.save
     else
       return false
     end
@@ -108,19 +95,6 @@ class Parent < ActiveRecord::Base
     end
   end
 
-  def send_sms(message)
-    if Rails.env == "production"
-      account_sid = 'AC38de11026e8717f75248f84136413f7d'
-      auth_token = 'f82546484dc3dfc96989f5930a13e508'
-      @client = Twilio::REST::Client.new account_sid, auth_token
-      @client.account.messages.create({
-        :from => 'EasyPeasy',
-        :to => "+44#{self.phone}",
-        :body => message
-      })
-    end
-  end
-
   def self.not_commented(pod)
     parents = Parent.where(pod: pod)
     not_commented = []
@@ -155,13 +129,14 @@ class Parent < ActiveRecord::Base
     return new_parent_count
   end
 
-  private 
+  private
+  
   def try_to_send(message, date=nil, num_days=nil)
     if date.nil? || date == self.last_notification + num_days.days
-      send_sms(message)
+      SendSMS.call(message, self.phone)
       return true
     else
-      return false     
+      return false
     end
   end
   
