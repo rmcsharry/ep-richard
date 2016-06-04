@@ -138,7 +138,7 @@ class Parent < ActiveRecord::Base
 
   private
   
-  def try_to_send(message, date=nil, num_days=nil)
+  def try_to_send(message)
     outcome = SendSms.run(message_body: message, recipient: self.phone)
     return true if outcome.valid?
     return false
