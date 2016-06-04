@@ -17,7 +17,6 @@ class PodAdmin::ParentsController < PodAdminController
   def create
     @parent = Parent.new(parent_params)
     @parent.pod = current_admin.pod
-
     if @parent.save
       flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
       redirect_to pod_admin_parent_path(@parent)
@@ -32,9 +31,7 @@ class PodAdmin::ParentsController < PodAdminController
 
   def update
     @parent = Parent.find(params[:id])
-    
     @parent.update_attributes(parent_params)
-
     if @parent.save
       flash[:success] = "#{@parent.name.split[0]} updated."
       redirect_to pod_admin_path
