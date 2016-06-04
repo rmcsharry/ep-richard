@@ -26,12 +26,15 @@ class Parent < ActiveRecord::Base
   end
 
   def send_welcome_sms
-    try_to_send(build_welcome_message)
-  end
-
-  def log_welcome_sms_sent
-    self.welcome_sms_sent = true
-    self.save
+    outcome = SendSms.run(message_body: build_welcome_message, recipient: self.phone)
+    if outcome.valid?
+      self.welcome_sms_sent = true
+      self.save
+    else
+      outcome.errors.each do |k,v|
+        self.errors.add(:base, "#{k} #{v}") # use :base since these errors are not related to Parent attributes
+      end
+    end
   end
 
   def first_name
@@ -90,7 +93,7 @@ class Parent < ActiveRecord::Base
       # send only if it has been 4 days since the notify sms for this weeks game was sent 
       try_to_send(message, date, 4)
     else
-      return false      
+      return false    
     end
   end
 
@@ -132,11 +135,10 @@ class Parent < ActiveRecord::Base
   
   def try_to_send(message, date=nil, num_days=nil)
     if date.nil? || date == self.last_notification + num_days.days
-      SendSms.call(message, self.phone)
-      return true
-    else
-      return false
+      outcome = SendSms.run(message_body: message, recipient: self.phone)
+      return true if outcome.valid?
     end
+    return false
   end
   
   def build_welcome_message
