@@ -27,6 +27,7 @@ gem 'acts_as_list'
 gem 'rails_real_favicon', require: false # cross-device favicon
 gem 'wicked' # wizard builder
 gem 'nilify_blanks' # prevents saving empty strings to db
+gem 'active_interaction', '~> 3.0', require: false # ref http://devblog.orgsync.com/2014/01/23/confidently-manage-business-logic-activeinteraction/
 
 group :development, :test do
   gem 'spring'
