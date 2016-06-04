@@ -50,6 +50,11 @@ class Parent < ActiveRecord::Base
     return false if self.last_notification && self.last_notification > Date.today - 7.days
     return true
   end
+  
+  def should_send_additional_sms?(date, num_days)
+    return true if date == self.last_notification + num_days.days
+    return false
+  end
 
   def notify
     if should_notify? && should_send_new_game_sms?
@@ -72,26 +77,26 @@ class Parent < ActiveRecord::Base
   end       
 
   def send_did_you_know_fact(date=Date.today)
-    if should_notify?
+    if should_notify? && should_send_additional_sms?(date, 2)
       game = self.pod.current_game
       message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
                 " Try it out with the game " + game.name + " here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       # send only if it has been 2 days since the notify sms for this weeks game was sent 
-      try_to_send(message, date, 2)
+      try_to_send(message)
     else
       return false      
     end    
   end
 
   def send_top_tip(date=Date.today)
-    if should_notify?
+    if should_notify? && should_send_additional_sms?(date, 4)
       game = self.pod.current_game
       message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
                 " How did you play the game? Share your thoughts here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       # send only if it has been 4 days since the notify sms for this weeks game was sent 
-      try_to_send(message, date, 4)
+      try_to_send(message)
     else
       return false    
     end
@@ -134,10 +139,8 @@ class Parent < ActiveRecord::Base
   private
   
   def try_to_send(message, date=nil, num_days=nil)
-    if date.nil? || date == self.last_notification + num_days.days
-      outcome = SendSms.run(message_body: message, recipient: self.phone)
-      return true if outcome.valid?
-    end
+    outcome = SendSms.run(message_body: message, recipient: self.phone)
+    return true if outcome.valid?
     return false
   end
   
