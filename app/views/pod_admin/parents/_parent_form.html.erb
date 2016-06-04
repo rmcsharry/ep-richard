@@ -11,7 +11,7 @@
         <%= f.text_field :phone, placeholder: "", class: "form-control" %>
       </div>
       <div class="form-group">
-        <% if params[:action] == 'edit' %>
+        <% if params[:action] == 'edit' || params[:action] == 'update' %>
           <%= f.submit "Update parent", class: "btn btn-primary" %>
         <% else %>
           <%= f.submit "Add parent", class: "btn btn-primary" %>
