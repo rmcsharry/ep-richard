@@ -1,5 +1,6 @@
 class PodAdmin < Admin
-include NilifyBlanks
+  
+  include NilifyBlanks
 
   validates :pod, presence: true
   validates :preferred_name, presence: true

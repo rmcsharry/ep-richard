@@ -26,25 +26,15 @@ class Parent < ActiveRecord::Base
   end
 
   def send_welcome_sms
-    if Rails.env == "production" || Rails.env == "staging"
-      account_sid = 'AC38de11026e8717f75248f84136413f7d'
-      auth_token = 'f82546484dc3dfc96989f5930a13e508'
-
-      @client = Twilio::REST::Client.new account_sid, auth_token
-
-      body = build_welcome_message
-      
-      @client.account.messages.create({
-        :from => 'EasyPeasy',
-        :to => "+44#{self.phone}",
-        :body => body 
-      })
+    outcome = SendSms.run(message_body: build_welcome_message, recipient: self.phone)
+    if outcome.valid?
+      self.welcome_sms_sent = true
+      self.save
+    else
+      outcome.errors.each do |k,v|
+        self.errors.add(:base, "#{k} #{v}") # use :base since these errors are not related to Parent attributes
+      end
     end
-  end
-
-  def log_welcome_sms_sent
-    self.welcome_sms_sent = true
-    self.save
   end
 
   def first_name
@@ -60,13 +50,17 @@ class Parent < ActiveRecord::Base
     return false if self.last_notification && self.last_notification > Date.today - 7.days
     return true
   end
+  
+  def should_send_additional_sms?(date, num_days)
+    return true if date == self.last_notification + num_days.days
+    return false
+  end
 
   def notify
     if should_notify? && should_send_new_game_sms?
       self.last_notification = Date.today
       message = "Hello #{self.first_name}, your new game is now available on EasyPeasy. Open this link to see it: http://play.easypeasyapp.com/#/#{self.slug}/games/"
-      send_sms(message) if self.save
-      return true
+      try_to_send(message) if self.save
     else
       return false
     end
@@ -83,41 +77,28 @@ class Parent < ActiveRecord::Base
   end       
 
   def send_did_you_know_fact(date=Date.today)
-    if should_notify?
+    if should_notify? && should_send_additional_sms?(date, 2)
       game = self.pod.current_game
       message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
                 " Try it out with the game " + game.name + " here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       # send only if it has been 2 days since the notify sms for this weeks game was sent 
-      try_to_send(message, date, 2)
+      try_to_send(message)
     else
       return false      
     end    
   end
 
   def send_top_tip(date=Date.today)
-    if should_notify?
+    if should_notify? && should_send_additional_sms?(date, 4)
       game = self.pod.current_game
       message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
                 " How did you play the game? Share your thoughts here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       # send only if it has been 4 days since the notify sms for this weeks game was sent 
-      try_to_send(message, date, 4)
+      try_to_send(message)
     else
-      return false      
-    end
-  end
-
-  def send_sms(message)
-    if Rails.env == "production"
-      account_sid = 'AC38de11026e8717f75248f84136413f7d'
-      auth_token = 'f82546484dc3dfc96989f5930a13e508'
-      @client = Twilio::REST::Client.new account_sid, auth_token
-      @client.account.messages.create({
-        :from => 'EasyPeasy',
-        :to => "+44#{self.phone}",
-        :body => message
-      })
+      return false    
     end
   end
 
@@ -155,14 +136,12 @@ class Parent < ActiveRecord::Base
     return new_parent_count
   end
 
-  private 
-  def try_to_send(message, date=nil, num_days=nil)
-    if date.nil? || date == self.last_notification + num_days.days
-      send_sms(message)
-      return true
-    else
-      return false     
-    end
+  private
+  
+  def try_to_send(message)
+    outcome = SendSms.run(message_body: message, recipient: self.phone)
+    return true if outcome.valid?
+    return false
   end
   
   def build_welcome_message

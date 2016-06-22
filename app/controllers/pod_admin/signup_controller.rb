@@ -49,13 +49,14 @@ class PodAdmin::SignupController < PodAdminController
   end
   
   private
+  
     def get_pod_from_session(step)
       if session[current_admin.id].nil? && step == :step01
         pod = Pod.new(pod_params)
       else
         pod = Pod.find(session[current_admin.id])
       end
-      #raise error if pod.nil?
+      #TODO edge case: what to do if pod.nil?
       return pod
     end
     
@@ -64,17 +65,9 @@ class PodAdmin::SignupController < PodAdminController
       @@sms_results = { parent.name => try_sending_welcome_sms(parent) }
     end
     
-    # TODO: Put this into a helper and share it with similar code in parent model     
     def try_sending_welcome_sms(parent)
-      begin
-        parent.send_welcome_sms
-      rescue Twilio::REST::RequestError => e
-        return false
-      else
-        # Note, in dev mode we will land here even though no SMS is actually sent out (but that's ok!)
-        parent.log_welcome_sms_sent
-        return true
-      end
+      parent.send_welcome_sms
+      return (parent.errors.count > 0)
     end
     
     def finish_wizard_path

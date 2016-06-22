@@ -39,7 +39,7 @@ RSpec.describe Parent, :type => :model do
       
     context "sent flag" do
       it "should be set to true after a successful send" do
-        parent.log_welcome_sms_sent
+        parent.send_welcome_sms
         expect(parent.welcome_sms_sent).to eq(true)
       end
     end
