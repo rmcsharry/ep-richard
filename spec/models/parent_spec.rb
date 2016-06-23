@@ -36,6 +36,8 @@ RSpec.describe Parent, :type => :model do
     let!(:pod) { Fabricate(:pod) }
     let!(:parent) { Fabricate(:parent, pod: pod) }
     let!(:pod_admin) { Fabricate(:pod_admin, name: "Mickey Mouse", pod: pod) }
+    inviter_known_text = "invites you"
+    inviter_not_known_text = "you are invited"
       
     context "sent flag" do
       it "should be set to true after a successful send" do
@@ -48,7 +50,7 @@ RSpec.describe Parent, :type => :model do
       # Note we are testing a private method here (use of send) because this method is important  
       it "should include it in the message" do
         expect(parent.send(:build_welcome_message)).to include("Mickey Mouse")
-        expect(parent.send(:build_welcome_message)).to include("has invited you")        
+        expect(parent.send(:build_welcome_message)).to include(inviter_known_text)        
       end
     end
     
@@ -59,7 +61,7 @@ RSpec.describe Parent, :type => :model do
         pod_admin.preferred_name = 'Mick'
         
         expect(parent.send(:build_welcome_message)).to include("Mick")
-        expect(parent.send(:build_welcome_message)).to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_known_text)
         expect(parent.send(:build_welcome_message)).not_to include("Mickey Mouse")
       end
     end
@@ -70,8 +72,8 @@ RSpec.describe Parent, :type => :model do
         pod_admin.name = nil
         pod_admin.preferred_name = nil
         
-        expect(parent.send(:build_welcome_message)).to include("you have been invited")
-        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
+        expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
 
@@ -81,8 +83,8 @@ RSpec.describe Parent, :type => :model do
         pod_admin.name = ''
         pod_admin.preferred_name = nil
         
-        expect(parent.send(:build_welcome_message)).to include("you have been invited")
-        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
+        expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
 
@@ -92,8 +94,8 @@ RSpec.describe Parent, :type => :model do
         pod_admin.name = nil
         pod_admin.preferred_name = ' '
         
-        expect(parent.send(:build_welcome_message)).to include("you have been invited")
-        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
+        expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
     
@@ -103,8 +105,8 @@ RSpec.describe Parent, :type => :model do
         pod_admin.name = ' '
         pod_admin.preferred_name = nil
         
-        expect(parent.send(:build_welcome_message)).to include("you have been invited")
-        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
+        expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
     
@@ -114,8 +116,8 @@ RSpec.describe Parent, :type => :model do
         pod_admin.name = nil
         pod_admin.preferred_name = ' '
         
-        expect(parent.send(:build_welcome_message)).to include("you have been invited")
-        expect(parent.send(:build_welcome_message)).not_to include("has invited you")
+        expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
+        expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end    
     
