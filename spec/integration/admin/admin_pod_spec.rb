@@ -20,7 +20,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
     end
 
     describe "when you do supply a name" do
-      it "should create a pod" do
+      it "should create a pod (with test flag defaulting to false)" do
         expect(Pod.all.length).to eq(0)
 
         visit admin_path
@@ -30,6 +30,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
         click_button 'Add pod'
 
         expect(Pod.all.length).to eq(1)
+        expect(Pod.last.is_test).to eq(false)
       end
 
       it "should show the pod on the pod index page" do
@@ -64,7 +65,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
   end
 
   describe "editing a pod" do
-    it "should edit the pod" do
+    it "should allow changing the pod name" do
       Fabricate(:pod, name: 'Initial name')
 
       visit admin_pods_path
@@ -74,6 +75,28 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       expect(current_path).to eq(admin_pods_path)
       expect(page).to have_text('Edited name')
     end
+
+    it "should allow setting the pod test flag to true" do
+      Fabricate(:pod, name: 'Test pod', is_test: false)
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      check('pod_is_test')
+      click_button 'Update'
+      expect(current_path).to eq(admin_pods_path)
+      expect(Pod.last.is_test).to eq(true)
+    end
+
+    it "should allow setting the pod test flag to false" do
+      Fabricate(:pod, name: 'Test pod', is_test: true)
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      uncheck('pod_is_test')
+      click_button 'Update'
+      expect(current_path).to eq(admin_pods_path)
+      expect(Pod.last.is_test).to eq(false)
+    end    
   end
 
   describe "deleting a pod" do
