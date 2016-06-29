@@ -20,6 +20,10 @@
       </div>
     </div>
   </div>
+  <div class="form-group">
+      <%= f.label :is_test, "Is this a test pod?" %>&nbsp;
+      <%= f.check_box :is_test, placeholder: "" %>
+  </div>
   <div class="row">
     <% if params[:action] == 'edit' || params[:action] == 'update' %>
       <div class="col-md-2">
