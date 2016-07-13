@@ -20,3 +20,6 @@
 
 # Ignore MS Code ide files
 .vscode
+
+# Ignore mac folder stores
+.DS_Store
