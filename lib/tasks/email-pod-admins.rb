@@ -2,8 +2,7 @@
 puts "\n== Sending out pod admin emails #{Time.now}\n\n"
 
 pod_admins = PodAdmin.includes(:pod).
-              where("pod_id IS NOT null").
-              select{|pa| pa if pa.pod.is_active?}
+              select{|pa| pa if !pa.pod.nil? && pa.pod.is_active?}
 
 pod_admins.each do |pod_admin|
   if pod_admin.send_analytics_email
