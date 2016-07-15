@@ -55,12 +55,12 @@
 
 SELECT
 	 T2.day_of_year AS "Day Of Year"
-	,to_char(T2.return_date, 'DD-Mon') AS "Return Date"
-	,T2.visited_yesterday AS "Visited yesterday"
-	,T2.returners AS "Returned today"
+	,to_char(T2.return_date, 'DD-Mon') AS "Date"
+	,T2.visited_yesterday AS "# Visited prev. day"
+	,T2.returners AS "# Returned"
 	,round(T2.percent_returned)::NUMERIC AS "% Returned"
 	-- Step 9
-        ,round(avg(T2.percent_returned) OVER (PARTITION BY group_number ORDER BY T2.return_date))::NUMERIC AS "Rolling Average %"
+        ,round(avg(T2.percent_returned) OVER (PARTITION BY group_number ORDER BY T2.return_date))::NUMERIC AS "% Rolling Average"
 FROM
 (SELECT
 	 T1.day_of_year
@@ -96,7 +96,7 @@ FROM
 			-- Step 1
 			-- generate days of the year from today back to the start of the current year
 			(SELECT 
-			 generate_series(date_trunc('year', now()), now(), '1 day'::INTERVAL) AS "visitday_date"
+			 generate_series(date_trunc('year', now()), now() - INTERVAL '1 day', '1 day'::INTERVAL) AS "visitday_date"
 			) AS date_series
 			
 			LEFT JOIN
@@ -174,5 +174,5 @@ FROM
 	visited.day_of_year = returned.day_of_year
 ) AS T1
 ) AS T2
---WHERE T2.day_of_year > extract(doy FROM now()) - 14
 ORDER BY T2.day_of_year DESC
+LIMIT 14 -- comment this line to see full year

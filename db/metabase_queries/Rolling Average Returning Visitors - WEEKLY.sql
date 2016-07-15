@@ -14,11 +14,11 @@
 SELECT
 	 T2.week_of_year AS "Week Of Year"
 	,to_char(T2.returnweek_date, 'DD-Mon') AS "Week Start Date"
-	,T2.visited_last_week AS "Visited last week"
-	,T2.returners AS "Returned this week"
+	,T2.visited_last_week AS "# Visited prev. week"
+	,T2.returners AS "# Returned"
 	,round(T2.percent_returned)::NUMERIC AS "% Returned"
 	-- Step 9
-        ,round(avg(T2.percent_returned) OVER (PARTITION BY group_number ORDER BY T2.returnweek_date))::NUMERIC AS "Rolling Average %"
+        ,round(avg(T2.percent_returned) OVER (PARTITION BY group_number ORDER BY T2.returnweek_date))::NUMERIC AS "% Rolling Average"
 FROM
 (SELECT
 	 T1.week_of_year
@@ -52,7 +52,7 @@ FROM
 			-- Step 1
 			-- generate weeks of the year from today back to the start of the current year (ISO standard specifies 4th Jan as start of 1st week)
 			(SELECT 
-			 generate_series(date_trunc('week', (extract('year' from now())::text || '-1-4')::date), now(), '1 week'::INTERVAL) AS "visitweek_date"
+			 generate_series(date_trunc('week', (extract('year' from now())::text || '-1-4')::date), now() - INTERVAL '1 week', '1 week'::INTERVAL) AS "visitweek_date"
 			) AS date_series
 			
 			LEFT JOIN
@@ -125,5 +125,5 @@ FROM
 	visited.week_of_year = returned.week_no
 ) AS T1
 ) AS T2
---WHERE T2.week_of_year > EXTRACT(week FROM now()) - 12
 ORDER BY T2.returnweek_date DESC
+LIMIT 12 -- comment this line to see full year
