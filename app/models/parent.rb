@@ -120,17 +120,17 @@ class Parent < ActiveRecord::Base
         existing_parent = Parent.where(phone: parent_hash["phone"]).first
         
         # TODO: need to know what feedback to give to the user for error, success and existing records
-        if existing_parent.nil?
+        # if existing_parent.nil?
           parent = Parent.new(parent_hash)
           if parent.valid?
             parent.pod_id = pod_id
             parent.save
             new_parent_count = new_parent_count + 1
           end
-        else
+        # else
           # TODO: currently do nothing, we need to know what to do if the phone already exists
           # existing_parent.update_attributes(parent_hash)
-        end
+        # end
       end
     end
     return new_parent_count
