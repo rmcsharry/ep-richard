@@ -1,127 +1,108 @@
 .screen1Background {
-  background-image: image_url('bg_square_lime.jpg');
+  position: absolute;
+  background-color: #86C640;
   height: 100%;
   width: 100%;
-  index: 1;
-  position: absolute;
-  opacity: 0.8;
+  .screenMessage{
+    margin: 10vh auto 0;
+    img {
+      margin-bottom: 70px;
+      @media screen and ( max-height: 700px ){
+        height: 90px;
+        width: auto;
+        margin-bottom: 50px;
+      }
+    }
+  }
 }
 .screen2Background {
   @extend .screen1Background;
-  background-image: image_url('bg_square_green.jpg');  
+  background-color: #F27D4E;
+  .screenMessage{
+    margin: 10vh auto 0;
+    img {
+      margin-bottom: 140px;
+      &.second {
+        margin: 50px 0 70px -45px;
+      }
+      &.third {
+        position: absolute;
+        left: -14px;
+        bottom: -7px;
+        margin: 0;
+      }
+      &.forth {
+        position: absolute;
+        right: -20px;
+      }
+      @media screen and ( max-height: 700px ){
+        height: 75px;
+        width: auto;
+        margin-bottom: 115px;
+        &.second {
+          margin: 50px 0 60px -45px;
+        }
+      }
+    }
+  }
 }
 .screen3Background {
   @extend .screen1Background;
-  background-image: image_url('bg_square_red.jpg');
+  background-color: #D9DE3B;
+  .screenMessage{
+    margin: 10vh auto 0;
+    img {
+      margin-bottom: 70px;
+      @media screen and ( max-height: 700px ){
+        height: 200px;
+        width: auto;
+        margin-bottom: 50px;
+      }
+    }
+
+  }
 }
 
-.screen1 {
-  background-image: image_url('intro1_lq.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
+.screen {
   height: 100%;
   width: 100%;
-  position: fixed;
-  index: 2;
-  cursor: pointer;
-}
-
-.screen2 {
-  background-image: image_url('intro2_lq.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  index: 2;
-  cursor: pointer;
-}
-
-.screen3 {
-  background-image: image_url('intro3_lq.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  height: 100%;
-  width: 100%;
-  position: fixed;
-  index: 2;
   cursor: pointer;
 }
 
 .screenMessage {
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  max-width: 375px;
   color: white;
   text-align: center;
-  font-family: 'Lato', Helvetica, Arial, sans-serif;  
-  font-weight: 700;
-  text-shadow: 1px 1px 3px #4d4d4d;
+  font-family: 'Lato', Helvetica, Arial, sans-serif;
   cursor: pointer;
-  line-height: 150%;
-}
-
-@media all 
-  and (min-width: 0px) 
-  and (min-height: 0px) {
-  .screenMessage {
-    font-size: 0.7em;
-    width: 100px;
-    margin-top: -50px;
-    margin-left: -50px;
+  font-weight: normal;
+  font-size: 20px;
+  padding: 0 10px;
+  p {
+    line-height: 160%;
+    margin-bottom: 0;
+    padding: 0;
+    @media screen and ( min-width: 648px ){
+      font-size: 24px;
+    }
+  }
+  h1 {
+    padding: 0 0 50px;
+    font-size: 24px;
+    font-weight: bold;
+    @media screen and ( min-width: 648px ){
+      font-size: 30px;
+    }
+  }
+  .easyButton {
+    margin-top: 50px;
+    padding: 10px;
+    width: 70%;
+  }
+  img.dots {
+    position: absolute;
+    bottom: 20px;
+    margin: 0 -24px;
+    height: 48px;
   }
 }
-
-@media all 
-  and (min-width: 200px) 
-  and (min-height: 320px) {
-  .screenMessage {
-    font-size: 0.8em;
-    width: 160px;
-    margin-top: -80px;
-    margin-left: -80px;
-  }
-}
-@media all 
-  and (min-width: 300px) 
-  and (min-height: 400px) {    
-  .screenMessage {
-    width: 200px;
-    font-size: 1em;
-    margin-top: -100px;
-    margin-left: -100px;        
-  }
-}
-@media all 
-  and (min-width: 300px) 
-  and (min-height: 500px) {    
-  .screenMessage {
-    width: 280px;
-    font-size: 1.4em;
-    margin-top: -100px;
-    margin-left: -140px;        
-  }
-}
-@media all 
-  and (min-width: 900px) 
-  and (min-height: 400px) {    
-  .screenMessage {
-    width: 320px;
-    font-size: 1.6em;
-    margin-top: -100px;
-    margin-left: -160px;        
-  }
-}  
-@media all
-  and (min-width: 900px)
-  and (min-height: 700px) {
-  .screenMessage {
-    width: 400px;
-    font-size: 1.8em;
-    margin-top: -100px;
-    margin-left: -200px;        
-  }      
- }

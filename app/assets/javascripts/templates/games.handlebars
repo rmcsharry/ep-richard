@@ -9,7 +9,7 @@
 		{{screen-3 swipedRight='leftFromThree' getStarted='startClicked'}}
 	{{/if}}		
 
-	
+
 {{else}}
 <div class="mainContent">
 
@@ -55,7 +55,6 @@
 	{{/each}}
 	</ul>
 </div>
-{{/if}}
 
 <script>
   // Intercom
@@ -69,7 +68,10 @@
   });
 
   Intercom('update');
+</script>
+{{/if}}
 
+<script>
   // Google Analytics
   ga('send', {
     'hitType': 'pageview',
