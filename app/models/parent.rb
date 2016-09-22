@@ -52,7 +52,7 @@ class Parent < ActiveRecord::Base
   end
   
   def should_send_additional_sms?(date, num_days)
-    return true if date == self.last_notification + num_days.days
+    return true if self.last_notification &&  date == self.last_notification + num_days.days
     return false
   end
 
