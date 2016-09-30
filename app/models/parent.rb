@@ -67,7 +67,7 @@ class Parent < ActiveRecord::Base
   end
 
   def send_weekend_sms
-    if should_notify? 
+    if should_notify? && self.pod.week_number < 7
       game = self.pod.current_game
       message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       try_to_send(message)
@@ -77,7 +77,7 @@ class Parent < ActiveRecord::Base
   end       
 
   def send_did_you_know_fact(date=Date.today)
-    if should_notify? && should_send_additional_sms?(date, 2)
+    if should_notify? && should_send_additional_sms?(date, 2) && self.pod.week_number < 4
       game = self.pod.current_game
       message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
                 " Try it out with the game " + game.name + " here: " +
@@ -90,7 +90,7 @@ class Parent < ActiveRecord::Base
   end
 
   def send_top_tip(date=Date.today)
-    if should_notify? && should_send_additional_sms?(date, 4)
+    if should_notify? && should_send_additional_sms?(date, 4) && self.pod.week_number < 10
       game = self.pod.current_game
       message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
                 " How did you play the game? Share your thoughts here: " +
