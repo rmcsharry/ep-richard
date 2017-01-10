@@ -1,48 +1,47 @@
-<% if !current_admin.pod %>
-  <p class="lead">
-    Hm. I can't find your pod. Please contact a member of EasyPeasy staff to sort this out. Sorry for the inconvenience.
-  </p>
-
-<% else %>
-
-<div class="row">
-  <div class="col-md-12 col-lg-6">
-    <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
-    <h2>Parents</h2>
-    <% unless @parents.empty? %>
-      <p class="lead">You have <%= pluralize(@parents.count, "parent") %> in your pod.</p>
-    <% else %>
-      <p class="lead">Add your first parent to get started.</p>
-    <% end %>
-    <p>
-      <a class="btn btn-default btn-med" href="<%= new_pod_admin_parent_path %>">
-        <span class="glyphicon glyphicon-plus"></span> Add new parent
-      </a>
-    </p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-md-12 col-lg-6">
-    <%= form_for :parent, :url => pod_admin_parents_path, :html => { :method => :put } do %>
-      <div class="list-group">
-          <% @parents.each do |parent| %>
-            <%= link_to pod_admin_parent_path(parent), :class => 'list-group-item list-group-item-success' do %>
-                <span class='glyphicon glyphicon-user'></span> <%= parent.name %>
+<% if @parents.any? %>
+  <div class="row">
+    <div class="col-md-9">
+      <p><%= link_to "&larr; back to #{@pod.name}".html_safe, edit_admin_pod_path(@pod) %></p>
+      <h3><%= @parents.count %> parents in this pod</h3>
+      <hr/>
+      <%= form_for :parent, :url => edit_admin_pod_path(@pod), :html => { :method => :put } do %>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Slug</th>
+              <th>Created</th>
+              <th>Welcome SMS</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @parents.each do |parent| %>
+              <tr>
+                <th scope="row"><%= parent.id %></th>
+                <td><%= parent.name %></td>
+                <td><%= parent.phone %></td>
+                <td><a href="http://play.easypeasyapp.com/#/<%= parent.slug %>/games" target="_blank"><%= parent.slug %></a></td>
+                <td><%= parent.created_at.to_date %></td>
+                <td><%= parent.welcome_sms_sent %></td>
+              </tr>
             <% end %>
-          <% end %>
-      </div>
-    <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
   </div>
-</div>
+<% end %>
 
 <br />
+
 <% if !@pod.school_id.blank? %>
 <div class="row">
   <div class="col-md-6">
-    <h3>Import parents via your school SIMS</h3>
+    <h3>Import new parents via SIMS</h3>
     <hr />
-    <%= form_for pod_admin_parents_path, :html => { :method => :get } do %>
+    <%= form_for admin_pod_path, :html => { :method => :get } do %>
     <fieldset>
       <div class="col-md-6">
         <label for="disabledSelect">Children born after this date</label>
@@ -60,15 +59,16 @@
     <hr />
   </div>
 </div>
+
   <% if @newParents.any? %>
   <div class="row">
     <div class="col-md-6">
-      <h4><%= @newParents.count %> new parents found</h4>
-      <%= form_for :newParents, :url => pod_admin_parents_path, :html => { :method => :post } do %>
+      <h4><%= @newParents.count %> parents found</h4>
+      <%= form_for :newParents, :url => admin_pod_path, :html => { :method => :post } do %>
         <ul class="list-group">
             <% @newParents.each do |parent|%>
               <li class="list-group-item">
-                Parent name: <strong><%= parent.name + ' ' + parent.surname %></strong> <br />
+                Parent name: <strong><%= parent.name + ' ' + parent.surname %> - <%= parent.phone %></strong> <br />
                 Parent relationship: <strong><%= parent.relationship %></strong> <br />
                 Child's name: <strong><%= parent.forename + ' (' + parent.dob + ')'%></strong>
                 <%= hidden_field_tag :name, parent.name + ' ' + parent.surname, :name => "parents[][name]" %>
@@ -88,6 +88,4 @@
 
   </div>
   <% end %>
-<% end %>
-
 <% end %>

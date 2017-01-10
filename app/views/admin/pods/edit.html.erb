@@ -1,19 +1,23 @@
 <div class="row">
   <div class="col-md-12">
-    <p><%= link_to "&larr; back".html_safe, admin_pods_path %></p>
+    <p><%= link_to "&larr; back to list of pods".html_safe, admin_pods_path %></p>
     <h3>
-      Edit pod
+      Edit pod | <%= link_to "Parents (#{@parents.count})".html_safe, admin_pod_path %>
     </h3>
     <hr/>
   </div>
 </div>
+
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-6">
     <div class="well well-lg">
       <%= render "pod_form" %>
     </div>
   </div>
-  <div class="col-md-4">
+</div>
+
+<div class="row">
+  <div class="col-md-6">
     <div class="well well-lg">
       <h3>Import a CSV file of Parents</h3>
       <br/>
