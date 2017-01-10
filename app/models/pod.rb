@@ -1,10 +1,10 @@
 class Pod < ActiveRecord::Base
   validates :name, presence: true
-  
+
   has_one :pod_admin
   has_many :parents
   has_many :comments
-  
+
   accepts_nested_attributes_for :parents, allow_destroy: true
 
   def set_go_live_date
@@ -54,8 +54,8 @@ class Pod < ActiveRecord::Base
       parent_visits.store(parent_id, parents.count(parent_id))
     end
     return parent_visits.sort_by(&:last).reverse.to_h # sort in reverse order of number of visits
-  end 
-  
+  end
+
   def parents_who_did_not_visit(timescale)
     # if no parents visited, we will just return all of them
     parents = self.parents.ids
@@ -122,23 +122,23 @@ class Pod < ActiveRecord::Base
   def latest_comment
     self.comments.last
   end
-  
+
   def days_left
-    days = self.inactive_date.strftime("%j").to_i - Date.today.strftime("%j").to_i unless self.inactive_date.nil?
+    days = (Date.parse(self.inactive_date.strftime("%F")) - Date.parse(Date.today.strftime("%F"))).to_i unless self.inactive_date.nil?
     return 0 if days < 0
     return days
   end
-  
+
   def is_active?
     return true if (self.inactive_date.blank? || self.days_left > 0) # if inactive_date is blank, we don't care about trial days left, the pod is active
     return false
   end
-  
+
   def is_in_trial?
     return true if self.inactive_date && self.days_left > 0
     return false
   end
-  
+
   def should_notify?
     return false if !self.is_active?
     return false if !self.week_number || self.week_number == 0
