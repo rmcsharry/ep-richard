@@ -3,7 +3,7 @@
   <head>
     <title>EasyPeasy admin</title>
     <%= render 'favicon' %>
-    
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -82,7 +82,7 @@
       <script>
         window.intercomSettings = {
           app_id: "igw37dwb",
-          user_id: "<%=current_admin.id%>",
+          user_id: "pa<%=current_admin.id%>",
           email: "<%=current_admin.email%>",
           "pod_name": "<%= raw current_admin.pod.name%>",
           "pod_description": "<%=current_admin.pod.description%>",
