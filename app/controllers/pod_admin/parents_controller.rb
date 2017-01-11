@@ -1,18 +1,5 @@
 class PodAdmin::ParentsController < PodAdminController
 
-  def getStudents
-
-    uri = URI('https://api.wonde.com/v1.0/schools/' + @schoolId + '/students?per_page=1000&include=contacts,contacts.contact_details')
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = true
-    http.verify_mode = OpenSSL::SSL::VERIFY_NONE # You should use VERIFY_PEER in production
-    request = Net::HTTP::Get.new(uri.request_uri)
-    request["authorization"] = "Bearer 355d00547bb356865fc5ec2addc9e48096df4915"
-    res = http.request(request)
-    return JSON.parse(res.body, object_class: OpenStruct).data
-
-  end
-
   def index
     if current_admin.pod
       @pod = current_admin.pod
@@ -20,37 +7,11 @@ class PodAdmin::ParentsController < PodAdminController
 
       year = Date.today.year.to_i - 6
       @year = params[:year].presence || year.to_s + '-01-01'
-      @schoolId = @pod.school_id #|| 'A1930499544'
+      @schoolId = @pod.school_id
+      @newParents = Array.new
 
-      if @schoolId.blank?
-
-        @newParents = Array.new
-
-      else
-
-        students = getStudents
-
-        @newParents = Array.new
-
-        students.each do |student|
-          if student.date_of_birth.date > @year.to_time
-            student.contacts.data.each do |contact|
-              phones = contact.contact_details.data.phones
-              phones.to_h.each do |k,v|
-                phone = v.to_s.gsub(/\s+/, "")
-                if phone.start_with?('07') && phone.length == 11 && !@parents.detect{|p| p.phone == phone}
-                  student.dob = student.date_of_birth.date.to_date.to_s
-                  student.phone = phone
-                  student.name = contact.forename
-                  student.relationship = contact.relationship.relationship
-                  student.surname = contact.surname
-                  @newParents << student
-                end
-              end
-            end
-          end
-        end
-
+      if !@schoolId.blank? && !params[:year].blank?
+        @newParents = get_parents
       end
 
     end

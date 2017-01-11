@@ -60,6 +60,12 @@
   </div>
 </div>
 
+  <% if !@newParents.any? && !params[:year].blank? %>
+    <h4>
+      No parents found
+    </h4>
+  <% end %>
+
   <% if @newParents.any? %>
   <div class="row">
     <div class="col-md-6">
