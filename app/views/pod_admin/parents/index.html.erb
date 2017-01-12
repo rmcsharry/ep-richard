@@ -6,7 +6,7 @@
 <% else %>
 
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-12 col-lg-6">
     <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
     <h2>Parents</h2>
     <% unless @parents.empty? %>
@@ -23,13 +23,79 @@
 </div>
 
 <div class="row">
-  <div class="col-md-3">
-    <div class="list-group">
-      <% @parents.each do |parent| %>
-        <%= link_to "<span class='glyphicon glyphicon-user'></span> #{parent.name}".html_safe, pod_admin_parent_path(parent), class: "list-group-item list-group-item-success" %>
-      <% end %>
-    </div>
+  <div class="col-md-12 col-lg-6">
+    <%= form_for :parent, :url => pod_admin_parents_path, :html => { :method => :put } do %>
+      <div class="list-group">
+          <% @parents.each do |parent| %>
+            <%= link_to pod_admin_parent_path(parent), :class => 'list-group-item list-group-item-success' do %>
+                <span class='glyphicon glyphicon-user'></span> <%= parent.name %>
+            <% end %>
+          <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
+
+<br />
+<% if !@pod.school_id.blank? %>
+<div class="row">
+  <div class="col-md-6">
+    <h3>Import parents via your school SIMS</h3>
+    <hr />
+    <%= form_for pod_admin_parents_path, :html => { :method => :get } do %>
+    <fieldset>
+      <div class="col-md-6">
+        <label for="disabledSelect">Children born after this date</label>
+        <div class="input-group">
+          <input type="date" name="year" class="form-control" value="<%= @year %>" />
+          <span class="input-group-btn">
+            <%= button_tag(type: 'submit', class: 'btn btn-primary btn-med pull-right') do %>
+              Show parents
+            <% end %>
+          </span>
+        </div>
+        <span class="small">This could take up to 10 seconds</span>
+      </div>
+    </fieldset>
+    <% end %>
+    <hr />
+  </div>
+</div>
+
+<% if !@newParents.any? && !params[:year].blank? %>
+  <h4>
+    No parents found
+  </h4>
+<% end %>
+
+  <% if @newParents.any? %>
+  <div class="row">
+    <div class="col-md-6">
+      <h4><%= @newParents.count %> new parents found</h4>
+      <%= form_for :newParents, :url => pod_admin_parents_path, :html => { :method => :post } do %>
+        <ul class="list-group">
+            <% @newParents.each do |parent|%>
+              <li class="list-group-item">
+                Parent name: <strong><%= parent.name + ' ' + parent.surname %></strong> <br />
+                Parent relationship: <strong><%= parent.relationship %></strong> <br />
+                Child's name: <strong><%= parent.forename + ' (' + parent.dob + ')'%></strong>
+                <%= hidden_field_tag :name, parent.name + ' ' + parent.surname, :name => "parents[][name]" %>
+                <%= hidden_field_tag :phone, parent.phone, :name => "parents[][phone]" %>
+                <label class='text-weight-normal pull-right'>
+                  <%= check_box_tag "parents[][add]", parent.id, false %>
+                </label>
+              </li>
+            <% end %>
+        </ul>
+
+          <%= button_tag(type: 'submit', class: 'btn btn-primary btn-med pull-right') do %>
+            <span class="glyphicon glyphicon-plus"></span>  Add parents
+          <% end %>
+        <% end %>
+        <br /><br /><br />
+
+  </div>
+  <% end %>
+<% end %>
 
 <% end %>

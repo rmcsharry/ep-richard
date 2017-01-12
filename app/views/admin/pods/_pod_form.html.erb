@@ -11,12 +11,36 @@
   <div class="form-group">
     <div class="row">
       <div class="col-md-6">
+        <%= f.label :go_live_date %>
+        <%= f.date_field :go_live_date, placeholder: "", class: "form-control" %>
+      </div>
+      <br/>
+      <div class="col-md-6">
+        <small><strong>IMPORTANT:</strong> this date determines when the pod starts (7 days after this date parents will receive the first game).<br /> if you leave this date blank the pod wont start the programme but it is accessible (setup process)</small>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
         <%= f.label :inactive_date %>
         <%= f.date_field :inactive_date, placeholder: "", class: "form-control" %>
       </div>
       <br/>
+      <div class="col-md-6">
+        <small>The date from which you want the access to this pod to be restricted to its pod admin and parents. (Leave the date blank to make the pod active)</small>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="row">
+      <div class="col-md-6">
+        <%= f.label :school_id, "School ID" %>
+        <%= f.text_field :school_id, placeholder: "", class: "form-control" %>
+      </div>
+      <br/>
       <div class="col-md-4">
-        <small>leave the date blank to make pod active</small>
+        <small>Visit <a href="https://easypeasy.wonde.com/schools">Wonde</a> to get this value</small>
       </div>
     </div>
   </div>

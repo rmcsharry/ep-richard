@@ -21,20 +21,21 @@ Rails.application.routes.draw do
   end
 
   get '/admin', to: 'admin#index'
-  
+
   namespace :admin do
     resources :games
     resources :pods do
-      post '/import', to: :parents_import 
+      post '/import', to: :parents_import
     end
     resources :pod_admins
   end
 
   match '/pod_admin/set_go_live_date_for_pod/:id', to: 'pod_admin#set_go_live_date_for_pod', via: [:post]
   match '/pod_admin/send_welcome_sms/:id', to: 'pod_admin/parents#send_welcome_sms', via: [:post]
+  match '/admin/pods/:id', to: 'admin/pods#create_multiple', via: [:post]
 
   resources :comments
-  
+
   namespace :pod_admin do
     get '/', to: :index
     get '/dashboard', to: :dashboard

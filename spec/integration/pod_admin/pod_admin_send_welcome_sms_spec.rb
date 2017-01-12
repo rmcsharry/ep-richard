@@ -20,7 +20,7 @@ RSpec.describe "Welcome SMS", :js => false, :type => :feature do
       it "should tell the user that the SMS was sent and change the button" do
         stub_send_sms
         click_button 'Send welcome SMS'
-        expect(page).to have_content('SMS sent!')
+        expect(page).to have_content('SMS sent to Jen!')
         click_link 'Jen'
         expect(page).to have_button('Welcome SMS already sent. Send again?')
       end

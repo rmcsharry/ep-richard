@@ -2,7 +2,18 @@ class PodAdmin::ParentsController < PodAdminController
 
   def index
     if current_admin.pod
+      @pod = current_admin.pod
       @parents = current_admin.pod.parents.order("LOWER(name)")
+
+      year = Date.today.year.to_i - 6
+      @year = params[:year].presence || year.to_s + '-01-01'
+      @schoolId = @pod.school_id
+      @newParents = Array.new
+
+      if !@schoolId.blank? && !params[:year].blank?
+        @newParents = get_parents
+      end
+
     end
   end
 
@@ -15,13 +26,29 @@ class PodAdmin::ParentsController < PodAdminController
   end
 
   def create
-    @parent = Parent.new(parent_params)
-    @parent.pod = current_admin.pod
-    if @parent.save
-      flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
-      redirect_to pod_admin_parent_path(@parent)
+    if !params[:parents].blank?
+      count = 0
+      params['parents'].each_with_index do |parent, i|
+        if parent.has_key?('add')
+          @parent = Parent.new({name: parent['name'], phone: parent['phone']})
+          @parent.pod = current_admin.pod
+          if !@parent.save
+            puts @parent.errors.full_messages
+          end
+          count = i
+        end
+      end
+      flash[:success] = "#{count+1} new parent(s) were added to your pod"
+      redirect_to pod_admin_parents_path
     else
-      render 'new'
+      @parent = Parent.new(parent_params)
+      @parent.pod = current_admin.pod
+      if @parent.save
+        flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
+        redirect_to pod_admin_parent_path(@parent)
+      else
+        render 'new'
+      end
     end
   end
 
@@ -34,7 +61,7 @@ class PodAdmin::ParentsController < PodAdminController
     @parent.update_attributes(parent_params)
     if @parent.save
       flash[:success] = "#{@parent.name.split[0]} updated."
-      redirect_to pod_admin_path
+      redirect_to pod_admin_parents_path
     else
       render 'edit'
     end
@@ -68,4 +95,9 @@ class PodAdmin::ParentsController < PodAdminController
     def parent_params
       params.require(:parent).permit(:name, :phone)
     end
+
+    # def update_attributes
+    #   params.require(:parent).permit(:active)
+    # end
+
 end

@@ -10,6 +10,11 @@ def stub_get_video_from_wistia
     to_return(:status => 200, :body => File.new('spec/webmocks/getVideoFromWistia.json'), :headers => {})
 end
 
+def stub_get_students_from_wonde
+  stub_request(:get, "https://api.wonde.com/v1.0/schools/A1930499544/students?per_page=10&include=contacts,contacts.contact_details&page=1").
+    to_return(:status => 200, :body => File.new('spec/webmocks/getStudentsFromWonde.json'), :headers => {})
+end
+
 def stub_send_sms
   stub_request(:post, /.+api\.twilio\.com.+/).
     to_return(:status => 201, :body => File.new('spec/webmocks/sendSMS.json'), :headers => {})
@@ -25,7 +30,7 @@ class WarningSuppressor
   IGNORES = [
     /DEBUG:/,
   ]
- 
+
   class << self
     def write(message)
       if suppress?(message) then 0 else puts(message);1;end
@@ -45,7 +50,7 @@ Capybara.register_driver :poltergeist do |app|
 end
 
 Capybara.javascript_driver = :poltergeist
-Capybara.default_driver = :poltergeist 
+Capybara.default_driver = :poltergeist
 
 RSpec.configure do |config|
 end
