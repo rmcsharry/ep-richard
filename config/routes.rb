@@ -32,9 +32,6 @@ Rails.application.routes.draw do
 
   match '/pod_admin/set_go_live_date_for_pod/:id', to: 'pod_admin#set_go_live_date_for_pod', via: [:post]
   match '/pod_admin/send_welcome_sms/:id', to: 'pod_admin/parents#send_welcome_sms', via: [:post]
-  match '/pod_admin/parents', to: 'pod_admin/parents#update_multiple', via: [:put]
-  match '/pod_admin/parents', to: 'pod_admin/parents#create_multiple', via: [:post]
-  match '/admin/pods/:id/edit', to: 'admin/pods#update_multiple', via: [:put]
   match '/admin/pods/:id', to: 'admin/pods#create_multiple', via: [:post]
 
   resources :comments

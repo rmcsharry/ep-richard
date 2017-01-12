@@ -22,11 +22,13 @@ module ParentHelper
       request = Net::HTTP::Get.new(uri.request_uri)
       request["authorization"] = "Bearer 355d00547bb356865fc5ec2addc9e48096df4915"
       res = http.request(request)
-      res = JSON.parse(res.body, object_class: OpenStruct)
-      students += res.data unless res.data.nil?
-      more = res.meta.pagination.more.inspect unless res.meta.nil?
+      if res.code == '200'
+        res = JSON.parse(res.body, object_class: OpenStruct)
+        students += res.data unless res.data.nil?
+        more = res.meta.pagination.more.inspect unless res.meta.nil?
+      end
       page += 1
-    end while more == 'true' && page < 7
+    end while more == 'true' && page < 10
 
     return students
 

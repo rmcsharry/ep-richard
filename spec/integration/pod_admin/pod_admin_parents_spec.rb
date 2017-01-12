@@ -54,6 +54,24 @@ RSpec.describe "Pod admin parents functionality", :js => false, :type => :featur
 
   end
 
+  describe "import new parents functionality" do
+    let!(:pod) { Fabricate(:pod, school_id: 'A1930499544') }
+    let!(:pod_admin) { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }
+
+    before do
+      logout_admin
+      login_as_specific_pod_admin(pod_admin)
+    end
+
+    describe "should show import functionality" do
+      it "should show the functionality" do
+        visit pod_admin_parents_path
+        expect(page).to have_content('Import parents via your school SIMS')
+        expect(page).to have_content('Children born after this date')
+      end
+    end
+  end
+
   describe "editing and deleting a parent" do
     let!(:pod) { Fabricate(:pod) }
     let!(:pod_admin) { Fabricate(:pod_admin, email: 'test@example.com', pod: pod ) }

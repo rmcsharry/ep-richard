@@ -72,8 +72,8 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       click_link 'Initial name'
       fill_in 'Name', with: 'Edited name'
       click_button 'Update'
-      expect(current_path).to eq(admin_pods_path)
-      expect(page).to have_text('Edited name')
+      expect(current_path).to eq(edit_admin_pod_path(1))
+      expect(Pod.last.name).to eq('Edited name')
     end
 
     it "should allow setting the pod test flag to true" do
@@ -83,7 +83,7 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       click_link 'Test pod'
       check('pod_is_test')
       click_button 'Update'
-      expect(current_path).to eq(admin_pods_path)
+      expect(current_path).to eq(edit_admin_pod_path(1))
       expect(Pod.last.is_test).to eq(true)
     end
 
@@ -94,9 +94,54 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       click_link 'Test pod'
       uncheck('pod_is_test')
       click_button 'Update'
-      expect(current_path).to eq(admin_pods_path)
+      expect(current_path).to eq(edit_admin_pod_path(1))
       expect(Pod.last.is_test).to eq(false)
-    end    
+    end
+
+    it "should allow changing the pod go live date" do
+      Fabricate(:pod, name: 'Test pod', go_live_date: '2016-01-01')
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      fill_in 'Go live date', with: '2016-01-07'
+      click_button 'Update'
+      expect(current_path).to eq(edit_admin_pod_path(1))
+      expect(Pod.last.go_live_date).to eq('2016-01-07')
+    end
+
+    it "should allow changing the pod inactive date" do
+      Fabricate(:pod, name: 'Test pod', inactive_date: '2016-01-07')
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      fill_in 'Inactive date', with: '2016-01-14'
+      click_button 'Update'
+      expect(current_path).to eq(edit_admin_pod_path(1))
+      expect(Pod.last.inactive_date).to eq('2016-01-14')
+    end
+
+    it "should allow changing the school id" do
+      Fabricate(:pod, name: 'Test pod', school_id: '')
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      fill_in 'School ID', with: 'A1930499544'
+      click_button 'Update'
+      expect(current_path).to eq(edit_admin_pod_path(1))
+      expect(Pod.last.school_id).to eq('A1930499544')
+    end
+
+    it "should show import new parents functionality" do
+      Fabricate(:pod, name: 'Test pod', school_id: '')
+
+      visit admin_pods_path
+      click_link 'Test pod'
+      fill_in 'School ID', with: 'A1930499544'
+      click_button 'Update'
+      visit admin_pod_path(1)
+      expect(page).to have_content('Import new parents via SIMS')
+    end
+
   end
 
   describe "deleting a pod" do
@@ -110,12 +155,12 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       expect(page).not_to have_content('Save the Children')
     end
   end
-    
+
   describe "importing parents" do
     require 'csv'
     let!(:pod) { Fabricate(:pod, name: 'Import pod name') }
     let!(:parent) { Fabricate(:parent, pod: pod, phone: '07444007986') }
-        
+
     it "should allow importing new parents" do
       visit edit_admin_pod_path(pod)
 
@@ -124,19 +169,19 @@ RSpec.describe "EZY admin", :js => false, :type => :feature do
       expect(page).to have_text("2 parents imported to #{pod.name}")
     end
 
-    it "should not allow import existing parents" do
-      visit edit_admin_pod_path(pod)
+    # it "should not allow import existing parents" do
+    #   visit edit_admin_pod_path(pod)
+    #
+    #   attach_file('file', Rails.root.join('spec/fixtures/files/existing_parents_test.csv'))
+    #   click_button 'Import CSV'
+    #   expect(page).to have_text("0 parents imported to #{pod.name}")
+    # end
 
-      attach_file('file', Rails.root.join('spec/fixtures/files/existing_parents_test.csv'))
-      click_button 'Import CSV'
-      expect(page).to have_text("0 parents imported to #{pod.name}")
-    end
-    
     it "should detect not selecting a file" do
       visit edit_admin_pod_path(pod)
-      
+
       click_button 'Import CSV'
-      expect(page).to have_text("No file found - please select a CSV file.")      
+      expect(page).to have_text("No file found - please select a CSV file.")
     end
   end
 

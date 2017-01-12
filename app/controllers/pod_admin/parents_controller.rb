@@ -26,30 +26,30 @@ class PodAdmin::ParentsController < PodAdminController
   end
 
   def create
-    @parent = Parent.new(parent_params)
-    @parent.pod = current_admin.pod
-    if @parent.save
-      flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
-      redirect_to pod_admin_parent_path(@parent)
-    else
-      render 'new'
-    end
-  end
-
-  def create_multiple
-    count = 0
-    params['parents'].each_with_index do |parent, i|
-      if parent.has_key?('add')
-        @parent = Parent.new({name: parent['name'], phone: parent['phone']})
-        @parent.pod = current_admin.pod
-        if !@parent.save
-          puts @parent.errors.full_messages
+    if !params[:parents].blank?
+      count = 0
+      params['parents'].each_with_index do |parent, i|
+        if parent.has_key?('add')
+          @parent = Parent.new({name: parent['name'], phone: parent['phone']})
+          @parent.pod = current_admin.pod
+          if !@parent.save
+            puts @parent.errors.full_messages
+          end
+          count = i
         end
-        count = i
+      end
+      flash[:success] = "#{count+1} new parent(s) were added to your pod"
+      redirect_to pod_admin_parents_path
+    else
+      @parent = Parent.new(parent_params)
+      @parent.pod = current_admin.pod
+      if @parent.save
+        flash[:success] = "Ok! Added #{@parent.name.split[0]} to the pod."
+        redirect_to pod_admin_parent_path(@parent)
+      else
+        render 'new'
       end
     end
-    flash[:success] = "#{count+1} new parent(s) were added to your pod"
-    redirect_to pod_admin_parents_path
   end
 
   def edit
@@ -65,15 +65,6 @@ class PodAdmin::ParentsController < PodAdminController
     else
       render 'edit'
     end
-  end
-
-  def update_multiple
-    params['parent'].each do |k,v|
-      @parent = Parent.find(k.to_i)
-      @parent.update_attributes(v)
-    end
-    flash[:success] = "Parents updated"
-    redirect_to pod_admin_parents_path
   end
 
   def destroy

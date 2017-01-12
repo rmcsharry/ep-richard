@@ -13,7 +13,8 @@
               <th>Phone</th>
               <th>Slug</th>
               <th>Created</th>
-              <th>Welcome SMS</th>
+              <th>Last notification</th>
+              <th>Welcome SMS?</th>
             </tr>
           </thead>
           <tbody>
@@ -24,6 +25,7 @@
                 <td><%= parent.phone %></td>
                 <td><a href="http://play.easypeasyapp.com/#/<%= parent.slug %>/games" target="_blank"><%= parent.slug %></a></td>
                 <td><%= parent.created_at.to_date %></td>
+                <td><%= parent.last_notification.to_date %></td>
                 <td><%= parent.welcome_sms_sent %></td>
               </tr>
             <% end %>
@@ -44,15 +46,16 @@
     <%= form_for admin_pod_path, :html => { :method => :get } do %>
     <fieldset>
       <div class="col-md-6">
-        <label for="disabledSelect">Children born after this date</label>
+        <label for="year">Children born after this date</label>
         <div class="input-group">
-          <input type="date" name="year" class="form-control" value="<%= @year %>" />
+          <input type="date" id="Year" name="year" class="form-control" value="<%= @year %>" />
           <span class="input-group-btn">
             <%= button_tag(type: 'submit', class: 'btn btn-primary btn-med pull-right') do %>
               Show parents
             <% end %>
           </span>
         </div>
+        <span class="small">This could take up to 10 seconds</span>
       </div>
     </fieldset>
     <% end %>

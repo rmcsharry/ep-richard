@@ -14,23 +14,23 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       it "should show the welcome intro screen" do
         visit "/#/#{parent.slug}/games"
         expect(page).to have_content('Welcome to EasyPeasy!')
-        expect(page).to have_content('With EasyPeasy, playing together helps your child develop key skills for school and life.')
+        expect(page).to have_content('with EasyPeasy, playing together helps your child develop key skills for school and life.')
         # Note: do not try clicking the screen to check if the 2nd and 3rd intro screens load, Capybara fails to detect Ember component changes
       end
-  
+
     end
-    
+
     context "after the first time" do
       before do
         Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
         visit "/#/#{parent.slug}/games"
       end
-      
+
       it "should show the games" do
         expect(page).to have_content('Game 1')
         expect(page).to have_content('Game 2')
       end
-  
+
       it "should see there are no comments when no parents in the pod have commented yet" do
         expect(page).to have_content('There are no comments on any of the games...yet!')
       end
@@ -62,7 +62,7 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       expect(page).to have_content('Game 1')
       expect(page).to have_content('Game 2')
     end
-    
+
     it "should show the latest comment from another parent in the same pod" do
       latest_comment = 'Here is another parents latest comment'
       Fabricate(:comment, body: latest_comment, parent: parent2, game: game)

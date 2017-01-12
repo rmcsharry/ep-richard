@@ -67,15 +67,6 @@ class Admin::PodsController < AdminController
     end
   end
 
-  def update_multiple
-    params['parent'].each do |k,v|
-      @parent = Parent.find(k.to_i)
-      @parent.update_attributes(v)
-    end
-    flash[:success] = "Parents updated"
-    redirect_to edit_admin_pod_path(params['id'])
-  end
-
   def destroy
     pod = Pod.find(params[:id])
     pod.delete
