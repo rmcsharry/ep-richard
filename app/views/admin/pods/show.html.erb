@@ -25,7 +25,7 @@
                 <td><%= parent.phone %></td>
                 <td><a href="http://play.easypeasyapp.com/#/<%= parent.slug %>/games" target="_blank"><%= parent.slug %></a></td>
                 <td><%= parent.created_at.to_date %></td>
-                <td><%= parent.last_notification.to_date %></td>
+                <td><%= parent.last_notification.to_s.to_date %></td>
                 <td><%= parent.welcome_sms_sent %></td>
               </tr>
             <% end %>
