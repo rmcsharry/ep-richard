@@ -135,7 +135,7 @@ class Pod < ActiveRecord::Base
   end
 
   def is_in_trial?
-    return true if self.inactive_date && self.days_left > 0
+    return true if self.inactive_date && self.days_left > 0 && self.days_left < 15
     return false
   end
 
