@@ -1,81 +1,87 @@
-{{#if (and parent.first_visit isStartNotClicked)}}
-	{{#if isScreenOne}}
-		{{screen-1 swipedLeft='rightFromOne'}}	
-	{{/if}}
-	{{#if isScreenTwo}}
-		{{screen-2 swipedLeft='rightFromTwo' swipedRight='leftFromTwo'}}
-	{{/if}}
-	{{#if isScreenThree}}
-		{{screen-3 swipedRight='leftFromThree' getStarted='startClicked'}}
-	{{/if}}		
+{{#if parent.pod_active}}
+	{{#if (and parent.first_visit isStartNotClicked)}}
+		{{#if isScreenOne}}
+			{{screen-1 swipedLeft='rightFromOne'}}
+		{{/if}}
+		{{#if isScreenTwo}}
+			{{screen-2 swipedLeft='rightFromTwo' swipedRight='leftFromTwo'}}
+		{{/if}}
+		{{#if isScreenThree}}
+			{{screen-3 swipedRight='leftFromThree' getStarted='startClicked'}}
+		{{/if}}
 
-
-{{else}}
-<div class="mainContent">
-
-	<div class="homeLogo"></div>
-	
-	<div class="welcomeMessage u-textCenter">
-	  <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
-	</div>
-	
-	{{#if parent.pod_latest_comment}}
-	<div>
-	  <blockquote>
-		The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
-		on <strong>{{format-date parent.pod_latest_comment.created_at}}</strong>
-		at <strong>{{format-time parent.pod_latest_comment.created_at}}:</strong>
-		<br/><br/>
-		<i>{{parent.pod_latest_comment.body}}</i>
-		<br/><br/>
-		on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game.id}}">{{parent.pod_latest_comment_game_name}}</a>
-	   </blockquote>
-	</div>
 	{{else}}
-	<div>
-	  <blockquote>
-		There are no comments on any of the games...yet!
-	   </blockquote>
+	<div class="mainContent">
+
+		<div class="homeLogo"></div>
+
+		<div class="welcomeMessage u-textCenter">
+		  <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
+		</div>
+
+		{{#if parent.pod_latest_comment}}
+		<div>
+		  <blockquote>
+			The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
+			on <strong>{{format-date parent.pod_latest_comment.created_at}}</strong>
+			at <strong>{{format-time parent.pod_latest_comment.created_at}}:</strong>
+			<br/><br/>
+			<i>{{parent.pod_latest_comment.body}}</i>
+			<br/><br/>
+			on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game.id}}">{{parent.pod_latest_comment_game_name}}</a>
+		   </blockquote>
+		</div>
+		{{else}}
+		<div>
+		  <blockquote>
+			There are no comments on any of the games...yet!
+		   </blockquote>
+		</div>
+		{{/if}}
+
+
+		<ul class="gamesList">
+		{{#each game in sortedGames}}
+		  {{#link-to 'game' game.id class='gameItem u-cf' tagName='li'}}
+		    {{#if game.image_url}}
+		      <img class="gameItem-image u-floatLeft u-size5of12" {{bind-attr src=game.image_url}}/>
+		    {{else}}
+		      <img class="gameItem-image u-floatLeft u-size5of12" src="/assets/no-picture.png"/>
+		    {{/if}}
+		    <div class="gameItem-newFlag">New!</div>
+		    <div class="gameItem-name u-before6of12 u-after1of12">{{game.name}}</div>
+		    <div class="gameItem-description u-before6of12 u-after1of12">{{game.description}}</div>
+		  {{/link-to}}
+		{{/each}}
+		</ul>
 	</div>
+
+	<script>
+	  // Intercom
+	  Intercom('boot', {
+	    app_id: 'igw37dwb',
+	    name: "{{parent.name}}",
+	    user_id: "{{parent.id}}",
+	    "pod_name": "{{parent.pod_name}}",
+	    "slug": "{{parent.slug}}",
+	    "type": "parent"
+	  });
+
+	  Intercom('update');
+	</script>
 	{{/if}}
-	
-	
-	<ul class="gamesList">
-	{{#each game in sortedGames}}
-	  {{#link-to 'game' game.id class='gameItem u-cf' tagName='li'}}
-	    {{#if game.image_url}}
-	      <img class="gameItem-image u-floatLeft u-size5of12" {{bind-attr src=game.image_url}}/>
-	    {{else}}
-	      <img class="gameItem-image u-floatLeft u-size5of12" src="/assets/no-picture.png"/>
-	    {{/if}}
-	    <div class="gameItem-newFlag">New!</div>
-	    <div class="gameItem-name u-before6of12 u-after1of12">{{game.name}}</div>
-	    <div class="gameItem-description u-before6of12 u-after1of12">{{game.description}}</div>
-	  {{/link-to}}
-	{{/each}}
-	</ul>
-</div>
 
-<script>
-  // Intercom
-  Intercom('boot', {
-    app_id: 'igw37dwb',
-    name: "{{parent.name}}",
-    user_id: "{{parent.id}}",
-    "pod_name": "{{parent.pod_name}}",
-    "slug": "{{parent.slug}}",
-    "type": "parent"
-  });
-
-  Intercom('update');
-</script>
+	<script>
+	  // Google Analytics
+	  ga('send', {
+	    'hitType': 'pageview',
+	    'page': location.pathname + location.hash,
+	    'title': "{{parent.pod_name}}"
+	  });
+	</script>
+{{else}}
+	<div class="mainContent">
+		<div class="homeLogo"></div>
+		<div class="welcomeMessage u-textCenter"><h4>This Pod is not available</h4></div>
+	</div>
 {{/if}}
-
-<script>
-  // Google Analytics
-  ga('send', {
-    'hitType': 'pageview',
-    'page': location.pathname + location.hash,
-    'title': "{{parent.pod_name}}"
-  });
-</script>
