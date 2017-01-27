@@ -20,9 +20,8 @@ class ParentSerializer < ActiveModel::Serializer
   end
 
   def pod_active
-    return false if object.pod.go_live_date.nil?
     return true if object.pod.inactive_date.nil?
-    Date.parse(object.pod.inactive_date.strftime("%F")) >= Date.parse(Date.today.strftime("%F"))
+    Date.parse(object.pod.inactive_date.strftime("%F")) > Date.parse(Date.today.strftime("%F"))
   end
 
   def pod_latest_comment
