@@ -3,7 +3,7 @@ Rails.application.configure do
 
   # Adds logging to the terminal, greatly aids debugging and seeing which routes and DB queries are being used
   Rails.logger = Logger.new(STDOUT)
-  
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 
@@ -95,8 +95,8 @@ Rails.application.configure do
 
   config.middleware.use ::ExceptionNotifier,
     :email_prefix => "[Easypeasy error] ",
-    :sender_address => %{"Notifier" <admin@minified.net>},
-    :exception_recipients => %w{basil@minified.net}
+    :sender_address => %{"Notifier" <hello@easypeasyapp.com>},
+    :exception_recipients => %w{esteban@easypeasyapp.com}
 
   config.action_mailer.default_url_options = { host: 'ep-richard.herokuapp.com' }
 
