@@ -1,3 +1,4 @@
+{{#if parent.pod_active}}
 <div class="mainContent">
 	<div class="headerToolbar Arrange Arrange--middle">
 	  {{#link-to 'games' class='headerToolbar-leftButton Arrange-sizeFit u-size2of12 u-cleanLink'}}{{/link-to}}
@@ -6,13 +7,13 @@
 	  </div>
 	  <div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
 	</div>
-	
+
 	<div class="paddedContainer">
-	
+
 	  <div class="videoEmbedContainer">
 	    <iframe {{bind-attr src='model.video_iframeurl'}} allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'></iframe>
 	  </div>
-	
+
 	  <div class="markdownInstructions">
 	  	<div>
 	  		<h1>Did you know?</h1>
@@ -26,12 +27,12 @@
 				<h1>Top tip</h1>
 	  		{{model.top_tip}}
 	  	</div>
-	  	<br/>		
+	  	<br/>
 			<h1>How did it go? share your experience with other parents</h1>
 		</div>
-						
+
 		{{#if model.comments}}
-			{{add-comment placeholder_text='Type your comment' 
+			{{add-comment placeholder_text='Type your comment'
 				game=model parent_id=parent.id parent_name=parent.name}}
 		{{else}}
 			{{add-comment placeholder_text='Be the first to leave a comment for this game'
@@ -48,7 +49,7 @@
 				<div class="commentItem-body">{{comment.body}}</div>
 			</div>
 		{{/each}}
-	
+
 	</div>
 </div>
 
@@ -73,3 +74,12 @@
     'title': "{{model.name}} - {{parent.pod_name}}"
   });
 </script>
+{{else}}
+	<div class="mainContent">
+		<div class="homeLogo"></div>
+		<div class="alert alert-danger u-textCenter">
+			<br /><br />
+			<strong>{{parent.pod_name}}</strong> is not avilable.<br /><br /> Contact us on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> if you have any questions<br /><br /> Sorry for the inconvenience.
+		</div>
+	</div>
+{{/if}}
