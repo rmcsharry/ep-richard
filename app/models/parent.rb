@@ -1,6 +1,6 @@
 class Parent < ActiveRecord::Base
   require 'csv'
-  
+
   validates :name, presence: true
   validates :phone, presence: true
   # validates :phone, uniqueness: true
@@ -46,11 +46,11 @@ class Parent < ActiveRecord::Base
     return self.pod.should_notify?
   end
 
-  def should_send_new_game_sms?    
-    return false if self.last_notification && self.last_notification > Date.today - 7.days
+  def should_send_new_game_sms?
+    return false if self.pod.go_live_date.wday != Date.today.wday
     return true
   end
-  
+
   def should_send_additional_sms?(date, num_days)
     return true if self.last_notification && date == self.last_notification + num_days.days
     return false
@@ -72,9 +72,9 @@ class Parent < ActiveRecord::Base
       message = "Hi #{self.first_name}, it's the weekend - let's play! http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
       try_to_send(message)
     else
-      return false      
+      return false
     end
-  end       
+  end
 
   def send_did_you_know_fact(date=Date.today)
     if should_notify? && should_send_additional_sms?(date, 2) && self.pod.week_number < 4
@@ -82,23 +82,23 @@ class Parent < ActiveRecord::Base
       message = "Hi #{self.first_name}, did you know this? - " + game.did_you_know_fact +
                 " Try it out with the game " + game.name + " here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
-      # send only if it has been 2 days since the notify sms for this weeks game was sent 
+      # send only if it has been 2 days since the notify sms for this weeks game was sent
       try_to_send(message)
     else
-      return false      
-    end    
+      return false
+    end
   end
 
   def send_top_tip(date=Date.today)
     if should_notify? && should_send_additional_sms?(date, 4) && self.pod.week_number < 10
       game = self.pod.current_game
-      message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip + 
+      message = "Hi #{self.first_name}, our top tip for " + game.name + " is: " + game.top_tip +
                 " How did you play the game? Share your thoughts here: " +
                 "http://play.easypeasyapp.com/#/#{self.slug}/game/" + game.id.to_s
-      # send only if it has been 4 days since the notify sms for this weeks game was sent 
+      # send only if it has been 4 days since the notify sms for this weeks game was sent
       try_to_send(message)
     else
-      return false    
+      return false
     end
   end
 
@@ -115,10 +115,10 @@ class Parent < ActiveRecord::Base
     new_parent_count = 0
     if !file.nil?
       CSV.foreach(file.path, headers: true, :header_converters => lambda { |h| h.try(:downcase) }) do |row|
-  
+
         parent_hash = row.to_hash
         existing_parent = Parent.where(phone: parent_hash["phone"]).first
-        
+
         # TODO: need to know what feedback to give to the user for error, success and existing records
         # if existing_parent.nil?
           parent = Parent.new(parent_hash)
@@ -137,20 +137,20 @@ class Parent < ActiveRecord::Base
   end
 
   private
-  
+
   def try_to_send(message)
     outcome = SendSms.run(message_body: message, recipient: self.phone)
     return true if outcome.valid?
     return false
   end
-  
+
   def build_welcome_message
     salutation = "Hi #{self.first_name},"
-    body = "to join #{pod.name}'s Pod for free with other parents in your community on EasyPeasy" + 
+    body = "to join #{pod.name}'s Pod for free with other parents in your community on EasyPeasy" +
                   " - an app that sends you fun, simple game ideas to support your child's early development." +
                   " No need to register, just start here: http://play.easypeasyapp.com/#/#{self.slug}/games"
-       
-    inviter = "#{self.pod.pod_admin.try(:name)}"    
+
+    inviter = "#{self.pod.pod_admin.try(:name)}"
     inviter = "#{self.pod.pod_admin.try(:preferred_name)}" unless inviter.present?
     if inviter.present?
       return "#{salutation} #{inviter} invites you #{body}"
