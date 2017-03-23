@@ -38,89 +38,89 @@ RSpec.describe Parent, :type => :model do
     let!(:pod_admin) { Fabricate(:pod_admin, name: "Mickey Mouse", pod: pod) }
     inviter_known_text = "invites you"
     inviter_not_known_text = "you are invited"
-      
+
     context "sent flag" do
       it "should be set to true after a successful send" do
         parent.send_welcome_sms
         expect(parent.welcome_sms_sent).to eq(true)
       end
     end
-    
+
     context "when we know the pod admin name" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should include it in the message" do
         expect(parent.send(:build_welcome_message)).to include("Mickey Mouse")
-        expect(parent.send(:build_welcome_message)).to include(inviter_known_text)        
+        expect(parent.send(:build_welcome_message)).to include(inviter_known_text)
       end
     end
-    
+
     context "when we only know the pod admin preferred name" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should include it in the message" do
         pod_admin.name = nil
         pod_admin.preferred_name = 'Mick'
-        
+
         expect(parent.send(:build_welcome_message)).to include("Mick")
         expect(parent.send(:build_welcome_message)).to include(inviter_known_text)
         expect(parent.send(:build_welcome_message)).not_to include("Mickey Mouse")
       end
     end
-    
+
     context "when we don't know the pod admin name or preferred name" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should change the message intro" do
         pod_admin.name = nil
         pod_admin.preferred_name = nil
-        
+
         expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
         expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
 
     context "when the pod admin name is an empty string" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should not use it" do
         pod_admin.name = ''
         pod_admin.preferred_name = nil
-        
+
         expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
         expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
 
     context "when the pod admin preferred_name is an empty string" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should not use it" do
         pod_admin.name = nil
         pod_admin.preferred_name = ' '
-        
+
         expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
         expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
-    
+
     context "when the pod admin name is only whitespace" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should not use it" do
         pod_admin.name = ' '
         pod_admin.preferred_name = nil
-        
+
         expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
         expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
     end
-    
+
     context "when the pod admin preferred_name is only whitespace" do
-      # Note we are testing a private method here (use of send) because this method is important  
+      # Note we are testing a private method here (use of send) because this method is important
       it "should not use it" do
         pod_admin.name = nil
         pod_admin.preferred_name = ' '
-        
+
         expect(parent.send(:build_welcome_message)).to include(inviter_not_known_text)
         expect(parent.send(:build_welcome_message)).not_to include(inviter_known_text)
       end
-    end    
-    
+    end
+
   end
 
   describe "notifications" do
@@ -165,13 +165,13 @@ RSpec.describe Parent, :type => :model do
           end
         end
 
-        describe "when the parent was notified 6 days ago" do
+        describe "when the parent was notified 7 days ago" do
           before do
-            parent.last_notification = Date.today - 6.days
+            parent.last_notification = Date.today - 7.days
             parent.save
           end
-          it "should not send them a notification" do
-            expect(parent.notify).to eq(false)
+          it "should send them a notification" do
+            expect(parent.notify).to eq(true)
           end
         end
 
@@ -188,7 +188,7 @@ RSpec.describe Parent, :type => :model do
             expect(parent.notify).to eq(true)
             expect(parent.notify).to eq(false)
           end
-          
+
           it "should be able to send the weekend sms when Sunday rolls around" do
             # note we cannot test for Sunday, it is specified in the job itself (lib/tasks)
             # so we just test that this method returns true
@@ -202,7 +202,7 @@ RSpec.describe Parent, :type => :model do
 
           it "should send the top tip on day 4 of that week" do
             expect(parent.send_top_tip(Date.today - 3.days)).to eq(true)
-          end          
+          end
         end
       end
 
@@ -212,22 +212,22 @@ RSpec.describe Parent, :type => :model do
         it "should not send them a notification" do
           expect(parent.notify).to eq(false)
         end
-        
+
         it "should not be able to send the weekend sms when Sunday rolls around" do
           # note we cannot test for Sunday, it is specified in the job itself (lib/tasks)
-          # so we just test that this method returns false 
+          # so we just test that this method returns false
           # (ie. that it will not be able to send sms when Sunday arrives)
           expect(parent.send_weekend_sms).to eq(false)
-        end        
+        end
 
         it "should not send them the did you know fact" do
           expect(parent.send_did_you_know_fact).to eq(false)
         end
-        
+
         it "should not send them the top tip" do
           expect(parent.send_top_tip).to eq(false)
-        end         
+        end
       end
     end
-  end  
+  end
 end

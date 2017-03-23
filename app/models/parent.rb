@@ -47,6 +47,7 @@ class Parent < ActiveRecord::Base
   end
 
   def should_send_new_game_sms?
+    return false if self.last_notification == Date.today
     return false if self.pod.go_live_date.wday != Date.today.wday
     return true
   end
