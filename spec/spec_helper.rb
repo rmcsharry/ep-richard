@@ -67,15 +67,15 @@ end
 def login_as_admin
   Fabricate(:easy_admin)
   visit admin_login_path
-  fill_in "Email", with: "bsafwat@gmail.com"
+  fill_in "Email", with: "esteban@easypeasyapp.com"
   fill_in "Password", with: "Password1"
   click_button "Sign in"
 end
 
 def login_as_pod_admin
-  Fabricate(:pod_admin, email: "bsafwat+podadmin@gmail.com", password: "Password2")
+  Fabricate(:pod_admin, email: "esteban+podadmin@easypeasyapp.com", password: "Password2")
   visit admin_login_path
-  fill_in "Email", with: "bsafwat+podadmin@gmail.com"
+  fill_in "Email", with: "esteban+podadmin@easypeasyapp.com"
   fill_in "Password", with: "Password2"
   click_button "Sign in"
 end
