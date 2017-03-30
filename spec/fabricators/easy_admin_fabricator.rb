@@ -1,5 +1,5 @@
 Fabricator(:easy_admin) do
-  email "bsafwat@gmail.com"
+  email "esteban@easypeasyapp.com"
   password "Password1"
   confirmed_at { Time.now }
 end
