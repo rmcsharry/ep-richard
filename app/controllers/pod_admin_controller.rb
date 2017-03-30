@@ -9,6 +9,8 @@ class PodAdminController < ApplicationController
   def index
     if current_admin.pod && !current_admin.pod_id.blank?
       flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
+      @game = current_admin.pod.current_game
+      @next_game = current_admin.pod.next_game
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
     else

@@ -30,7 +30,7 @@ class Pod < ActiveRecord::Base
   def next_game
     next_game = Game.non_default[self.week_number]
     if next_game
-      return next_game.name
+      return next_game
     else
       return nil
     end

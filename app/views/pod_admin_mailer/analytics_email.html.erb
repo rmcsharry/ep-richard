@@ -111,7 +111,7 @@
                     <!-- next game row -->
                     <%- if @pod.next_game %>
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
-                        The next game released will be <b class="highlight"><%= @pod.next_game %></b>.
+                        The next game released will be <b class="highlight"><%= @pod.next_game.name %></b>.
                     </td></tr>
                     <%- end %>
 
