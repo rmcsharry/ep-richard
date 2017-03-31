@@ -29,7 +29,7 @@
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
 
               <div class="page-header">
-                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> This week's game is <strong><%= current_admin.pod.current_game.name %></strong></h4>
+                <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> This week's game is <strong><%= current_admin.pod.current_game.name %></strong></h4>
               </div>
 
               <div class="still">
@@ -57,7 +57,7 @@
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
 
               <div class="page-header">
-                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> Next week's game is <strong><%= current_admin.pod.next_game.name %></strong></h4>
+                <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> Next week's game is <strong><%= current_admin.pod.next_game.name %></strong></h4>
               </div>
 
               <div class="still">
