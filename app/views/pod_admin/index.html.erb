@@ -25,57 +25,57 @@
 
     <% if current_admin.pod.week_number > 0 %>
       <div class="row">
-        <% if @game %>
+        <% if current_admin.pod.current_game %>
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
 
               <div class="page-header">
-                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> This week's game is <strong><%= @game.name %></strong></h4>
+                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> This week's game is <strong><%= current_admin.pod.current_game.name %></strong></h4>
               </div>
 
               <div class="still">
 
-                <a href="<%= pod_admin_game_path(@game) %>">
-                  <% if @game.image_url && @game.image_url.empty? %>
+                <a href="<%= pod_admin_game_path(current_admin.pod.current_game) %>">
+                  <% if current_admin.pod.current_game.image_url && current_admin.pod.current_game.image_url.empty? %>
                     <%= image_tag "no-picture.png" %>
                   <% else %>
-                    <img src="<%= @game.image_url %>">
+                    <img src="<%= current_admin.pod.current_game.image_url %>">
                   <% end %>
 
-                  <h3><%= @game.name %></h3>
+                  <h3><%= current_admin.pod.current_game.name %></h3>
                 </a>
 
               </div>
 
-              <p><br/>Top tip for <%= link_to @game.name, pod_admin_game_path(@game) %>: <%= @game.top_tip %></p>
-              <p>Find out how to play <%= link_to "here", pod_admin_game_path(@game) %></p>
+              <p><br/>Top tip for <%= link_to current_admin.pod.current_game.name, pod_admin_game_path(current_admin.pod.current_game) %>: <%= current_admin.pod.current_game.top_tip %></p>
+              <p>Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.current_game) %></p>
 
 
         </div>
         <% end %>
 
-        <% if @next_game %>
+        <% if current_admin.pod.next_game %>
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
 
               <div class="page-header">
-                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> Next week's game is <strong><%= @next_game.name %></strong></h4>
+                <h4><img src="/assets/pea-sparks.png" width="35" height="39" /> Next week's game is <strong><%= current_admin.pod.next_game.name %></strong></h4>
               </div>
 
               <div class="still">
 
-                <a href="<%= pod_admin_game_path(@next_game) %>">
-                  <% if @next_game.image_url && @next_game.image_url.empty? %>
+                <a href="<%= pod_admin_game_path(current_admin.pod.next_game) %>">
+                  <% if current_admin.pod.next_game.image_url && current_admin.pod.next_game.image_url.empty? %>
                     <%= image_tag "no-picture.png" %>
                   <% else %>
-                    <img src="<%= @next_game.image_url %>">
+                    <img src="<%= current_admin.pod.next_game.image_url %>">
                   <% end %>
 
-                  <h3><%= @next_game.name %></h3>
+                  <h3><%= current_admin.pod.next_game.name %></h3>
                 </a>
 
               </div>
 
-              <p><br/>Top tip for <%= link_to @next_game.name, pod_admin_game_path(@next_game) %>: <%= @next_game.top_tip %></p>
-              <p> Find out how to play <%= link_to "here", pod_admin_game_path(@next_game) %></p>
+              <p><br/>Top tip for <%= link_to current_admin.pod.next_game.name, pod_admin_game_path(current_admin.pod.next_game) %>: <%= current_admin.pod.next_game.top_tip %></p>
+              <p> Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.next_game) %></p>
 
         </div>
         <% end %>
