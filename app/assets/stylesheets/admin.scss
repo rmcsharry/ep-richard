@@ -26,3 +26,28 @@ img {
 .text-weight-normal {
   font-weight: normal;
 }
+
+.week_game {
+  max-width: 450px;
+  h4 {
+    img {
+      margin-right: 10px;
+    }
+  }
+  .still {
+    display: block;
+    position: relative;
+    a {
+      color: #FFFFFF;
+      text-decoration: none;
+      &:hover {
+        color:#d9edf7;
+      }
+    }
+    h3 {
+      bottom: 0px;
+      position: absolute;
+      padding: 0 10px;
+    }
+  }
+}
