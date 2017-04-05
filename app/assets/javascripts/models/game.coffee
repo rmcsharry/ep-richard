@@ -9,5 +9,7 @@ Easypeasy.Game = DS.Model.extend
   media_hashed_id:   DS.attr 'string'
   in_default_set:    DS.attr 'boolean'
   position:          DS.attr 'number'
+  eyfs_area:         DS.attr 'string'
+  eyfs_goal:         DS.attr 'string'
   created_at:        DS.attr 'date'
   comments:          DS.hasMany('comment', {embedded: 'true'})
