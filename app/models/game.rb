@@ -4,7 +4,7 @@ class Game < ActiveRecord::Base
   validate  :video_url_is_correct
   has_many :comments
   acts_as_list add_new_at: :top
-
+  
   def comments_for_pod(pod_id)
     self.comments.where('pod_id = ?', pod_id).order(created_at: :desc)
   end
@@ -79,5 +79,33 @@ class Game < ActiveRecord::Base
       false
     end
   end
+
+  EYFS_AREAS = [
+    'Communication and Language',
+    'Literacy',
+    'Mathemathics',
+    'Personal, Social, & Emotional Development',
+    'Physical Development',
+    'Understanding the world',
+  ]
+  EYFS_GOALS = [
+    'Listening and attention',
+    'Understanding',
+    'Speaking',
+    'Moving and handling',
+    'Health and Self-Care',
+    'Self-confidence and Self-awareness',
+    'Managing feelings and behaviour',
+    'Making relationships',
+    'Reading',
+    'Writing',
+    'Numbers',
+    'Shape, space and measures',
+    'People and communities',
+    'The World',
+    'Technology',
+    'Exploring and using media and materials',
+    'Being imaginative'    
+  ]
 
 end
