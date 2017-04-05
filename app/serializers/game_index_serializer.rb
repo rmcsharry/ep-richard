@@ -4,5 +4,7 @@ class GameIndexSerializer < ActiveModel::Serializer
              :description,
              :image_url,
              :in_default_set,
-             :position
+             :position,
+             :eyfs_area,
+             :eyfs_goal
 end
