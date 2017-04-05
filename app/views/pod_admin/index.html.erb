@@ -27,56 +27,52 @@
       <div class="row">
         <% if current_admin.pod.current_game %>
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
-
-              <div class="page-header">
-                <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> This week's game is <strong><%= current_admin.pod.current_game.name %></strong></h4>
-              </div>
-
-              <div class="still">
-
-                <a href="<%= pod_admin_game_path(current_admin.pod.current_game) %>">
-                  <% if current_admin.pod.current_game.image_url && current_admin.pod.current_game.image_url.empty? %>
-                    <%= image_tag "no-picture.png" %>
-                  <% else %>
-                    <img src="<%= current_admin.pod.current_game.image_url %>">
-                  <% end %>
-
-                  <h3><%= current_admin.pod.current_game.name %></h3>
-                </a>
-
-              </div>
-
-              <p><br/>Top tip for <%= link_to current_admin.pod.current_game.name, pod_admin_game_path(current_admin.pod.current_game) %>: <%= current_admin.pod.current_game.top_tip %></p>
-              <p>Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.current_game) %></p>
-
-
+          <div class="page-header">
+            <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> This week's game is <strong><%= current_admin.pod.current_game.name %></strong></h4>
+          </div>
+          <div class="still">
+            <a href="<%= pod_admin_game_path(current_admin.pod.current_game) %>">
+              <% if current_admin.pod.current_game.image_url && current_admin.pod.current_game.image_url.empty? %>
+                <%= image_tag "no-picture.png" %>
+              <% else %>
+                <img src="<%= current_admin.pod.current_game.image_url %>">
+              <% end %>
+              <h3><%= current_admin.pod.current_game.name %></h3>
+            </a>
+          </div>
+          <div>
+            <br>
+            <p>EYFS Area: <strong><%= current_admin.pod.current_game.eyfs_area %></strong></p>
+            <p>Learning Goal: <strong><%= current_admin.pod.current_game.eyfs_goal %></strong></p>      
+          </div>              
+          <p><br/>Top tip for <%= link_to current_admin.pod.current_game.name, pod_admin_game_path(current_admin.pod.current_game) %>: <%= current_admin.pod.current_game.top_tip %></p>
+          <p>Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.current_game) %></p>
         </div>
         <% end %>
 
         <% if current_admin.pod.next_game %>
   			<div class="col-xs-12 col-sm-6 col-md-5 week_game">
+          <div class="page-header">
+            <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> Next week's game is <strong><%= current_admin.pod.next_game.name %></strong></h4>
+          </div>
+          <div class="still">
+            <a href="<%= pod_admin_game_path(current_admin.pod.next_game) %>">
+              <% if current_admin.pod.next_game.image_url && current_admin.pod.next_game.image_url.empty? %>
+                <%= image_tag "no-picture.png" %>
+              <% else %>
+                <img src="<%= current_admin.pod.next_game.image_url %>">
+              <% end %>
 
-              <div class="page-header">
-                <h4><img src="<%= asset_path 'pea-sparks.png' %>" width="35" height="39" /> Next week's game is <strong><%= current_admin.pod.next_game.name %></strong></h4>
-              </div>
-
-              <div class="still">
-
-                <a href="<%= pod_admin_game_path(current_admin.pod.next_game) %>">
-                  <% if current_admin.pod.next_game.image_url && current_admin.pod.next_game.image_url.empty? %>
-                    <%= image_tag "no-picture.png" %>
-                  <% else %>
-                    <img src="<%= current_admin.pod.next_game.image_url %>">
-                  <% end %>
-
-                  <h3><%= current_admin.pod.next_game.name %></h3>
-                </a>
-
-              </div>
-
-              <p><br/>Top tip for <%= link_to current_admin.pod.next_game.name, pod_admin_game_path(current_admin.pod.next_game) %>: <%= current_admin.pod.next_game.top_tip %></p>
-              <p> Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.next_game) %></p>
-
+              <h3><%= current_admin.pod.next_game.name %></h3>
+            </a>
+          </div>
+          <div>
+            <br>
+            <p>EYFS Area: <strong><%= current_admin.pod.next_game.eyfs_area %></strong></p>
+            <p>Learning Goal: <strong><%= current_admin.pod.next_game.eyfs_goal %></strong></p>      
+          </div>  
+          <p><br/>Top tip for <%= link_to current_admin.pod.next_game.name, pod_admin_game_path(current_admin.pod.next_game) %>: <%= current_admin.pod.next_game.top_tip %></p>
+          <p> Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.next_game) %></p>
         </div>
         <% end %>
       </div>
