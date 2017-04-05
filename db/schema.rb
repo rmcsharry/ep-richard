@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170111173956) do
+ActiveRecord::Schema.define(version: 20170404175756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,8 @@ ActiveRecord::Schema.define(version: 20170111173956) do
     t.integer  "position"
     t.text     "top_tip"
     t.text     "did_you_know_fact"
+    t.string   "eyfs_area"
+    t.string   "eyfs_goal"
   end
 
   create_table "parent_visit_logs", force: true do |t|
