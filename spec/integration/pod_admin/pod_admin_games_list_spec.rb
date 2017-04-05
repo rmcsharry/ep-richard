@@ -39,7 +39,24 @@ RSpec.describe "Games List", :js => false, :type => :feature do
       
       context "and pod is live" do
         before do
-          pod.set_go_live_date
+          pod.go_live_date = Date.today - 8.days # puts us in week 1
+          pod.save
+        end
+
+        it "" do
+          eyfs_goal = "Testing eyfs goal"
+          eyfs_area = "Testing eyfs area"
+          game = Game.create!(
+                  name: "Game 4", 
+                  description: "Game 1 desc", 
+                  video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', 
+                  position: 1, 
+                  in_default_set: false,
+                  eyfs_goal: eyfs_goal,
+                  eyfs_area: eyfs_area)
+          click_link "Games"
+          expect(page).to have_text(eyfs_goal)
+          expect(page).to have_text(eyfs_area)
         end
 
         it "index should show there are no comments for the pod" do
@@ -53,7 +70,24 @@ RSpec.describe "Games List", :js => false, :type => :feature do
           Comment.create!(body: latest_comment, game: game, parent: parent)
           visit "/pod_admin"
           expect(page).to have_text(latest_comment)
-        end        
+        end
+        
+        it "index should show eyfs fields" do
+          eyfs_goal = "Testing eyfs goal"
+          eyfs_area = "Testing eyfs area"
+          game = Game.create!(
+                  name: "Game 1", 
+                  description: "Game 1 desc", 
+                  video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', 
+                  position: 1, 
+                  in_default_set: false,
+                  eyfs_goal: eyfs_goal,
+                  eyfs_area: eyfs_area)
+          
+          visit "/pod_admin"
+          expect(page).to have_text(eyfs_goal)
+          expect(page).to have_text(eyfs_area)
+        end
       end # and pod is live
       
     end # when logged in
