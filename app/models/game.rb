@@ -82,6 +82,7 @@ class Game < ActiveRecord::Base
 
   EYFS_AREAS = [
     'Communication and Language',
+    'Expressive Arts & Design',
     'Literacy',
     'Mathemathics',
     'Personal, Social, & Emotional Development',
@@ -89,23 +90,23 @@ class Game < ActiveRecord::Base
     'Understanding the world',
   ]
   EYFS_GOALS = [
+    'Speaking',
+    'Self-confidence and Self-awareness',
+    'Moving and handling',
+    'Managing feelings and behaviour',
+    'Health and Self-Care',
     'Listening and attention',
     'Understanding',
-    'Speaking',
-    'Moving and handling',
-    'Health and Self-Care',
-    'Self-confidence and Self-awareness',
-    'Managing feelings and behaviour',
-    'Making relationships',
-    'Reading',
-    'Writing',
-    'Numbers',
-    'Shape, space and measures',
-    'People and communities',
-    'The World',
-    'Technology',
+    'Being imaginative',
     'Exploring and using media and materials',
-    'Being imaginative'    
+    'Making relationships',
+    'Numbers',
+    'People and communities',
+    'Reading',
+    'Shape, space and measures',
+    'Technology',
+    'The World',
+    'Writing'
   ]
 
 end
