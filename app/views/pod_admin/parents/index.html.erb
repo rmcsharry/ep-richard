@@ -15,9 +15,9 @@
 </div>
 
 <div class="row">
-  <div class="col-md-12 col-lg-6">  
+  <div class="col-md-12 col-lg-6">
     <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
-    <h2>Parents</h2>      
+    <h2>Parents</h2>
     <% unless @parents.empty? %>
       <p class="lead">You have <%= pluralize(@parents.count, "parent") %> in your pod.</p>
     <% else %>
