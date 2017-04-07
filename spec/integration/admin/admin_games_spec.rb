@@ -32,7 +32,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       fill_in 'Description', with: string
       fill_in 'Instructions', with: string
       fill_in 'Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2'
-      select 'Mathemathics', from: 'EYFS Area'
+      select 'Mathematics', from: 'EYFS Area'
       select 'Speaking', from: 'Learning Goal'      
       click_button 'Add game'
 
@@ -44,7 +44,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_field("Description", with: string)
       expect(page).to have_field("Instructions", with: string)
       expect(page).to have_field("Video URL", with: "https://minified.wistia.com/medias/q8x0tmoya2")
-      expect(page).to have_field('EYFS Area', with: 'Mathemathics')
+      expect(page).to have_field('EYFS Area', with: 'Mathematics')
       expect(page).to have_field('Learning Goal', with: 'Speaking')      
     end
 
@@ -97,7 +97,7 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       fill_in 'Name', with: 'Treasure Hunt'
       fill_in 'Description', with: 'Find the hidden treasure'
       fill_in 'Instructions', with: 'Create treasure.'
-      select 'Mathemathics', from: 'EYFS Area'
+      select 'Mathematics', from: 'EYFS Area'
       select 'Speaking', from: 'Learning Goal'
       click_button 'Update game'
 
