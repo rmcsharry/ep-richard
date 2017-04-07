@@ -1,0 +1,17 @@
+<%- if !@pod.current_game.nil? %>
+<tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+  Last week's game was <a href="<%= pod_admin_game_path(@pod.current_game) %>"><%= @pod.current_game.name %></a>
+</td></tr>
+<tr><td style="padding: 0 0 10px 0; font-size: 16px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;">
+  It related to the EYFS area '<%= @pod.current_game.eyfs_area %>' and learning goal '<%= @pod.current_game.eyfs_goal %>'.
+</td></tr>
+<tr><td>
+<a href="<%= pod_admin_game_path(@pod.current_game) %>">
+  <% if @pod.current_game.image_url && @pod.current_game.image_url.empty? %>
+    <%= image_tag "no-picture.png" %>
+  <% else %>
+    <img src="<%= @pod.current_game.image_url %>">
+  <% end %>
+</a>
+<tr><td>
+<%- end %>
