@@ -85,7 +85,7 @@ class Game < ActiveRecord::Base
     'Expressive Arts & Design',
     'Literacy',
     'Mathemathics',
-    'Personal, Social, & Emotional Development',
+    'Personal, Social & Emotional Development',
     'Physical Development',
     'Understanding the world',
   ]
