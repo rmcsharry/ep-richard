@@ -1,10 +1,6 @@
 class PodAdminMailer < ApplicationMailer
-  def analytics_email(pod_admin)
-    # if pod_admin
-    #   @pod_admin = pod_admin
-    # else
-      @pod_admin = PodAdmin.where(id: 46).first
-    
+  def analytics_email(pod_admin)    
+    @pod_admin = pod_admin
     @pod = @pod_admin.pod
     subject = 'EasyPeasy weekly report'
     mail(to: "#{@pod_admin.email}", bcc: "esteban@easypeasyapp.com, hello@easypeasyapp.com, jane@easypeasyapp.com", subject: subject)
