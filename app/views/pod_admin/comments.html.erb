@@ -37,14 +37,26 @@
 
 </style>
 
-<h1>Comments</h1>
+<div class="row">
+  <div class="col-md-12">
+  <p class="alert alert-info">
+    This is where your parents hang out, virtually! You can see what they're chatting about and add your own comments to spark conversation!
+  </p>
+  </div>
+</div>
 
-<ul class="comments">
-<%- @comments.each do |comment| %>
-  <li class="comments-comment">
-    <p><b class="highlight"><%= comment.parent.name unless comment.parent.nil? %></b> on <%= comment.game.name unless comment.game.nil? %></p>
-    <p><%= comment.body %></p>
-    <p><%= button_to "delete", comment, :method => :delete %></p>
-  </li>
-<%- end %>
-</ul>
+<div class="row">
+  <div class="col-md-12 col-lg-6">
+    <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
+    <h2>Comments</h2>
+    <ul class="comments">
+    <%- @comments.each do |comment| %>
+      <li class="comments-comment">
+        <p><b class="highlight"><%= comment.parent.name unless comment.parent.nil? %></b> on <%= comment.game.name unless comment.game.nil? %></p>
+        <p><%= comment.body %></p>
+        <p><%= button_to "delete", comment, :method => :delete %></p>
+      </li>
+    <%- end %>
+    </ul>
+  </div>
+</div>
