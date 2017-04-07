@@ -4,11 +4,21 @@
   </p>
 
 <% else %>
+<div class="row">
+  <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
+
+  <div class="col-md-12">
+  <div class="alert alert-info">
+  <h2>Parents</h2>
+  <p class="">
+    Here you can manage the parents in your pod, add and invite them into the pod or delete them from the list.
+  </p>
+  </div>
+  </div>
+</div>
 
 <div class="row">
-  <div class="col-md-12 col-lg-6">
-    <p><%= link_to "&larr; home".html_safe, pod_admin_path %></p>
-    <h2>Parents</h2>
+  <div class="col-md-12 col-lg-6">    
     <% unless @parents.empty? %>
       <p class="lead">You have <%= pluralize(@parents.count, "parent") %> in your pod.</p>
     <% else %>
