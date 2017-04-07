@@ -2,7 +2,9 @@ source 'https://rubygems.org'
 
 gem 'gem_bench', :group => :console # use this to analyse in the console which gems are not required at boot: https://github.com/pboling/gem_bench
 
+ruby "2.1.2"
 gem 'rails', '4.1.1'
+
 gem 'pg', require: false
 
 gem 'sass-rails', '~> 4.0.3', require: false

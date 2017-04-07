@@ -3,15 +3,21 @@
     <p><%= link_to "&larr; back to games".html_safe, pod_admin_games_path %></p>
     <h3><%= @game.name %></h3>
     <h5><%= @game.description %></h5>
-    <iframe src='<%= @game.video_iframeurl %>' allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'></iframe>
-    	<div class="instructions">
-    		<h1>Did you know?</h1>
-    		<%= @game.did_you_know_fact %>
-    		<%= @instructions %>
-    		<h1>Top tip</h1>
-    		<%= @game.top_tip %>
-    	</div>
-    <hr/>
+    <iframe src='<%= @game.video_iframeurl %>' allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'>
+    </iframe>
+    <br><br>
+    <div>
+      <p>EYFS Area: <strong><%= @game.eyfs_area %></strong></p>
+      <p>Learning Goal: <strong><%= @game.eyfs_goal %></strong></p>      
+    </div>
+    <div class="instructions">
+      <h1>Did you know?</h1>
+      <%= @game.did_you_know_fact %>
+      <%= @instructions %>
+      <h1>Top tip</h1>
+      <%= @game.top_tip %>
+    </div>
+    <hr>
     <p><%= link_to "&larr; back".html_safe, pod_admin_games_path %></p>
   </div>
 </div>

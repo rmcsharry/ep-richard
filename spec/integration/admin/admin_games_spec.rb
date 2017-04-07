@@ -15,6 +15,8 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       visit admin_games_path
       expect(page).to have_content('Freeze')
       expect(page).to have_content('Treasure Hunt')
+      expect(page).to have_content('EYFS Area')
+      expect(page).to have_content('Learning Goal')      
     end
   end
 
@@ -30,6 +32,8 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       fill_in 'Description', with: string
       fill_in 'Instructions', with: string
       fill_in 'Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2'
+      select 'Mathemathics', from: 'EYFS Area'
+      select 'Speaking', from: 'Learning Goal'      
       click_button 'Add game'
 
       expect(current_path).to eq(admin_games_path)
@@ -40,6 +44,8 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       expect(page).to have_field("Description", with: string)
       expect(page).to have_field("Instructions", with: string)
       expect(page).to have_field("Video URL", with: "https://minified.wistia.com/medias/q8x0tmoya2")
+      expect(page).to have_field('EYFS Area', with: 'Mathemathics')
+      expect(page).to have_field('Learning Goal', with: 'Speaking')      
     end
 
     it "doesn't let you add a game without a name" do
@@ -67,16 +73,21 @@ RSpec.describe "admin games", :js => false, :type => :feature do
                             name: 'Freeze',
                             description: 'Stay cool',
                             instructions: 'Find some ice.',
-                            video_url: 'https://minified.wistia.com/medias/q8x0tmoya2') }
+                            video_url: 'https://minified.wistia.com/medias/q8x0tmoya2',
+                            eyfs_area: 'Literacy',
+                            eyfs_goal: 'Understanding') }
 
     it "shows the fields with the existing data in them" do
       visit admin_games_path
       click_link 'Freeze'
+      game.save
 
       expect(page).to have_field('Name', with: 'Freeze')
       expect(page).to have_field('Description', with: 'Stay cool')
       expect(page).to have_field('Instructions', with: 'Find some ice.')
       expect(page).to have_field('Video URL', with: 'https://minified.wistia.com/medias/q8x0tmoya2')
+      expect(page).to have_field('EYFS Area', with: 'Literacy')
+      expect(page).to have_field('Learning Goal', with: 'Understanding')
     end
 
     it "updates the fields" do
@@ -86,6 +97,8 @@ RSpec.describe "admin games", :js => false, :type => :feature do
       fill_in 'Name', with: 'Treasure Hunt'
       fill_in 'Description', with: 'Find the hidden treasure'
       fill_in 'Instructions', with: 'Create treasure.'
+      select 'Mathemathics', from: 'EYFS Area'
+      select 'Speaking', from: 'Learning Goal'
       click_button 'Update game'
 
       expect(current_path).to eq(admin_games_path)

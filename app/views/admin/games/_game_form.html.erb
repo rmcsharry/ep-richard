@@ -12,6 +12,14 @@
         <small>Keep this very short!</small>
       </div>
       <div class="form-group">
+        <%= f.label :eyfs_area, "EYFS Area" %>
+        <%= f.select :eyfs_area, Game::EYFS_AREAS, {include_blank: true}, class: "form-control" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :eyfs_goal, "Learning Goal" %>
+        <%= f.select :eyfs_goal, Game::EYFS_GOALS, {include_blank: true}, class: "form-control" %>        
+      </div>
+      <div class="form-group">
         <%= f.label :did_you_know_fact %>
         <%= f.text_field :did_you_know_fact, placeholder: "", class: "form-control", rows: 7 %>
         <small>This is the key fact about how the game benefits children. It appears before the instructions and is also sent as an SMS to parents. Keep it to one sentence.</small>
