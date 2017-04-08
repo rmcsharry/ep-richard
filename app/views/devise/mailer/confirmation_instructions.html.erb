@@ -22,7 +22,8 @@
 	                    	<td align="center" valign="top">
 	                        	<!-- BEGIN BODY // -->
 	                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
-	                                <tr>
+	                                <%- if @resource.pod.is_in_trial? %>
+									<tr>
 	                                    <td valign="top">
 											<h3 style="padding: 0 0 20px">Hi <%= @resource.email %>,</h3>
 											<p style="font-size:16px;">
@@ -36,11 +37,37 @@
 											<p style=" padding: 40px 0;">																					
 											<%= link_to 'Start free trial', confirmation_url(@resource, confirmation_token: @token), style: 'background: #97ce57; color: #ffffff; text-decoration: none; padding: 10px 25px; font-size: 20px; border-radius: 2px;' %>
 											</p>
-											<hr>
-											<p style="font-size:14px;border-top:1px solid #f0f0f0; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
-											<p style="font-size:14px;">You can reach us by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
 	                                    </td>
 	                                </tr>
+									<%- else %>
+									<tr>
+	                                    <td valign="top">
+											<h3 style="padding: 0 0 20px">Hi <%= @resource.email %>,</h3>
+											<p style="font-size:16px;">
+											Welcome to EasyPeasy!
+											</p>
+											<p style="font-size:16px;">
+											Thanks for joining our lively community of practitioners who support families to learn through play at home and help children get ready for school!
+											</p>
+											<p style="font-size:16px;">
+											You are invited to set up your EasyPeasy 'Pod' - the online community where your parents receive lots of games ideas that align to the EYFS curriculum and where they can share play moments with you and other parents.
+											</p>
+											<p style="font-size:16px;">
+											To get started, just click the button below!
+											</p>
+											<p style=" padding: 40px 0;">
+											<%= link_to 'Take Me To My Pod', confirmation_url(@resource, confirmation_token: @token), style: 'background: #97ce57; color: #ffffff; text-decoration: none; padding: 10px 25px; font-size: 20px; border-radius: 2px;' %>								
+											</p>
+	                                    </td>
+									</tr>
+									<%- end %>
+	                            </table>
+								<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
+									<tr></td valign="top">
+										<p style="font-size:14px;border-top:1px solid #a1a1a1; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
+										<p style="font-size:14px;">You can reach us by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
+	                				</td></tr>
+
 	                            </table>
 	                            <!-- // END BODY -->
 	                        </td>
