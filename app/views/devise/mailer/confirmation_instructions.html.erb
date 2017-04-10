@@ -22,7 +22,7 @@
 	                    	<td align="center" valign="top">
 	                        	<!-- BEGIN BODY // -->
 	                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
-	                                <%- if @resource.pod.is_in_trial? %>
+	                                <%- if @resource.type.nil? || @resource.pod.is_in_trial? %>
 									<tr>
 	                                    <td valign="top">
 											<h3 style="padding: 0 0 20px">Hi <%= @resource.email %>,</h3>
@@ -62,20 +62,18 @@
 									</tr>
 									<%- end %>
 	                            </table>
-								<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 20px;">
-									<tr></td valign="top">
-										<p style="font-size:14px;border-top:1px solid #a1a1a1; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
-										<p style="font-size:14px;">You can reach us by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
-	                				</td></tr>
-
-	                            </table>
 	                            <!-- // END BODY -->
 	                        </td>
 	                    </tr>
 	                </table>
 	                <!-- // END TEMPLATE -->
+
 	            </td>
 	        </tr>
+									<tr></td valign="top">
+										<p style="font-size:14px;border-top:1px solid #a1a1a1; padding: 30px 0 0">If you received this email by mistake, please disregard this email.</p>
+										<p style="font-size:14px;">You can reach us by email on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> or by responding to this email.</p>
+	                				</td></tr>			
 	    </table>
 	</center>
 <body>
