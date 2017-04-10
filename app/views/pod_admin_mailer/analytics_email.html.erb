@@ -39,7 +39,8 @@
                   <!-- COPY -->
                   <table width="100%" border="0" cellspacing="0" cellpadding="0">
                     <%= render "pod_admin_mailer/introsection" %>
-
+                    <%= render "pod_admin_mailer/last_weeks_game" %>
+                      
                     <!-- parents who visited row -->
                     <tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
                         Of the <b class="highlight"><%= @pod.parents.count %>&nbsp;parents</b> in your pod, <b class="highlight"><%= parents_who_visited.count %>&nbsp;of&nbsp;them</b> visited EasyPeasy last week.

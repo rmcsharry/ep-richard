@@ -42,8 +42,8 @@
           </div>
           <div>
             <br>
-            <p>EYFS Area: <strong><%= current_admin.pod.current_game.eyfs_area %></strong></p>
-            <p>Learning Goal: <strong><%= current_admin.pod.current_game.eyfs_goal %></strong></p>      
+            <p>EYFS Area: <strong><%= current_admin.pod.current_game.eyfs_area %></strong>
+            <br>Learning Goal: <strong><%= current_admin.pod.current_game.eyfs_goal %></strong></p>      
           </div>              
           <p><br/>Top tip for <%= link_to current_admin.pod.current_game.name, pod_admin_game_path(current_admin.pod.current_game) %>: <%= current_admin.pod.current_game.top_tip %></p>
           <p>Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.current_game) %></p>
@@ -68,8 +68,8 @@
           </div>
           <div>
             <br>
-            <p>EYFS Area: <strong><%= current_admin.pod.next_game.eyfs_area %></strong></p>
-            <p>Learning Goal: <strong><%= current_admin.pod.next_game.eyfs_goal %></strong></p>      
+            <p>EYFS Area: <strong><%= current_admin.pod.next_game.eyfs_area %></strong>
+            <br>Learning Goal: <strong><%= current_admin.pod.next_game.eyfs_goal %></strong></p>      
           </div>  
           <p><br/>Top tip for <%= link_to current_admin.pod.next_game.name, pod_admin_game_path(current_admin.pod.next_game) %>: <%= current_admin.pod.next_game.top_tip %></p>
           <p> Find out how to play <%= link_to "here", pod_admin_game_path(current_admin.pod.next_game) %></p>
