@@ -23,7 +23,12 @@
 							<td align="center" valign="top">
 								<!-- BEGIN BODY // -->
 								<table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 40px;">
-									<%- if @resource.type.nil? || @resource.pod.is_in_trial? %>
+									<!-- Check if this is for a free trial:
+									if the Admin type is blank, then we know this person is signing up for a free trial 
+									but if the type is already known, then it's a PodAdmin', so then we know that this admin
+									was created by an EasyAdmin in the admin dashboard;
+									therefore the OR will fire and we check if the pod has inactive date (= a free trial pod) -->
+									<%- if @resource.type.nil? || @resource.pod.inactive_date? %>
 										<tr>
 											<td valign="top">
 												<h3 style="padding: 0 0 20px">Hi

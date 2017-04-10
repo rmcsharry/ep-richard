@@ -10,6 +10,7 @@ class Admin::PodAdminsController < AdminController
 
   def create
     @pod_admin = PodAdmin.new(pod_admin_params)
+    @pod_admin.type = 'PodAdmin'
     if @pod_admin.save
       flash[:success] = "New pod admin successfully added!"
       redirect_to admin_pod_admins_path
