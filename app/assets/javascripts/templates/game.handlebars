@@ -13,12 +13,13 @@
 	  <div class="videoEmbedContainer">
 	    <iframe {{bind-attr src='model.video_iframeurl'}} allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'></iframe>
 	  </div>
-
-		<div>
-			<p>
+		
+<div class="gameItem-flex">
+		<img class="gameItem-pea" src="/assets/pea_wink_150x150.png">
+		<div class="gameItem-parents-played">
 			{{model.parents_played}}
-			</p>
 		</div>
+</div>
 
 	  <div class="markdownInstructions">
 	  	<div>

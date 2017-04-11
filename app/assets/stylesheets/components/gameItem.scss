@@ -30,3 +30,26 @@
   color: white;
   padding: 5px 5px;
 }
+
+img.gameItem-pea {
+  width: 40px;
+  height: 40px;
+}
+
+.gameItem-flex {
+  display:flex;
+  align-items: center;  
+  margin-bottom: 20px;
+}
+
+.gameItem-parents-played {
+  color: $green;
+  @extend %font-size-large;
+  @extend %font-weight-bold;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 0 0 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
