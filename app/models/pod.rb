@@ -22,6 +22,16 @@ class Pod < ActiveRecord::Base
     ((Date.today - pod_go_live_date)/7).to_i
   end
 
+  def last_week_game
+    return nil if self.week_number == 1
+    last_week_game = Game.non_default[self.week_number - 2]
+    if last_week_game
+      return last_week_game
+    else
+      return nil
+    end
+  end
+
   def current_game
     return nil if !self.week_number
     return Game.non_default[self.week_number - 1]

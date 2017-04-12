@@ -9,7 +9,7 @@ gem 'pg', require: false
 
 gem 'sass-rails', '~> 4.0.3', require: false
 gem 'uglifier', '>= 1.3.0', require: false
-gem 'redcarpet', require: false
+gem 'redcarpet'
 
 gem 'jquery-rails'
 
