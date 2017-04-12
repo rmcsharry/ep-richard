@@ -1,9 +1,10 @@
+<% require 'Redcarpet' %>
 <%- if !@pod.next_game.nil? %>
-<tr><td align="left" style="padding: 20px 0 0 0; font-size: 24px; line-height: 32px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;" class="padding-copy">
+<tr><td align="left" style="padding: 20px 0 0 0; font-size: 25px; line-height: 32px; font-family: Helvetica, Arial, sans-serif; color: #B2B4B5;" class="padding-copy">
   This week's game is <a href="<%= pod_admin_game_url(@pod.next_game) %>"><%= @pod.next_game.name %></a>
 </td></tr>
-<tr><td style="padding: 0 0 10px 0; font-size: 16px; font-family: Lato, Helvetica, Arial, sans-serif; color: #7E7E7E;">
-  It related to the <a href="http://easypeasyapp.com/files/eyfs-easypeasy.pdf">EYFS</a> area '<%= @pod.next_game.eyfs_area %>' and learning goal '<%= @pod.next_game.eyfs_goal %>'.
+<tr><td style="padding: 0 0 10px 0; font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #B2B4B5;">
+  It relates to the <a href="http://easypeasyapp.com/files/eyfs-easypeasy.pdf">EYFS</a> area '<%= @pod.next_game.eyfs_area %>' and learning goal '<%= @pod.next_game.eyfs_goal %>'.
 </td></tr>
 <tr><td>
 <a href="<%= pod_admin_game_url(@pod.next_game) %>">
@@ -14,8 +15,10 @@
   <% end %>
 </a>
 </tr></td>
-<tr><td style="font-size: 85%;">
+<table class="instructions">
+<tr><td>
   <% renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true) %>
   <%= Redcarpet::Markdown.new(renderer).render(@pod.next_game.instructions).html_safe %>
 </td></tr>
+</table>
 <%- end %>
