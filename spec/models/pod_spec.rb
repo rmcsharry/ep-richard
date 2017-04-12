@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pod, :type => :model do
+  let!(:game1) { Fabricate(:game, position: 1, in_default_set: false) }
 
   describe "when it is not live" do
     let(:pod) { Fabricate(:pod) }
@@ -72,8 +73,47 @@ RSpec.describe Pod, :type => :model do
         expect(pod.parents_who_visited("all_time")).to eq({ parentB.id => 2, parentA.id => 1 })
         expect(pod.parents_who_did_not_visit("last_week")).to eq []
         expect(pod.parents_who_did_not_visit("all_time")).to eq []            
-      end     
+      end 
+
+      it "returns nil for parents played" do
+        log_a_visit(parentA)
+        log_a_visit(parentB)
+        log_a_visit(parentB)
+        expect(pod.parents_played).to eq(nil)
+      end
     end  # two parent context  
+
+    context "with three parents" do
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+      
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA)
+        log_a_visit(parentB)
+        log_a_visit(parentC)
+        expect(pod.parents_played).to eq("Basil, Mickey and 1 other parent have played this weeks game.")
+      end
+    end
+
+    context "with four parents" do
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+      let(:parentD) { Fabricate(:parent, pod: pod) }
+      
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA)
+        log_a_visit(parentB)
+        log_a_visit(parentC)
+        log_a_visit(parentD)
+        expect(pod.parents_played).to eq("Basil, Mickey and 2 other parents have played this weeks game.")
+      end
+    end    
 
     describe "returns latest comment" do
       it "from a parent" do
@@ -97,6 +137,7 @@ RSpec.describe Pod, :type => :model do
       log = ParentVisitLog.new(created_at: Date.today.prev_day)
       log.parent_id = parent.id
       log.pod_id = pod.id
+      log.game_id = game1.id
       log.save
     end
   end
