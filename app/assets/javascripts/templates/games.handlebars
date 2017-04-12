@@ -60,6 +60,9 @@
 		    <div class="gameItem-newFlag">New!</div>
 		    <div class="gameItem-name u-before6of12 u-after1of12">{{game.name}}</div>
 		    <div class="gameItem-description u-before6of12 u-after1of12">{{game.description}}</div>
+				{{#if game.has_parent_played}}
+					<div class="gameItem-playedFlag u-before11of12"></div>
+				{{/if}}
 		  {{/link-to}}
 		{{/each}}
 		</ul>

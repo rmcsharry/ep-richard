@@ -137,6 +137,21 @@ class Parent < ActiveRecord::Base
     return new_parent_count
   end
 
+  def mark_games_played(games)
+    visits = ParentVisitLog.where(parent_id: self.id).group('game_id').select('game_id').distinct.all
+    games_played = []
+    visits.each do |visit|
+      games_played.push(visit.game_id) if visit.game_id
+    end
+    games.each do |game|
+      if games_played.include? game.id
+        game.has_parent_played = true 
+      else
+        game.has_parent_played = false
+      end
+    end
+  end
+  
   private
 
   def try_to_send(message)

@@ -6,6 +6,7 @@ module API
       if params[:parent]
         games = games + Game.getExtraGamesForParentSlug(params[:parent])
         parent = Parent.find_by_slug(params[:parent])
+        games = parent.mark_games_played(games)
         session[:slug] = parent.slug
       end
       render json: games, each_serializer: GameIndexSerializer, status: 200
