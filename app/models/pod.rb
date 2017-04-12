@@ -137,7 +137,6 @@ class Pod < ActiveRecord::Base
     else
       start_date = Date.today.midnight - 7.days
       end_date = Date.today.midnight
-
       log_for_timescale = ParentVisitLog.where(pod_id: self.id, game_id: self.current_game.id, created_at: start_date..end_date)
       parents = []
       log_for_timescale.each do |log|
