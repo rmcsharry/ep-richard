@@ -71,7 +71,9 @@
 }
 
 .gameItem-playedFlag {
-  margin-top: -40px;
+  position: absolute;
+  top: 15px;
+  right: 15px;
   background-color: $green;
   width: 20px;
   height: 20px;

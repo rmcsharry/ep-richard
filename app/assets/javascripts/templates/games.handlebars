@@ -58,11 +58,12 @@
 		      <img class="gameItem-image u-floatLeft u-size5of12" src="/assets/no-picture.png"/>
 		    {{/if}}
 		    <div class="gameItem-newFlag">New!</div>
+				{{#if game.has_parent_played}}
+					<div class="gameItem-playedFlag"></div>
+				{{/if}}				
 		    <div class="gameItem-name u-before6of12 u-after1of12">{{game.name}}</div>
 		    <div class="gameItem-description u-before6of12 u-after1of12">{{game.description}}</div>
-				{{#if game.has_parent_played}}
-					<div class="gameItem-playedFlag u-before11of12"></div>
-				{{/if}}
+
 		  {{/link-to}}
 		{{/each}}
 		</ul>
