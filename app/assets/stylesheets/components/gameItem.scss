@@ -46,7 +46,7 @@ img.gameItem-pea {
 
 .gameItem-parents-played {
   color: $green;
-  @extend %font-size-large;
+  font-size: 16px;
   @extend %font-weight-bold;
   display: inline-block;
   vertical-align: top;

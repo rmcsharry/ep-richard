@@ -135,9 +135,7 @@ class Pod < ActiveRecord::Base
     if !self.current_game
       return nil
     else
-      start_date = Date.today.midnight - 7.days
-      end_date = Date.today.midnight
-      log_for_timescale = ParentVisitLog.where(pod_id: self.id, game_id: self.current_game.id, created_at: start_date..end_date)
+      log_for_timescale = ParentVisitLog.where(pod_id: self.id, game_id: 18)
       parents = []
       log_for_timescale.each do |log|
         parents.append(log.parent_id)
@@ -154,7 +152,7 @@ class Pod < ActiveRecord::Base
         end
       end
       if play_count > 2
-        parents_played += " and #{pluralize(play_count - 2, 'other parent')} have played this weeks game."
+        parents_played += " and #{pluralize(play_count - 2, 'other parent')} have played this week's game."
       else
         parents_played = nil
       end
