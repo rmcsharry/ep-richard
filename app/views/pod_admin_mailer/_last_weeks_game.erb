@@ -1,6 +1,6 @@
 <%- if !@pod.last_week_game.nil? %>
 <tr><td align="left" style="padding: 20px 0 0 0; font-size: 25px; line-height: 32px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
-  Last week's game was <a href="<%= pod_admin_game_url(@pod.last_week_game) %>" style="color:#98CE58; text-decoration: none;"><%= @pod.last_week_game.name %></a>
+  Last week's game was <a href="<%= pod_admin_game_url(@pod.last_week_game) %>?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=last_week_title" style="color:#98CE58; text-decoration: none;"><%= @pod.last_week_game.name %></a>
 </td></tr>
 <tr><td style="padding: 5px 0 10px 0; font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #444444;">
   <a href="http://easypeasyapp.com/files/eyfs-easypeasy.pdf" style="color:#98CE58; text-decoration: none;">EYFS</a> area: <strong><%= @pod.last_week_game.eyfs_area %></strong>
@@ -9,7 +9,7 @@
   Learning goal: <strong><%= @pod.last_week_game.eyfs_goal %></strong>
 </td></tr>
 <tr><td>
-<a href="<%= pod_admin_game_url(@pod.last_week_game) %>">
+<a href="<%= pod_admin_game_url(@pod.last_week_game) %>?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=last_week_image">
   <% if @pod.last_week_game.image_url && @pod.last_week_game.image_url.empty? %>
     <%= image_tag "no-picture.png" %>
   <% else %>
