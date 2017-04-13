@@ -1,16 +1,16 @@
 <% require 'Redcarpet' %>
 <%- if !@pod.current_game.nil? %>
 <tr><td align="left" style="padding: 20px 0 0 0; font-size: 25px; line-height: 32px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
-  This week's game is <a href="<%= pod_admin_game_url(@pod.current_game) %>" style="color:#98CE58; text-decoration: none;"><%= @pod.current_game.name %></a>
+  This week's game is <a href="<%= pod_admin_game_url(@pod.current_game) %>?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=this_week_title" style="color:#98CE58; text-decoration: none;"><%= @pod.current_game.name %></a>
 </td></tr>
 <tr><td style="padding: 5px 0 10px 0; font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #444444;">
-  <a href="http://easypeasyapp.com/files/eyfs-easypeasy.pdf" style="color:#98CE58; text-decoration: none;">EYFS</a> area: <strong><%= @pod.current_game.eyfs_area %></strong>
+  <a href="http://easypeasyapp.com/files/eyfs-easypeasy.pdf?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=this_week" style="color:#98CE58; text-decoration: none;">EYFS</a> area: <strong><%= @pod.current_game.eyfs_area %></strong>
 </td></tr>
 <tr><td style="padding: 0 0 10px 0; font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #444444;">
   Learning goal: <strong><%= @pod.current_game.eyfs_goal %></strong>
 </td></tr>
 <tr><td>
-<a href="<%= pod_admin_game_url(@pod.current_game) %>">
+<a href="<%= pod_admin_game_url(@pod.current_game) %>?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=this_week_picture">
   <% if @pod.current_game.image_url && @pod.current_game.image_url.empty? %>
     <%= image_tag "no-picture.png" %>
   <% else %>
