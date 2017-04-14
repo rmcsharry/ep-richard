@@ -44,7 +44,7 @@ RSpec.describe Pod, :type => :model do
     end  # one parent context  
 
 
-    context "with two parents" do
+    context "with 2 parents" do
       let(:parentB) { Fabricate(:parent, pod: pod) }
       
       it "returns parentA with 1 visit and parentB did not visit" do
@@ -83,7 +83,7 @@ RSpec.describe Pod, :type => :model do
       end
     end  # two parent context  
 
-    context "with three parents" do
+    context "with 3 parents" do
       let(:parentB) { Fabricate(:parent, pod: pod) }
       let(:parentC) { Fabricate(:parent, pod: pod) }
       
@@ -98,7 +98,7 @@ RSpec.describe Pod, :type => :model do
       end
     end
 
-    context "with four parents" do
+    context "with 4 parents" do
       let(:parentB) { Fabricate(:parent, pod: pod) }
       let(:parentC) { Fabricate(:parent, pod: pod) }
       let(:parentD) { Fabricate(:parent, pod: pod) }
