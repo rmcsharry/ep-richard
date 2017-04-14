@@ -1,10 +1,37 @@
 class Game < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper  
   validates :name, presence: true
   validates :video_url, presence: true
   validate  :video_url_is_correct
   has_many :comments
   acts_as_list add_new_at: :top
   
+  attr_accessor :has_parent_played # this is only set for a particular parent each time they visit the dashboard (index)
+
+  def parents_played(pod_id)
+    log_for_timescale = ParentVisitLog.where(pod_id: pod_id, game_id: self.id)
+    parents = []
+    log_for_timescale.each do |log|
+      parents.append(log.parent_id)
+    end
+    parents_played = ""
+    play_count = 0
+    parents.uniq.each do |parent_id|
+      play_count += 1
+      if play_count < 3
+        parents_played += Parent.where(id: parent_id).first.first_name
+      end
+      if play_count < 2
+        parents_played += ", "
+      end
+    end
+    if play_count > 2
+      parents_played += " and #{pluralize(play_count - 2, 'other parent')} have played this game."
+    else
+      parents_played = nil
+    end
+  end
+
   def comments_for_pod(pod_id)
     self.comments.where('pod_id = ?', pod_id).order(created_at: :desc)
   end

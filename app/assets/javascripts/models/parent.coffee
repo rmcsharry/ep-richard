@@ -8,4 +8,4 @@ Easypeasy.Parent = DS.Model.extend
   pod_latest_comment_parent_name:         DS.attr 'string'
   pod_latest_comment_game_name:           DS.attr 'string'
   first_visit:                            DS.attr 'boolean'
-  pod_parents_played:                     DS.attr 'string'
+  pod_played_current_game:                DS.attr 'string'

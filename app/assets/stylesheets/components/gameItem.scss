@@ -36,12 +36,20 @@ img.gameItem-pea {
   height: 40px;
 }
 
-.gameItem-flex {
+.gameIndex-flex {
   display:flex;
   align-items: center;  
   margin-bottom: 20px;
   margin-left: 10px;
   margin-right: 10px;
+}
+
+.gameItem-flex {
+  display:flex;
+  align-items: center;  
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 .gameItem-parents-played {

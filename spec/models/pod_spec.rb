@@ -79,7 +79,7 @@ RSpec.describe Pod, :type => :model do
         log_a_visit(parentA)
         log_a_visit(parentB)
         log_a_visit(parentB)
-        expect(pod.parents_played).to eq(nil)
+        expect(pod.played_current_game).to eq(nil)
       end
     end  # two parent context  
 
@@ -94,7 +94,7 @@ RSpec.describe Pod, :type => :model do
         log_a_visit(parentA)
         log_a_visit(parentB)
         log_a_visit(parentC)
-        expect(pod.parents_played).to eq("Basil, Mickey and 1 other parent have played this week's game.")
+        expect(pod.played_current_game).to eq("Basil, Mickey and 1 other parent have played this week's game.")
       end
     end
 
@@ -111,7 +111,7 @@ RSpec.describe Pod, :type => :model do
         log_a_visit(parentB)
         log_a_visit(parentC)
         log_a_visit(parentD)
-        expect(pod.parents_played).to eq("Basil, Mickey and 2 other parents have played this week's game.")
+        expect(pod.played_current_game).to eq("Basil, Mickey and 2 other parents have played this week's game.")
       end
     end    
 

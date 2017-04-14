@@ -10,7 +10,7 @@ class ParentSerializer < ActiveModel::Serializer
              :pod_latest_comment_parent_name,
              :pod_latest_comment_game_name,
              :first_visit,
-             :pod_parents_played
+             :pod_played_current_game
 
   def first_visit
     object.parent_visit_logs.count == 0
@@ -45,7 +45,7 @@ class ParentSerializer < ActiveModel::Serializer
     end
   end
 
-  def pod_parents_played
-    object.pod.parents_played
+  def pod_played_current_game
+    object.pod.played_current_game
   end
 end

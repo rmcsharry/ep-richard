@@ -35,7 +35,7 @@ class GameShowSerializer < ActiveModel::Serializer
 
   def parents_played
     if serialization_options[:pod_id]
-      Pod.where(id: serialization_options[:pod_id]).first.parents_played
+      object.parents_played(serialization_options[:pod_id])
     end
   end
 
