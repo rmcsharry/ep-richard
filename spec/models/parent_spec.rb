@@ -32,6 +32,25 @@ RSpec.describe Parent, :type => :model do
     end
   end
 
+  describe "first name" do
+    let(:p) { Parent.new }
+
+    it "should return the first name" do
+      p.name = "Basil Safwat"
+      p.save
+      expect(p.first_name).to eq("Basil")
+      p.name = "Bill"
+      p.save
+      expect(p.first_name).to eq("Bill")
+      p.name = "Bob P. Hope"
+      p.save
+      expect(p.first_name).to eq("Bob")
+      p.name = "John Humphrey Richards"
+      p.save
+      expect(p.first_name).to eq("John")
+    end
+  end  
+
   describe "welcome sms" do
     let!(:pod) { Fabricate(:pod) }
     let!(:parent) { Fabricate(:parent, pod: pod) }

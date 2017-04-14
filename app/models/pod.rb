@@ -135,7 +135,7 @@ class Pod < ActiveRecord::Base
     if !self.current_game
       return nil
     else
-      log_for_timescale = ParentVisitLog.where(pod_id: self.id, game_id: pod.current_game.id)
+      log_for_timescale = ParentVisitLog.where(pod_id: self.id, game_id: self.current_game.id)
       parents = []
       log_for_timescale.each do |log|
         parents.append(log.parent_id)
