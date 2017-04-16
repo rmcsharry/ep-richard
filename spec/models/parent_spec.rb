@@ -156,6 +156,18 @@ RSpec.describe Parent, :type => :model do
       end
     end
 
+    describe "a dummy parent that represents a PodAdmin" do
+      let(:pod) { Fabricate(:pod) }
+      let(:pod_admin) { Fabricate(:pod_admin, pod: pod) }
+      
+      it "should not send them any notifications" do
+        parent = pod_admin.parent        
+        expect(parent.notify).to eq(false)
+        # in the next test, the params don't matter, we just need to verify false is returned
+        expect(parent.should_send_additional_sms?(nil, nil)).to eq(false)
+      end
+    end
+
     describe "a parent in a pod that is live and in week 0" do
       let(:pod) { Fabricate(:pod, go_live_date: Date.today) }
       let(:parent) { Fabricate(:parent, pod: pod) }
