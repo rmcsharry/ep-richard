@@ -45,7 +45,9 @@
           <li><a href="<%= pod_admin_parents_path %>">Parents</a></li>
           <li><a href="<%= pod_admin_games_path %>">Games</a></li>
           <li><a href="<%= pod_admin_comments_path %>">Comments</a></li>
-          <li><a href="<%= request.env["SERVER_ADDR"] %>/#/<%= current_admin.parent.slug %>/games" target="_blank">Mobile View</a></li>
+          <% if !current_admin.parent.nil? %>
+            <li><a href="<%= request.env["SERVER_ADDR"] %>/#/<%= current_admin.parent.slug %>/games" target="_blank">Mobile View</a></li>
+          <% end %>
         </ul>
         <% end %>
         <ul class="nav navbar-nav navbar-right">
