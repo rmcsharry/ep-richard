@@ -8,6 +8,16 @@ class PodAdmin < Admin
   nilify_blanks only: [:name]
 
   belongs_to :pod
+  belongs_to :parent
+
+  after_create :create_dummy_parent
+
+  def create_dummy_parent
+    if type == 'PodAdmin'
+      self.parent = Parent.create(name: self.name, phone: '07000000000', pod: self.pod)
+      self.save
+    end
+  end
 
   def get_name
     name = self.preferred_name

@@ -7,6 +7,7 @@ class Parent < ActiveRecord::Base
   validate :phone_format
   before_create :set_slug
 
+  has_one :pod_admin
   belongs_to :pod
   has_many :comments, dependent: :destroy
   has_many :parent_visit_logs, dependent: :destroy
@@ -42,17 +43,20 @@ class Parent < ActiveRecord::Base
   end
 
   def should_notify?
+    return false if self.phone == '07000000000'
     return false if !self.pod.current_game # don't send if there is no game this week
     return self.pod.should_notify?
   end
 
   def should_send_new_game_sms?
+    return false if self.phone == '07000000000'
     return false if self.last_notification == Date.today
     return false if self.pod.go_live_date.wday != Date.today.wday
     return true
   end
 
   def should_send_additional_sms?(date, num_days)
+    return false if self.phone == '07000000000'
     return true if self.last_notification && date == self.last_notification + num_days.days
     return false
   end

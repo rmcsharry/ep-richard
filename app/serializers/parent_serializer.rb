@@ -13,7 +13,8 @@ class ParentSerializer < ActiveModel::Serializer
              :pod_played_current_game
 
   def first_visit
-    object.parent_visit_logs.count == 0
+    return false if object.phone == '07000000000'
+    object.parent_visit_logs.count == 0 
   end
 
   def pod_name
