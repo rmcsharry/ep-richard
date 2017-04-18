@@ -1,4 +1,3 @@
-<% require 'Redcarpet' %>
 <%- if !@pod.current_game.nil? %>
 <tr><td align="left" style="padding: 20px 0 0 0; font-size: 25px; line-height: 32px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
   This week's game is <a href="<%= pod_admin_game_url(@pod.current_game) %>?utm_source=podadmin_analytics&utm_medium=email&utm_campaign=weekly_reports&utm_content=this_week_title" style="color:#98CE58; text-decoration: none;"><%= @pod.current_game.name %></a>
