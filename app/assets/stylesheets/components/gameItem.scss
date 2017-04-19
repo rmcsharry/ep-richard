@@ -1,12 +1,7 @@
 .gameItem {
-  border-bottom: 1px solid $border-light;
   padding: 10px 5px;
   cursor: pointer;
   position: relative;
-}
-
-.gameItem:first-of-type {
-  border-top: 1px solid $border-light;
 }
 
 .gameItem:first-of-type .gameItem-newFlag {
