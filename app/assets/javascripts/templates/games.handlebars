@@ -53,13 +53,17 @@
 		{{#each game in sortedGames}}
 		  {{#link-to 'game' game.id class='gameItem u-cf' tagName='li'}}
 		    {{#if game.image_url}}
-		      <img class="gameItem-image u-floatLeft u-size5of12" {{bind-attr src=game.image_url}}/>
+		      <img class="gameItem-image u-floatLeft" {{bind-attr src=game.image_url}}/>
 		    {{else}}
-		      <img class="gameItem-image u-floatLeft u-size5of12" src="/assets/no-picture.png"/>
+		      <img class="gameItem-image u-floatLeft" src="/assets/no-picture.png"/>
 		    {{/if}}
 		    <div class="gameItem-newFlag">New!</div>
-		    <div class="gameItem-name u-before6of12 u-after1of12">{{game.name}}</div>
-		    <div class="gameItem-description u-before6of12 u-after1of12">{{game.description}}</div>
+				{{#unless game.has_parent_played}}
+					<div class="gameItem-playedFlag"></div>
+				{{/unless}}				
+		    <div class="gameItem-name u-before6of12">{{game.name}}</div>
+		    <div class="gameItem-description u-before6of12 u-after2of12">{{game.description}}</div>
+
 		  {{/link-to}}
 		{{/each}}
 		</ul>

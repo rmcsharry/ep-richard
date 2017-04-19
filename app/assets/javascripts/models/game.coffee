@@ -12,5 +12,6 @@ Easypeasy.Game = DS.Model.extend
   position:          DS.attr 'number'
   eyfs_area:         DS.attr 'string'
   eyfs_goal:         DS.attr 'string'
+  has_parent_played: DS.attr 'boolean'
   created_at:        DS.attr 'date'
   comments:          DS.hasMany('comment', {embedded: 'true'})

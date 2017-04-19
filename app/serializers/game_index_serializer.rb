@@ -6,5 +6,6 @@ class GameIndexSerializer < ActiveModel::Serializer
              :in_default_set,
              :position,
              :eyfs_area,
-             :eyfs_goal
+             :eyfs_goal,
+             :has_parent_played
 end
