@@ -31,10 +31,16 @@
   padding: 5px 5px;
 }
 
-img.gameItem-pea {
-  width: 40px;
+.gameItem-pea {
+  background-image: image_url('pea_wink_150x150.png');
+  background-size: 40px;
+  background-repeat: no-repeat;
+  background-position: center;
+  color: transparent;  
+  min-width: 40px;
   height: 40px;
 }
+
 
 .gameIndex-flex {
   display:flex;
