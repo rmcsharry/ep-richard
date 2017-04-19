@@ -54,13 +54,6 @@ ActiveRecord::Schema.define(version: 20170415135549) do
     t.integer  "pod_id"
   end
 
-  create_table "email_opens", force: true do |t|
-    t.integer  "admin_id"
-    t.string   "ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "games", force: true do |t|
     t.string   "name"
     t.text     "description"
