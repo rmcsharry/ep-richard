@@ -23,35 +23,59 @@ RSpec.describe Game, :type => :model do
     end
   end
 
-  describe "first name" do
-    let(:p) { Parent.new }
-
-    it "should return the first name" do
-      p.name = "Basil Safwat"
-      p.save
-      expect(p.first_name).to eq("Basil")
-      p.name = "Bill"
-      p.save
-      expect(p.first_name).to eq("Bill")
-      p.name = "Bob P. Hope"
-      p.save
-      expect(p.first_name).to eq("Bob")
-      p.name = "John Humphrey Richards"
-      p.save
-      expect(p.first_name).to eq("John")
-    end
-  end
-
   describe "position" do
     let!(:game1) { Fabricate(:game, position: 1) }
     let!(:game2) { Fabricate(:game, position: 2) }
 
     it "adds new games with the highest position" do
       g = Fabricate(:game)
-
       expect(g.position).to eq(1)
     end
+  end
 
+  describe "parents played" do
+    let(:pod) { Fabricate(:pod)}
+    let(:game) { Fabricate(:game)}
+    
+    context "when no parents have visited" do
+      it "returns nil for parents played" do
+        expect(game.parents_played(pod.id)).to eq(nil)
+      end
+    end
+
+    context "when 3 parents have visited" do
+      let(:parentA) { Fabricate(:parent, pod: pod) }
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA, pod, game)
+        log_a_visit(parentB, pod, game)
+        log_a_visit(parentC, pod, game)
+        expect(game.parents_played(pod.id)).to eq("Basil, Mickey and 1 other parent have played this game.")
+      end
+    end
+
+    context "when 4 parents have visited" do
+      let(:parentA) { Fabricate(:parent, pod: pod) }
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+      let(:parentD) { Fabricate(:parent, pod: pod) }
+
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA, pod, game)
+        log_a_visit(parentB, pod, game)
+        log_a_visit(parentC, pod, game)
+        log_a_visit(parentD, pod, game)
+        expect(game.parents_played(pod.id)).to eq("Basil, Mickey and 2 other parents have played this game.")
+      end
+    end
   end
 
 end

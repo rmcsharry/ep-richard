@@ -30,3 +30,36 @@
   color: white;
   padding: 5px 5px;
 }
+
+img.gameItem-pea {
+  width: 40px;
+  height: 40px;
+}
+
+.gameIndex-flex {
+  display:flex;
+  align-items: center;  
+  margin-bottom: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.gameItem-flex {
+  display:flex;
+  align-items: center;  
+  margin-bottom: 20px;
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.gameItem-parents-played {
+  color: $green;
+  font-size: 16px;
+  @extend %font-weight-bold;
+  display: inline-block;
+  vertical-align: top;
+  padding: 0 0 0 5px;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}

@@ -6,6 +6,7 @@ class GameShowSerializer < ActiveModel::Serializer
              :name,
              :description,
              :instructions,
+             :parents_played,
              :top_tip,
              :did_you_know_fact,
              :image_url,
@@ -29,6 +30,12 @@ class GameShowSerializer < ActiveModel::Serializer
     if object.instructions
       renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true)
       Redcarpet::Markdown.new(renderer).render(object.instructions).html_safe
+    end
+  end
+
+  def parents_played
+    if serialization_options[:pod_id]
+      object.parents_played(serialization_options[:pod_id])
     end
   end
 

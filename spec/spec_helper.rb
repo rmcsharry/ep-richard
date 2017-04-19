@@ -90,3 +90,11 @@ end
 def logout_admin
   click_link 'Logout'
 end
+
+def log_a_visit(parent, pod, game)
+  log = ParentVisitLog.new(created_at: Date.today.prev_day)
+  log.parent_id = parent.id
+  log.pod_id = pod.id
+  log.game_id = game.id
+  log.save
+end

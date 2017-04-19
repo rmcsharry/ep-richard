@@ -1,6 +1,7 @@
 Easypeasy.Game = DS.Model.extend
   name:              DS.attr 'string'
   description:       DS.attr 'string'
+  parents_played:    DS.attr 'string'
   instructions:      DS.attr 'string'
   did_you_know_fact: DS.attr 'string'
   top_tip:           DS.attr 'string'

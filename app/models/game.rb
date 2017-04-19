@@ -1,10 +1,18 @@
 class Game < ActiveRecord::Base
+  include Played
+
   validates :name, presence: true
   validates :video_url, presence: true
   validate  :video_url_is_correct
   has_many :comments
   acts_as_list add_new_at: :top
   
+  attr_accessor :has_parent_played # this is only set for a particular parent each time they visit the dashboard (index)
+
+  def parents_played(pod_id)
+    get_played_text(pod_id, self.id, "")
+  end
+
   def comments_for_pod(pod_id)
     self.comments.where('pod_id = ?', pod_id).order(created_at: :desc)
   end

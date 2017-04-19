@@ -1,4 +1,7 @@
 class Pod < ActiveRecord::Base
+  include ActionView::Helpers::TextHelper
+  include Played
+
   validates :name, presence: true
 
   has_one :pod_admin
@@ -126,6 +129,14 @@ class Pod < ActiveRecord::Base
         results.push({ "parent_name" => parent.name, "comments" => comments_for_parent })
       end
       results.sort_by { |k| k["comments"] }.reverse
+    end
+  end
+
+  def played_current_game
+    if !self.current_game
+      return nil
+    else
+      get_played_text(self.id, self.current_game.id, "week's ")
     end
   end
 

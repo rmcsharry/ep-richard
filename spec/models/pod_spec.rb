@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Pod, :type => :model do
+  let!(:game1) { Fabricate(:game, position: 1, in_default_set: false) }
 
   describe "when it is not live" do
     let(:pod) { Fabricate(:pod) }
@@ -29,25 +30,25 @@ RSpec.describe Pod, :type => :model do
     
     context "with 1 parent" do
       it "returns parentA with 1 visit" do
-        log_a_visit(parentA)       
+        log_a_visit(parentA, pod, game1)       
         expect(pod.parents_who_visited("last_week")).to eq({ parentA.id => 1 })
         expect(pod.parents_who_visited("all_time")).to eq({ parentA.id => 1 })
       end
       
       it "returns parentA with 2 visits" do
-        log_a_visit(parentA)
-        log_a_visit(parentA)
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentA, pod, game1)
         expect(pod.parents_who_visited("last_week")).to eq({ parentA.id => 2 })
         expect(pod.parents_who_visited("all_time")).to eq({ parentA.id => 2 })
       end     
     end  # one parent context  
 
 
-    context "with two parents" do
+    context "with 2 parents" do
       let(:parentB) { Fabricate(:parent, pod: pod) }
       
       it "returns parentA with 1 visit and parentB did not visit" do
-        log_a_visit(parentA)
+        log_a_visit(parentA, pod, game1)
         expect(pod.parents_who_visited("last_week")).to eq({ parentA.id => 1 })
         expect(pod.parents_who_visited("all_time")).to eq({ parentA.id => 1 })
         expect(parentB.pod.id).to eq pod.id # need this expectation to force the relationship between parentB and pod, else the next 2 tests fail
@@ -56,8 +57,8 @@ RSpec.describe Pod, :type => :model do
       end
             
       it "returns 2 parents with 1 visit each and non-visitors is empty" do
-        log_a_visit(parentA)
-        log_a_visit(parentB)
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentB, pod, game1)
         expect(pod.parents_who_visited("last_week")).to eq({ parentA.id => 1, parentB.id => 1 })
         expect(pod.parents_who_visited("all_time")).to eq({ parentA.id => 1, parentB.id => 1 })
         expect(pod.parents_who_did_not_visit("last_week")).to eq []
@@ -65,15 +66,54 @@ RSpec.describe Pod, :type => :model do
       end
       
       it "returns 2 parenst in descending order of visits and non-visitors is empty" do
-        log_a_visit(parentA)
-        log_a_visit(parentB)
-        log_a_visit(parentB)
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentB, pod, game1)
+        log_a_visit(parentB, pod, game1)
         expect(pod.parents_who_visited("last_week")).to eq({ parentB.id => 2, parentA.id => 1 })
         expect(pod.parents_who_visited("all_time")).to eq({ parentB.id => 2, parentA.id => 1 })
         expect(pod.parents_who_did_not_visit("last_week")).to eq []
         expect(pod.parents_who_did_not_visit("all_time")).to eq []            
-      end     
+      end 
+
+      it "returns nil for parents played" do
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentB, pod, game1)
+        log_a_visit(parentB, pod, game1)
+        expect(pod.played_current_game).to eq(nil)
+      end
     end  # two parent context  
+
+    context "with 3 parents" do
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+      
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentB, pod, game1)
+        log_a_visit(parentC, pod, game1)
+        expect(pod.played_current_game).to eq("Basil, Mickey and 1 other parent have played this week's game.")
+      end
+    end
+
+    context "with 4 parents" do
+      let(:parentB) { Fabricate(:parent, pod: pod) }
+      let(:parentC) { Fabricate(:parent, pod: pod) }
+      let(:parentD) { Fabricate(:parent, pod: pod) }
+      
+      it "returns correct text for parents played" do
+        pod.go_live_date = Date.today - 7.days
+        parentB.name = 'Mickey Mouse'
+        parentB.save
+        log_a_visit(parentA, pod, game1)
+        log_a_visit(parentB, pod, game1)
+        log_a_visit(parentC, pod, game1)
+        log_a_visit(parentD, pod, game1)
+        expect(pod.played_current_game).to eq("Basil, Mickey and 2 other parents have played this week's game.")
+      end
+    end    
 
     describe "returns latest comment" do
       it "from a parent" do
@@ -90,14 +130,6 @@ RSpec.describe Pod, :type => :model do
         
         expect(pod1.latest_comment.body).to include(latest_comment)
       end
-    end
-    
-    private
-    def log_a_visit(parent)
-      log = ParentVisitLog.new(created_at: Date.today.prev_day)
-      log.parent_id = parent.id
-      log.pod_id = pod.id
-      log.save
     end
   end
 end

@@ -1,85 +1,93 @@
 {{#if parent.pod_active}}
 <div class="mainContent">
 	<div class="headerToolbar Arrange Arrange--middle">
-	  {{#link-to 'games' class='headerToolbar-leftButton Arrange-sizeFit u-size2of12 u-cleanLink'}}{{/link-to}}
-	  <div class="headerToolbar-title Arrange-sizeFill u-size8of12 u-textCenter">
-	    {{model.name}}
-	  </div>
-	  <div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
+		{{#link-to 'games' class='headerToolbar-leftButton Arrange-sizeFit u-size2of12 u-cleanLink'}}{{/link-to}}
+		<div class="headerToolbar-title Arrange-sizeFill u-size8of12 u-textCenter">
+			{{model.name}}
+		</div>
+		<div class="headerToolbar-rightButton Arrange-sizeFit u-size2of12"></div>
 	</div>
 
 	<div class="paddedContainer">
 
-	  <div class="videoEmbedContainer">
-	    <iframe {{bind-attr src='model.video_iframeurl'}} allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe' name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280' height='158'></iframe>
-	  </div>
+		<div class="videoEmbedContainer">
+			<iframe {{bind-attr src='model.video_iframeurl' }} allowtransparency='true' frameborder='0' scrolling='no' class='wistia_embed videoIframe'
+			 name='wistia_embed' allowfullscreen mozallowfullscreen webkitallowfullscreen oallowfullscreen msallowfullscreen width='280'
+			 height='158'></iframe>
+		</div>
 
-	  <div class="markdownInstructions">
-	  	<div>
-	  		<h1>Did you know?</h1>
-	  		{{model.did_you_know_fact}}
-	  	</div>
-	  	<p></p>
-	  	<div>
-	    	{{{model.instructions}}}
-	    </div>
+		{{#if model.parents_played}}
+		<div class="gameItem-flex">
+			<img class="gameItem-pea" src="/assets/pea_wink_150x150.png">
+			<div class="gameItem-parents-played">
+				{{model.parents_played}}
+			</div>
+		</div>
+		{{/if}}
+
+		<div class="markdownInstructions">
+			<div>
+				<h1>Did you know?</h1>
+				{{model.did_you_know_fact}}
+			</div>
+			<p></p>
+			<div>
+				{{{model.instructions}}}
+			</div>
 			<div>
 				<h1>Top tip</h1>
-	  		{{model.top_tip}}
-	  	</div>
-	  	<br/>
+				{{model.top_tip}}
+			</div>
+			<br/>
 			<h1>How did it go? share your experience with other parents</h1>
 		</div>
 
-		{{#if model.comments}}
-			{{add-comment placeholder_text='Type your comment'
-				game=model parent_id=parent.id parent_name=parent.name}}
-		{{else}}
-			{{add-comment placeholder_text='Be the first to leave a comment for this game'
-				game=model parent_id=parent.id parent_name=parent.name}}
-		{{/if}}
+		{{#if model.comments}} {{add-comment placeholder_text='Type your comment' game=model parent_id=parent.id parent_name=parent.name}}
+		{{else}} {{add-comment placeholder_text='Be the first to leave a comment for this game' game=model parent_id=parent.id
+		parent_name=parent.name}} {{/if}}
 
 		<div class="title">
 			{{commentsCount}}
 		</div>
 
 		{{#each comment in sortedComments}}
-			<div class="commentItem">
-				<div class="commentItem-author">{{comment.parent_name}}</div>
-				<div class="commentItem-body">{{comment.body}}</div>
-			</div>
+		<div class="commentItem">
+			<div class="commentItem-author">{{comment.parent_name}}</div>
+			<div class="commentItem-body">{{comment.body}}</div>
+		</div>
 		{{/each}}
 
 	</div>
 </div>
 
 <script>
-  // Intercom
-  Intercom('boot', {
-    app_id: 'igw37dwb',
-    name: "{{parent.name}}",
-    user_id: "{{parent.id}}",
-    "pod_name": "{{parent.pod_name}}",
-    "slug": "{{parent.slug}}",
-    "game_name": "{{model.name}}",
-    "type": "parent"
-  });
+	// Intercom
+	Intercom('boot', {
+		app_id: 'igw37dwb',
+		name: "{{parent.name}}",
+		user_id: "{{parent.id}}",
+		"pod_name": "{{parent.pod_name}}",
+		"slug": "{{parent.slug}}",
+		"game_name": "{{model.name}}",
+		"type": "parent"
+	});
 
-  Intercom('update');
+	Intercom('update');
 
-  // Google Analytics
-  ga('send', {
-    'hitType': 'pageview',
-    'page': location.pathname + location.hash,
-    'title': "{{model.name}} - {{parent.pod_name}}"
-  });
+	// Google Analytics
+	ga('send', {
+		'hitType': 'pageview',
+		'page': location.pathname + location.hash,
+		'title': "{{model.name}} - {{parent.pod_name}}"
+	});
+
 </script>
 {{else}}
-	<div class="mainContent">
-		<div class="homeLogo"></div>
-		<div class="alert alert-danger u-textCenter">
-			<br /><br />
-			<strong>{{parent.pod_name}}</strong> is not available.<br /><br /> Contact us on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a> if you have any questions<br /><br /> Sorry for the inconvenience.
-		</div>
+<div class="mainContent">
+	<div class="homeLogo"></div>
+	<div class="alert alert-danger u-textCenter">
+		<br /><br />
+		<strong>{{parent.pod_name}}</strong> is not available.<br /><br /> Contact us on <a href="mailto:hello@easypeasyapp.com">hello@easypeasyapp.com</a>		if you have any questions<br /><br /> Sorry for the inconvenience.
 	</div>
+</div>
 {{/if}}

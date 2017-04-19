@@ -19,6 +19,15 @@
 		  <span class="welcomeMessage-parentName">Hi {{parent.first_name}}!</span><br/>You're in {{parent.pod_name}}.
 		</div>
 
+		{{#if parent.pod_played_current_game}}
+			<div class="gameIndex-flex">
+					<img class="gameItem-pea" src="/assets/pea_wink_150x150.png">
+					<div class="gameItem-parents-played">
+						{{parent.pod_played_current_game}}
+					</div>
+			</div>
+		{{/if}}
+
 		{{#if parent.pod_latest_comment}}
 		<div>
 		  <blockquote>
