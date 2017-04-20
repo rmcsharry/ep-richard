@@ -1,6 +1,4 @@
 class PodAdminMailer < ApplicationMailer
-  require 'Redcarpet'
-
   def analytics_email(pod_admin)
     @pod_admin = pod_admin
     @pod = @pod_admin.pod
