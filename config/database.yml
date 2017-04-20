@@ -3,7 +3,7 @@ development:
   encoding: unicode
   database: easypeasy_development
   username: basil
-  password: 
+  password:
   host: localhost
 
 test:
@@ -12,7 +12,7 @@ test:
   database: easypeasy_test
   pool: 5
   username: basil
-  password: 
+  password:
   host: localhost
 
 production:
