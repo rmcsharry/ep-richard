@@ -2,8 +2,8 @@ development:
   adapter: postgresql
   encoding: unicode
   database: easypeasy_development
-  username: basil
-  password: 
+  username: estebansimon
+  password:
   host: localhost
 
 test:
@@ -11,8 +11,8 @@ test:
   encoding: unicode
   database: easypeasy_test
   pool: 5
-  username: basil
-  password: 
+  username: estebansimon
+  password:
   host: localhost
 
 production:

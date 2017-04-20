@@ -17,4 +17,10 @@
   <% end %>
 </a>
 </tr></td>
+<table class="instructions">
+<tr><td style="font-size: 18px; font-family: Helvetica, Arial, sans-serif; color: #444444;">
+    <% renderer = Redcarpet::Render::HTML.new(no_links: true, hard_wrap: true) %>
+    <%= Redcarpet::Markdown.new(renderer).render(@pod.current_game.instructions).html_safe %>
+</td></tr>
+</table>
 <%- end %>
