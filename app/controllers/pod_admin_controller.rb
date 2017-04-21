@@ -1,5 +1,4 @@
 class PodAdminController < ApplicationController
-  include FlashNoticeHelper
   include ParentHelper
   include GreetingHelper
 
@@ -9,7 +8,7 @@ class PodAdminController < ApplicationController
 
   def index
     if current_admin.pod && !current_admin.pod_id.blank?
-      flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
+      flash.now[:info] = current_admin.pod.most_recent_comment_notice("/pod_admin/games/")
       create_login_greeting
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
