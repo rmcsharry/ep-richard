@@ -29,13 +29,6 @@ RSpec.describe "Games List", :js => false, :type => :feature do
       it "should have a link to the games list in the header" do
         expect(page).to have_link("Games")
       end
-
-      it "clicking Games link should show all games, even those in the future and not in the default set" do
-        click_link "Games"
-        expect(page).to have_text("Game 1")
-        expect(page).to have_text("Game 2")
-        expect(page).to have_text("Game 3")
-      end
       
       context "and pod is live" do
         before do
@@ -43,7 +36,16 @@ RSpec.describe "Games List", :js => false, :type => :feature do
           pod.save
         end
 
-        it "" do
+        it "clicking Games link should show all games, even those in the future and not in the default set" do
+          click_link "Games"
+          sleep 4
+          screenshot
+          expect(page).to have_text("Game 1")
+          expect(page).to have_text("Game 2")
+          expect(page).to have_text("Game 3")
+        end
+
+        it "clicking Games link should show the eyfs fields" do
           eyfs_goal = "Testing eyfs goal"
           eyfs_area = "Testing eyfs area"
           game = Game.create!(
@@ -61,7 +63,7 @@ RSpec.describe "Games List", :js => false, :type => :feature do
 
         it "index should show there are no comments for the pod" do
           visit "/pod_admin"
-          expect(page).to have_text("There are no comments on any of the games...yet!")
+          expect(page).to have_text("This week's game is out! Be the first to comment!")
         end        
                 
         it "index should show the latest comment for the pod if there is one" do
