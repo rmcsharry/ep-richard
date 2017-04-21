@@ -2,7 +2,7 @@ module GreetingHelper
   def create_login_greeting
     unless session[:display_welcome]
       name = current_admin.preferred_name
-      if name.nil? || name = ""
+      if name.nil? || name == ""
         name = current_admin.name.split(" ")[0] if !current_admin.name.nil?
       end
       if !name.blank?
