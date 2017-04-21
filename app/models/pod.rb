@@ -27,12 +27,7 @@ class Pod < ActiveRecord::Base
 
   def last_week_game
     return nil if self.week_number == 1
-    last_week_game = Game.non_default[self.week_number - 2]
-    if last_week_game
-      return last_week_game
-    else
-      return nil
-    end
+    return Game.non_default[self.week_number - 2]
   end
 
   def current_game
@@ -41,12 +36,8 @@ class Pod < ActiveRecord::Base
   end
 
   def next_game
-    next_game = Game.non_default[self.week_number]
-    if next_game
-      return next_game
-    else
-      return nil
-    end
+    return nil if !self.week_number
+    return Game.non_default[self.week_number]
   end
 
   def parents_who_visited(timescale)
@@ -140,8 +131,22 @@ class Pod < ActiveRecord::Base
     end
   end
 
-  def latest_comment
-    self.comments.last
+  def most_recent_comment_notice(url)
+    comment = self.comments.last
+    if comment      
+      return ("The most recent comment was from <strong>#{comment.parent_name}" + 
+              "</strong> on <strong>#{comment.created_at.strftime('%d %b %y')}" + 
+              "</strong> at <strong>#{comment.created_at.strftime('%H:%M')}" + 
+              "</strong>:<br/><br/><i>#{comment.body}</i>" +
+              "<br/><br/>on the game <a href='#{url}#{comment.game.id.to_s}'>" +
+              "#{comment.game.name}</a>").html_safe
+    else
+      if self.next_game
+        return "This week's game is out! Be the first to comment!"
+      else
+        return nil
+      end 
+    end
   end
 
   def days_left

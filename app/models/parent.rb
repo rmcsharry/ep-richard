@@ -103,6 +103,10 @@ class Parent < ActiveRecord::Base
     end
   end
 
+  def call_to_comment
+    pod.call_to_comment
+  end
+
   def self.not_commented(pod)
     parents = Parent.where(pod: pod)
     not_commented = []
