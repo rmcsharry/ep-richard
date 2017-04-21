@@ -80,6 +80,39 @@ class Pod < ActiveRecord::Base
     end
   end
 
+  def top_three_visitors
+    start_date = Date.today.midnight - 7.days
+    end_date = Date.today.midnight
+    all_time = false
+    log_for_timescale = ParentVisitLog.where(pod_id: self.id, created_at: start_date..end_date).group('parent_id').order('count_parent_id desc').count('parent_id')
+    if log_for_timescale.count == 0
+      all_time = true
+      log_for_timescale = ParentVisitLog.where(pod_id: self.id).group('parent_id').order('count_parent_id desc').count('parent_id')
+    end
+    # get top 3
+    parents = []
+    log_for_timescale.keys[0..2].each do |parent_id|
+      parents.push(Parent.find(parent_id).name)
+    end
+    case parents.count
+      when 0
+        return ""
+      when 1
+        names = "#{parents[0]}"
+      when 2
+        names = "#{parents[0]} & #{parents[1]}"
+      when 3
+        names = "#{parents[0]}, #{parents[1]} & #{parents[2]}"
+    end
+    msg = "<strong>#{names}</strong> had the most playdates with EasyPeasy"
+    if all_time
+      msg += " since your Pod went live."
+    else
+      msg += " this week."
+    end
+    return msg.html_safe
+  end
+
   def most_popular_games(timescale)
     if timescale == "last_week"
       start_date = Date.today.midnight - 7.days
