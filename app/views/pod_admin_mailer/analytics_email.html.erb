@@ -47,9 +47,11 @@
               </td></tr>
 
               <!-- list of top 3 visiting parents -->
+              <%- if @pod.top_three_visitors %>
               <tr><td align="left" style="padding: 20px 0 0 0; font-size: 18px; line-height: 24px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
                     <%= @pod.top_three_visitors %>
               </td></tr>
+              <%- end %>
 
               <!-- list of parents who DID NOT visit row -->
               <%- if parents_who_did_not_visit.count > 0 %>
