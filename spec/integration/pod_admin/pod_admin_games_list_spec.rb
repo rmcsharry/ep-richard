@@ -36,15 +36,6 @@ RSpec.describe "Games List", :js => false, :type => :feature do
           pod.save
         end
 
-        it "clicking Games link should show all games, even those in the future and not in the default set" do
-          click_link "Games"
-          sleep 4
-          screenshot
-          expect(page).to have_text("Game 1")
-          expect(page).to have_text("Game 2")
-          expect(page).to have_text("Game 3")
-        end
-
         it "clicking Games link should show the eyfs fields" do
           eyfs_goal = "Testing eyfs goal"
           eyfs_area = "Testing eyfs area"
