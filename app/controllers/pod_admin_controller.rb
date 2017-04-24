@@ -1,6 +1,7 @@
 class PodAdminController < ApplicationController
   include FlashNoticeHelper
   include ParentHelper
+  include GreetingHelper
 
   before_filter :pod_admin_login_required
   before_filter :is_trial_expired, except: [:expired]
@@ -9,6 +10,7 @@ class PodAdminController < ApplicationController
   def index
     if current_admin.pod && !current_admin.pod_id.blank?
       flash.now[:info] = build_flash_comment(current_admin.pod.latest_comment)
+      create_login_greeting
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
     else
