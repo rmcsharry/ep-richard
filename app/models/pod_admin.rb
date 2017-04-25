@@ -14,7 +14,7 @@ class PodAdmin < Admin
 
   def create_dummy_parent
     if type == 'PodAdmin'
-      self.parent = Parent.create(name: self.name, phone: '07000000000', pod: self.pod)
+      self.parent = Parent.create(name: self.preferred_name, phone: '07000000000', pod: self.pod)
       self.save
     end
   end
