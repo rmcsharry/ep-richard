@@ -7,7 +7,7 @@
 </td></tr>
 
 <tr><td align="left" style="padding: 20px 0 0 0; font-size: 18px; line-height: 24px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
-    Hello <%= PodAdmin.where(pod_id: @pod.id).first.preferred_name %>,
+    Hello <%= PodAdmin.where(pod_id: @pod.id).first.get_name %>,
     <br>
     Let's take a look at your pod!
 </td> </tr>

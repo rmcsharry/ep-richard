@@ -1,15 +1,7 @@
 module GreetingHelper
   def create_login_greeting
     unless session[:display_welcome]
-      name = current_admin.preferred_name
-      if name.nil? || name == ""
-        name = current_admin.name.split(" ")[0] if !current_admin.name.nil?
-      end
-      if !name.blank?
-        name = "#{name},"
-      else
-        name = ""
-      end
+      name = current_admin.get_name
       flash.now[:info] = "#{greeting}, #{name} welcome to EasyPeasy. Let's see how #{current_admin.pod.name} pod is doing."
       session[:display_welcome] = true
     end     
