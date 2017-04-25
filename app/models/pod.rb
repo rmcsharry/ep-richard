@@ -96,7 +96,7 @@ class Pod < ActiveRecord::Base
     end
     case parents.count
       when 0
-        return ""
+        return nil
       when 1
         names = "#{parents[0]}"
       when 2
