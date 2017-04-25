@@ -141,7 +141,7 @@ class Pod < ActiveRecord::Base
               "<br/><br/>on the game <a href='#{url}#{comment.game.id.to_s}'>" +
               "#{comment.game.name}</a>").html_safe
     else
-      if self.next_game
+      if self.next_game && self.week_number > 0
         return "This week's game is out! Be the first to comment!"
       else
         return nil
