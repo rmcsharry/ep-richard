@@ -8,7 +8,8 @@ class PodAdminController < ApplicationController
 
   def index
     if current_admin.pod && !current_admin.pod_id.blank?
-      flash.now[:info] = current_admin.pod.most_recent_comment_notice("/pod_admin/games/")
+      notice = current_admin.pod.most_recent_comment_notice("/pod_admin/games/")
+      flash.now[:info] = notice if !notice.nil?
       create_login_greeting
       # TODO: this is temporary, update later to show dashboard
       # redirect_to pod_admin_dashboard_path
