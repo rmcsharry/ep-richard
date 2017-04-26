@@ -9,6 +9,18 @@ class PodAdmin < Admin
 
   belongs_to :pod
 
+  def get_name
+    name = self.preferred_name
+    if name.nil? || name == ""
+      name = self.name.split(" ")[0] if !self.name.nil?
+    end
+    if !name.blank?
+      name = "#{name},"
+    else
+      name = ""
+    end    
+  end
+
   def should_send_analytics_email?
     # don't send again if sent in the past week (this ensures the pod admin gets it only once a week)
     return false if self.last_analytics_email_sent && self.last_analytics_email_sent > Date.today - 7.days
