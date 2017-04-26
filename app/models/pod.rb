@@ -92,8 +92,8 @@ class Pod < ActiveRecord::Base
     # get top 3
     parents = []
     log_for_timescale.keys[0..2].each do |parent_id|
-      name = Parent.find(parent_id).name
-      parents.push(name) if !name.nil?
+      parent = Parent.where('id = ?', parent_id).first
+      parents.push(parent.name) if !parent.nil?
     end
     case parents.count
       when 0
