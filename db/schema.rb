@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404175756) do
+ActiveRecord::Schema.define(version: 20170415135549) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,10 +37,12 @@ ActiveRecord::Schema.define(version: 20170404175756) do
     t.datetime "confirmation_sent_at"
     t.string   "name",                      limit: 50
     t.string   "preferred_name",            limit: 25
+    t.integer  "parent_id"
   end
 
   add_index "admins", ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true, using: :btree
   add_index "admins", ["email"], name: "index_admins_on_email", unique: true, using: :btree
+  add_index "admins", ["parent_id"], name: "index_admins_on_parent_id", unique: true, using: :btree
   add_index "admins", ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true, using: :btree
 
   create_table "comments", force: true do |t|

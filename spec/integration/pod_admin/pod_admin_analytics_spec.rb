@@ -35,7 +35,8 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
     end
 
     it "should show the correct number of parents in the pod" do
-      expect(page).to have_content("Of the 3 parents in your pod")
+      # one extra since there are now 4 (PodAdmin dummy parent)
+      expect(page).to have_content("Of the 4 parents in your pod")
     end
 
     describe "visit numbers" do
@@ -156,11 +157,12 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
       end
 
       it "should say who hasn't yet commented" do
-        expect(page).to have_content("2 people might be a bit shy and haven't commented yet: Basil Safwat, Gabi Miller.")
+        expect(page).to have_content("3 people might be a bit shy and haven't commented yet: basil, Basil Safwat, Gabi Miller.")
       end
 
       it "should say who hasn't yet commented if only one person hasn't commented" do
         Parent.where(id: parent3.id)[0].destroy
+        Comment.create!(parent_id: pod_admin.parent.id, body: "Hello")
         visit pod_admin_analytics_path
         expect(page).to have_content("1 person might be a bit shy and hasn't commented yet: Basil Safwat.")
       end
@@ -169,6 +171,7 @@ RSpec.describe "Analytics email", :js => true, :type => :feature do
         expect(page).to have_content("a bit shy")
         Comment.create!(parent_id: parent2.id, body: "Hello")
         Comment.create!(parent_id: parent3.id, body: "Hello")
+        Comment.create!(parent_id: pod_admin.parent.id, body: "Hello")
         visit pod_admin_analytics_path
         expect(page).not_to have_content("a bit shy")
       end

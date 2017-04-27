@@ -37,7 +37,13 @@
       <div class="list-group">
           <% @parents.each do |parent| %>
             <%= link_to pod_admin_parent_path(parent), :class => 'list-group-item list-group-item-success' do %>
-                <span class='glyphicon glyphicon-user'></span> <%= parent.name %>
+                <span class='glyphicon glyphicon-user'></span>
+                <span>
+                  <%= parent.name %>
+                  <% if parent.phone == '07000000000' %>
+                    &nbsp;(Pod Admin)
+                  <% end %>
+                </span>
             <% end %>
           <% end %>
       </div>
