@@ -115,7 +115,7 @@ RSpec.describe Pod, :type => :model do
       end
     end    
 
-    describe "returns latest comment" do
+    describe "returns latest comment details in the most recent comment notice" do
       it "from a parent" do
         game = Game.create!(name: "Test game", video_url: "https://minified.wistia.com/medias/q8x0tmoya2")
   
@@ -126,9 +126,14 @@ RSpec.describe Pod, :type => :model do
   
         latest_comment = "This is the latest comment"
         comment1 = Comment.create!(body: "Hello", game: game, parent: parent1)
-        comment2 = Comment.create!(body: latest_comment,   game: game, parent: parent2)
-        
-        expect(pod1.latest_comment.body).to include(latest_comment)
+        comment2 = Comment.create!(body: latest_comment, game: game, parent: parent2)
+        url = "/#/#{parent2.slug}/game/"
+        expect(pod1.most_recent_comment_notice(url)).to include(latest_comment)
+        expect(pod1.most_recent_comment_notice(url)).to include(comment2.parent_name)
+        expect(pod1.most_recent_comment_notice(url)).to include(comment2.created_at.strftime('%d %b %y'))
+        expect(pod1.most_recent_comment_notice(url)).to include(comment2.created_at.strftime('%H:%M'))
+        expect(pod1.most_recent_comment_notice(url)).to include(comment2.game.name)
+        expect(pod1.most_recent_comment_notice(url)).to include("#{url}#{game.id}")
       end
     end
   end

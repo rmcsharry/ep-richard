@@ -31,8 +31,8 @@ RSpec.describe "Parents", :js => true, :type => :feature do
         expect(page).to have_content('Game 2')
       end
 
-      it "should see there are no comments when no parents in the pod have commented yet" do
-        expect(page).to have_content('There are no comments on any of the games...yet!')
+      it "should not see the CTA to comment" do
+        expect(page).not_to have_content("This week's game is out! Be the first to comment!")
       end
     end
   end
@@ -63,11 +63,34 @@ RSpec.describe "Parents", :js => true, :type => :feature do
       expect(page).to have_content('Game 2')
     end
 
+    it "should not see the CTA to comment" do
+      visit "/#/#{parent.slug}/games"
+      expect(page).not_to have_content("This week's game is out! Be the first to comment!")
+    end
+
     it "should show the latest comment from another parent in the same pod" do
       latest_comment = 'Here is another parents latest comment'
-      Fabricate(:comment, body: latest_comment, parent: parent2, game: game)
+      comment = Fabricate(:comment, body: latest_comment, parent: parent2, game: game)
       visit "/#/#{parent.slug}/games"
+      expect(page).to have_content("The most recent comment was from #{comment.parent_name}")
       expect(page).to have_content(latest_comment)
+    end
+  end
+
+  describe "after the first non-default game is released (ie. after week 1 has begun)" do
+    before do
+      Game.create!(name: "Game 1", description: "Game 1 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', in_default_set: true)
+      Game.create!(name: "Game 2", description: "Game 2 desc", video_url: 'https://minified.wistia.com/medias/q8x0tmoya2', created_at: 1.day.ago)
+      Fabricate(:parent_visit_log, parent: parent) # fabricate a first visit so intro screens are not shown
+    end
+
+    let!(:game) { Fabricate(:game, name: "Game Non Default", description: "Game Non Default desc", in_default_set: false) }
+    let(:pod) { Fabricate(:pod, go_live_date: Date.today - 8.days) }
+    let!(:parent) { Fabricate(:parent, pod: pod) }
+    
+    it "should show the CTA to comment" do
+      visit "/#/#{parent.slug}/games"
+      expect(page).to have_content("This week's game is out! Be the first to comment!")      
     end
   end
 

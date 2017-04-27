@@ -28,26 +28,14 @@
 			</div>
 		{{/if}}
 
-		{{#if parent.pod_latest_comment}}
+		{{#if parent.pod_most_recent_comment_notice}}
 		<div>
 		  <blockquote>
-			The most recent comment was from <strong>{{parent.pod_latest_comment_parent_name}}</strong>
-			on <strong>{{format-date parent.pod_latest_comment.created_at}}</strong>
-			at <strong>{{format-time parent.pod_latest_comment.created_at}}:</strong>
-			<br/><br/>
-			<i>{{parent.pod_latest_comment.body}}</i>
-			<br/><br/>
-			on the game <a href="/#/{{parent.slug}}/game/{{parent.pod_latest_comment.game.id}}">{{parent.pod_latest_comment_game_name}}</a>
-		   </blockquote>
-		</div>
-		{{else}}
-		<div>
-		  <blockquote>
-			There are no comments on any of the games...yet!
+				{{!-- This field is already html --}}
+				{{{parent.pod_most_recent_comment_notice}}}
 		   </blockquote>
 		</div>
 		{{/if}}
-
 
 		<ul class="gamesList">
 		{{#each game in sortedGames}}
