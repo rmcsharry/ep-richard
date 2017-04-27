@@ -70,7 +70,7 @@ class PodAdmin::ParentsController < PodAdminController
   def destroy
     parent = Parent.find(params[:id])
     parent_name = parent.name.split[0]
-    if parent.delete
+    if parent.destroy
       flash[:success] = "Ok, deleted #{parent_name}!"
     else
       flash[:danger] = "Hm. That didn't seem to work."
