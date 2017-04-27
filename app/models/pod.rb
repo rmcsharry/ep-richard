@@ -63,12 +63,38 @@ class Pod < ActiveRecord::Base
   def parents_who_did_not_visit(timescale)
     # if no parents visited, we will just return all of them
     parents = self.parents.ids
-
+    allParents = self.parents
     # get the parents who did visit as an array of their ids
-    visited = self.parents_who_visited(timescale).keys
+    visited = self.parents_who_visited(timescale)
     if !visited.nil?
-      return parents - visited # array subtraction works here as visited will always contain all or a subset of parents
+      non_visitors = parents - visited.keys # array subtraction works here as visited will always contain all or a subset of parents
+    else
+      non_visitors = parents
     end
+    parents_names = []
+    if non_visitors.count > 0
+      non_visitors[0..2].each do |parent_id|
+        parents_names.push(allParents.find(parent_id).name)
+      end
+      case non_visitors.count
+      when 1
+          names = "#{parents_names[0]}"
+      when 2
+          names = "#{parents_names[0]} & #{parents_names[1]}"
+      else
+          names = "#{parents_names[0]}, #{parents_names[1]} & #{parents_names[2]}"
+      end
+  end
+
+  if non_visitors.count > 0 && allParents.count > 0
+    msg = "We haven't seen <strong>#{names}</strong> lately.
+      Could you keep an eye out for them at drop off, pick up, or stay and play?"
+  elsif allParents.count > 0 && visited.count > 0
+    msg = "Awesome! Your parents are super-engaged, keep it up! Share the good news with members of your team!"
+  else
+    msg = ""
+  end
+  return msg.html_safe
   end
 
   def top_three_visitors
@@ -167,10 +193,10 @@ class Pod < ActiveRecord::Base
 
   def most_recent_comment_notice(url)
     comment = self.comments.last
-    if comment      
-      return ("The most recent comment was from <strong>#{comment.parent_name}" + 
-              "</strong> on <strong>#{comment.created_at.strftime('%d %b %y')}" + 
-              "</strong> at <strong>#{comment.created_at.strftime('%H:%M')}" + 
+    if comment
+      return ("The most recent comment was from <strong>#{comment.parent_name}" +
+              "</strong> on <strong>#{comment.created_at.strftime('%d %b %y')}" +
+              "</strong> at <strong>#{comment.created_at.strftime('%H:%M')}" +
               "</strong>:<br/><br/><i>#{comment.body}</i>" +
               "<br/><br/>on the game <a href='#{url}#{comment.game.id.to_s}'>" +
               "#{comment.game.name}</a>").html_safe
@@ -179,7 +205,7 @@ class Pod < ActiveRecord::Base
         return "This week's game is out! Be the first to comment!"
       else
         return nil
-      end 
+      end
     end
   end
 

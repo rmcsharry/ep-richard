@@ -9,7 +9,6 @@
     also = (most_popular_game_last_week == most_popular_game_all_time)
     not_commented = Parent.not_commented(@pod.id)
     parents_who_visited = @pod.parents_who_visited("last_week")
-    parents_who_did_not_visit = Parent.find(@pod.parents_who_did_not_visit("last_week"))
 %>
 
 <!DOCTYPE html>
@@ -54,16 +53,12 @@
               <%- end %>
 
               <!-- list of parents who DID NOT visit row -->
-              <%- if parents_who_did_not_visit.count > 0 %>
+              <%- if @pod.parents_who_did_not_visit("last_week")%>
               <tr><td align="left" style="padding: 20px 0 0 0; font-size: 18px; line-height: 24px; font-family: Helvetica, Arial, sans-serif; color: #444444;" class="padding-copy">
-                  The <b class="highlight"><%= pluralize(parents_who_did_not_visit.count, 'parent') %>&nbsp;</b>who <b>did not</b> visit your Pod last week <%- if parents_who_did_not_visit.count > 1 %>were<%- else %>was<%- end %>:
-                  <b class="highlight">
-                  <%- parents_who_did_not_visit.each_with_index do |parent, index| %>
-                    <%= parent.name %><%- if index+1 < parents_who_did_not_visit.count %>, <%- else %>.<%- end %>
-                  <%- end %>
-                  </b>
+                    <%= @pod.parents_who_did_not_visit("last_week") %>
               </td></tr>
               <%- end %>
+
 
               <tr><td>
                 <%= render "pod_admin_mailer/this_weeks_game" %>
