@@ -156,7 +156,7 @@ class Pod < ActiveRecord::Base
     def visits_last_week
       date = Date.today
       dateoneweek = Date.today - 7
-      week_visits = ParentVisitLog.where(pod_id: self.id, created_at: dateoneweek..date).group("date_trunc('week', created_at), parent_id").group("date_trunc('day', created_at)").count
+      week_visits = ParentVisitLog.where(pod_id: self.id, created_at: dateoneweek..date).group("parent_id").group("date_trunc('day', created_at)").count
 
       return week_visits.count
     end
@@ -165,7 +165,7 @@ class Pod < ActiveRecord::Base
 
       start_date = self.go_live_date
       end_date = Date.today.midnight
-      total_visits = ParentVisitLog.where(pod_id: self.id, created_at: start_date..end_date).group("date_trunc('week', created_at), parent_id").group("date_trunc('day', created_at)").count
+      total_visits = ParentVisitLog.where(pod_id: self.id, created_at: start_date..end_date).group("parent_id").group("date_trunc('day', created_at)").count
 
        return total_visits.count
     end
@@ -173,7 +173,6 @@ class Pod < ActiveRecord::Base
     def total_sms_sent
 
       week = self.week_number
-      parents_count = self.parents.count
 
       if week == 0
         sms = 1
@@ -187,7 +186,7 @@ class Pod < ActiveRecord::Base
         sms = (28 + (week - 9))
       end
 
-      sms *=  parents_count
+      sms *=  self.parents.count
 
       return sms
 
