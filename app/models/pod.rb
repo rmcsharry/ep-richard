@@ -151,6 +151,48 @@ class Pod < ActiveRecord::Base
     end
   end
 
+
+
+    def visits_last_week
+      date = Date.today
+      dateoneweek = Date.today - 7
+      week_visits = ParentVisitLog.where(pod_id: self.id, created_at: dateoneweek..date).group("date_trunc('week', created_at), parent_id").group("date_trunc('day', created_at)").count
+
+      return week_visits.count
+    end
+
+    def total_visits
+
+      start_date = self.go_live_date
+      end_date = Date.today.midnight
+      total_visits = ParentVisitLog.where(pod_id: self.id, created_at: start_date..end_date).group("date_trunc('week', created_at), parent_id").group("date_trunc('day', created_at)").count
+
+       return total_visits.count
+    end
+
+    def total_sms_sent
+
+      week = self.week_number
+      parents_count = self.parents.count
+
+      if week == 0
+        sms = 1
+      elsif week < 4
+        sms = 1 + (week * 4)
+      elsif week < 7
+        sms = (13 + ((week - 3) * 3))
+      elsif week < 10
+        sms = (22 + ((week - 6 ) * 2))
+      else
+        sms = (28 + (week - 9))
+      end
+
+      sms *=  parents_count
+
+      return sms
+
+    end
+
   def comments_last_week
     start_date = Date.today.midnight - 7.days
     end_date = Date.today.midnight
