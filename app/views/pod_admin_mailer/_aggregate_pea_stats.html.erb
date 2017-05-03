@@ -1,0 +1,56 @@
+
+<table cellpadding="0" cellspacing="0" border="0" align="center" style="display:block;margin:1em 0 0 0;max-width:100%;">
+  <tr style="<%- if @pod.week_number > 2 %> margin:0 0 0 10px;  <%- else %> margin:0 0 0 55px; <%- end %>  display:inline-block;max-width:100%; color:#FFFFFF;font-size:4em ;float:left;text-align:center;font-weight:700;">
+    <td border="0" background="http://easypeasyapp.com/images/peasy-152.png" bgcolor="#ffffff" valign="top" style=" min-width:150px !important; height: 152px !important; width: 152px !important; max-width:33%;line-height:152px;background-image:url('http://easypeasyapp.com/images/peasy-152.png');background-repeat:no-repeat;background-position:center;"> <!--[if gte mso 9]>
+<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:152px;height:152px;">
+<v:fill type="tile" src="http://easypeasyapp.com/images/peasy-152.png" color="#ffffff" />
+<v:textbox>
+<![endif]--> <div style="width: 152px !important;"> <%= @pod.visits_last_week %> </div>
+    <!--[if gte mso 9]>
+  </v:textbox>
+</v:rect>
+<![endif]-->
+  </td>
+
+  <%- if @pod.week_number > 2 %>
+  <td border="0" background="http://easypeasyapp.com/images/peasy-152.png" bgcolor="#ffffff"  valign="top" style=" margin: 0 50px 0 50px ;height: 152px !important;  width: 152px !important;margin-right:1em; max-width:33%;line-height:152px;background-image:url('http://easypeasyapp.com/images/peasy-152.png');
+  background-repeat:no-repeat;background-position:center; min-width:150px !important; "> <!--[if gte mso 9]>
+<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="false" stroke="false" style="width:152px;height:152px;">
+<v:fill type="tile" src="http://easypeasyapp.com/images/peasy-152.png" color="#ffffff" />
+<v:textbox>
+<![endif]-->
+    <div style="width: 152px !important;"><%= @pod.total_visits  %></div>
+    <!--[if gte mso 9]>
+  </v:textbox>
+</v:rect>
+<![endif]-->
+  </td>
+  <%- else %>
+  <td border="0"   valign="top" style=" max-width:33%;line-height:152px;
+  background-repeat:no-repeat;background-position:center; width:60px;">
+  </td>
+<%- end %>
+
+  <td  background="http://easypeasyapp.com/images/peasy-152.png" bgcolor="#ffffff"  valign="top"
+  style="width:152px;max-width:33%; height: 152px !important; min-width:150px !important; line-height:152px;background-image:url('http://easypeasyapp.com/images/peasy-152.png'); width: 152px !important; background-repeat:no-repeat;background-position:center;"> <!--[if gte mso 9]>
+<v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:152px;height:152px;">
+<v:fill type="tile" src="http://easypeasyapp.com/images/peasy-152.png" color="#ffffff" />
+<v:textbox>
+<![endif]-->
+    <div style="width: 152px !important;"><%= @pod.total_sms_sent %> </div>
+    <!--[if gte mso 9]>
+  </v:textbox>
+</v:rect>
+<![endif]-->
+  </td>
+</tr>
+<tr style="<%- if @pod.week_number > 2 %> margin:0 0 0 15px;  <%- else %> margin:0 0 0 55px; <%- end %> display:inline-block;width:100%; border-spacing:10px;color:#444444;text-align:center;font-size: 16px; max-width:600px;">
+  <td style="max-width:33%;width:152px;height:60px;float:left;">Playdates this week</td>
+    <%- if @pod.week_number > 2 %>
+  <td style="max-width:33%;width:152px;height:60px;float:left;">Playdates so far in your pod</td>
+  <%- else %>
+<td style="max-width:33%;width:60px;height:60px;float:left; min-width: 60px !important"></td>
+  <%- end %>
+  <td style="max-width:33%;width:152px;height:60px;float:left;">Games, facts and tips delivered to your pod</td>
+</tr>
+</table>

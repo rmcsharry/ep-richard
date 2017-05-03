@@ -13,8 +13,6 @@ RSpec.describe "Go live", :js => true, :type => :feature do
       pod = Pod.create!(name: "New pod")
       pod_admin = Fabricate(:pod_admin, pod: pod)
       login_as_specific_pod_admin(pod_admin)
-      click_link "click here"
-      expect(page).to have_button("Go Live")
     end
 
     describe "clicking the button" do
@@ -22,12 +20,10 @@ RSpec.describe "Go live", :js => true, :type => :feature do
         pod = Pod.create!(name: "New pod")
         pod_admin = Fabricate(:pod_admin, pod: pod)
         login_as_specific_pod_admin(pod_admin)
-        click_link "click here"
-        click_button "Go Live"
       end
 
-      it "should set the go live date to today" do
-        string = Date.today.strftime("%B %e, %Y")
+      it "should check welcome message" do
+        string = "Welcome"
         expect(page).to have_content(string)
       end
 
